@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManagement", "MovieManagement.csproj", "{7740BA9E-683F-4476-AA6D-8AA6B047A87B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions", "AzureFunctions\AzureFunctions.csproj", "{675D893A-8B94-4C75-AC62-C59B32D143FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions", "..\AzureFunctions\AzureFunctions.csproj", "{20585F89-3AC3-4941-9423-1AC1FBC61E37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		{7740BA9E-683F-4476-AA6D-8AA6B047A87B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7740BA9E-683F-4476-AA6D-8AA6B047A87B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7740BA9E-683F-4476-AA6D-8AA6B047A87B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{675D893A-8B94-4C75-AC62-C59B32D143FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{675D893A-8B94-4C75-AC62-C59B32D143FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{675D893A-8B94-4C75-AC62-C59B32D143FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{675D893A-8B94-4C75-AC62-C59B32D143FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20585F89-3AC3-4941-9423-1AC1FBC61E37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20585F89-3AC3-4941-9423-1AC1FBC61E37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20585F89-3AC3-4941-9423-1AC1FBC61E37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20585F89-3AC3-4941-9423-1AC1FBC61E37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

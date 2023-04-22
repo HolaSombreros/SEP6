@@ -2,7 +2,7 @@
   "profiles": {
     "AzureFunctions": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7076",
+      "commandLineArgs": "--port 7067",
       "launchBrowser": false
     }
   }
