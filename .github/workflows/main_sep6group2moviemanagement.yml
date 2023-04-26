@@ -9,8 +9,9 @@ on:
       - main
   workflow_dispatch:
 env:
-  WORKING_DIRECTORY: ./MovieManagement
+  WORKING_DIRECTORY: ./MovieManagement/MovieManagement.csproj
   AZURE_FUNCTION_DIRECTORY: ./AzureFunctions
+  DOMAIN_CLASS_LIBRARY: ./MovieManagement.Domain/MovieManagement.Domain.csproj
 jobs:
   build:
 #     strategy:
@@ -21,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up .NET Core
+      - name: Set up .NET Core 6
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
@@ -38,6 +39,25 @@ jobs:
 
       - name: dotnet publish
         run: dotnet publish "${{ env.AZURE_FUNCTION_DIRECTORY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      
+      - name: Set up .NET Core 7
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
+          include-prerelease: true
+        
+      - name: Dotnet restore
+        run: dotnet restore -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}"
+
+      - name: Build with dotnet
+        run: dotnet build -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}" --configuration Release
+        
+      - name: Test
+        run: dotnet test -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}" --no-build
+
+      - name: dotnet publish
+        run: dotnet publish -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
