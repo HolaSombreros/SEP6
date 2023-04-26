@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: ./AzureFunctions
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: ./src/AzureFunctions
   DOTNET_VERSION: '6.0.x' # set this to the dotnet version to use
   DOMAIN_CLASS_LIBRARY: ./MovieManagement.Domain/MovieManagement.Domain.csproj
 
