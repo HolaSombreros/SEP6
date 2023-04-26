@@ -1,13 +1,15 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using MovieManagement.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("TheMovieDatabase:APIKey"));
+builder.Services.AddSingleton(new JsonSerializerOptions {
+    PropertyNameCaseInsensitive = true,
+    WriteIndented = true
+});
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
 
