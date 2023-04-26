@@ -5,8 +5,6 @@ name: Build Blazor Application
 
 on:
   push:
-    branches: 
-      - '*'
     branches-ignore:
       - main
 env:
