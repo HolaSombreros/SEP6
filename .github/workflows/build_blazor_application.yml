@@ -8,8 +8,9 @@ on:
     branches: 
       - '*'
 env:
-  WORKING_DIRECTORY: ./MovieManagement/MovieManagement.csproj
-  DOMAIN_CLASS_LIBRARY: ./MovieManagement.Domain/MovieManagement.Domain.csproj
+  BLAZOR_PROJECT: ./src/MovieManagement/MovieManagement.csproj
+  DOMAIN_CLASS_LIBRARY: ./src/MovieManagement.Domain/MovieManagement.Domain.csproj
+  TEST_PROJECT: ./test/MovieManagement.Test/MovieManagement.Test.csproj
 jobs:
   build:
 
@@ -26,10 +27,10 @@ jobs:
     - name: Restore dependencies
       run: | 
           dotnet restore "${{ env.DOMAIN_CLASS_LIBRARY }}" 
-          dotnet restore "${{ env.WORKING_DIRECTORY }}"
+          dotnet restore "${{ env.BLAZOR_PROJECT }}"
     - name: Build
       run: |
           dotnet build  "${{ env.DOMAIN_CLASS_LIBRARY }}" 
-          dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release
+          dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal
