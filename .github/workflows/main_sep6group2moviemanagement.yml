@@ -9,7 +9,7 @@ on:
       - main
   workflow_dispatch:
 env:
-  WORKING_DIRECTORY: ..\..\MovieManagement
+  WORKING_DIRECTORY: ./MovieManagement
 jobs:
   build:
     runs-on: ubuntu-latest
