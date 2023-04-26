@@ -1,0 +1,35 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: 
+      - '*'
+env:
+  WORKING_DIRECTORY: ./MovieManagement/MovieManagement.csproj
+  DOMAIN_CLASS_LIBRARY: ./MovieManagement.Domain/MovieManagement.Domain.csproj
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up .NET Core 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+        include-prerelease: true
+    - name: Restore dependencies
+      run: | 
+          dotnet restore "${{ env.DOMAIN_CLASS_LIBRARY }}" 
+          dotnet restore "${{ env.WORKING_DIRECTORY }}"
+    - name: Build
+      run: |
+          dotnet build  "${{ env.DOMAIN_CLASS_LIBRARY }}" 
+          dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
