@@ -30,6 +30,7 @@ jobs:
         shell: bash
         run: |
           pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          dotnet restore '${{ env.DOMAIN_CLASS_LIBRARY }}'
           dotnet build '${{ env.DOMAIN_CLASS_LIBRARY }}' 
           dotnet build '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}' --configuration Release --output ./output
           popd
