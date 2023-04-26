@@ -3,7 +3,7 @@
 
 name: Build Azure Functions
 env:
-  AZURE_FUNCTION_DIRECTORY: ./src/AzureFunctions
+  AZURE_FUNCTION_DIRECTORY: ./src/AzureFunctions/AzureFunctions.csproj
   DOMAIN_CLASS_LIBRARY: ./src/MovieManagement.Domain/MovieManagement.Domain.csproj
 on:
   push:
