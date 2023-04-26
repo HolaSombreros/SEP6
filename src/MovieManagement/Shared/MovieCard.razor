@@ -1,0 +1,13 @@
+﻿@if (Movie != null)
+{
+	<div class="movie-card">
+		<div class="rating-container">
+			@Movie.Ratings.Select(rating => rating.StarRating).Average()
+		</div>
+		<img class="image" src="@Movie.PosterPath" alt="Does not exist" />
+		<div class="movie-details">
+			<h5 class="title">@Movie.Title</h5>
+			@string.Join(", ", Movie.GenreIds)
+		</div>
+	</div>
+}

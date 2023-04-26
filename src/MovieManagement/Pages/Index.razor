@@ -1,9 +1,21 @@
 ﻿@page "/"
+@using MovieManagement.Models;
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
+<div class="container-fluid p-5">
+	@if (movies == null) {
+		<p>Loading...</p>
+	}
+	else if (movies.Any())
+	{
+		<div class="row g-5">
+			@foreach (var movie in movies)
+			{
+				<div class="col-xxl-2 col-xl-4 col-lg-6">
+					<MovieCard Movie="@movie" />
+				</div>
+			}
+		</div>
+	}
+</div>
