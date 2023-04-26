@@ -2,9 +2,9 @@
 
 public class Movie
 {
+    public int Id { get; set; }
     public string Title { get; set; }
-    public float Profit { get; set; }
-    public int YearOfRelease { get; set; }
-    public int Length { get; set; }
-    public float Budget { get; set; }
+    public int Revenue { get; set; }
+    public DateTime ReleaseDate { get; set; }
+    public int Budget { get; set; }
 }
