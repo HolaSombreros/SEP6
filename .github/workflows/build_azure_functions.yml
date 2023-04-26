@@ -7,8 +7,6 @@ env:
   DOMAIN_CLASS_LIBRARY: ./src/MovieManagement.Domain/MovieManagement.Domain.csproj
 on:
   push:
-    branches: 
-      - '*'
     branches-ignore:
       - main
 jobs:
