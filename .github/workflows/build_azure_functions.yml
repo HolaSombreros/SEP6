@@ -3,7 +3,7 @@
 
 name: .NET
 env:
-  AZURE_FUNCTION_DIRECTORY: ./AzureFunctions/AzureFunctions.csproj
+  AZURE_FUNCTION_DIRECTORY: ./AzureFunctions
   DOMAIN_CLASS_LIBRARY: ./MovieManagement.Domain/MovieManagement.Domain.csproj
 on:
   push:
