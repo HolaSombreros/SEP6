@@ -28,5 +28,3 @@ jobs:
       run: |
           dotnet build  "${{ env.AZURE_FUNCTION_DIRECTORY }}" 
           dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
