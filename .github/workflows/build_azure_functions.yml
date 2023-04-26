@@ -1,0 +1,32 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+env:
+  AZURE_FUNCTION_DIRECTORY: ./AzureFunctions/AzureFunctions.csproj
+  DOMAIN_CLASS_LIBRARY: ./MovieManagement.Domain/MovieManagement.Domain.csproj
+on:
+  push:
+    branches: 
+      - '*'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: | 
+          dotnet restore "${{ env.AZURE_FUNCTION_DIRECTORY }}" 
+          dotnet restore "${{ env.WORKING_DIRECTORY }}"
+    - name: Build
+      run: |
+          dotnet build  "${{ env.DOMAIN_CLASS_LIBRARY }}" 
+          dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
