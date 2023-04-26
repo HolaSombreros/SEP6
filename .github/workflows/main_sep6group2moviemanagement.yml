@@ -47,16 +47,22 @@ jobs:
           include-prerelease: true
         
       - name: Dotnet restore
-        run: dotnet restore -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}"
+        run: | 
+          dotnet restore "${{ env.DOMAIN_CLASS_LIBRARY }}" 
+          dotnet restore "${{ env.WORKING_DIRECTORY }}"
 
       - name: Build with dotnet
-        run: dotnet build -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}" --configuration Release
+        run: |
+          dotnet build  "${{ env.DOMAIN_CLASS_LIBRARY }}" 
+          dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release
         
       - name: Test
-        run: dotnet test -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}" --no-build
+        run:  dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
 
       - name: dotnet publish
-        run: dotnet publish -s "${{ env.DOMAIN_CLASS_LIBRARY }}" -s "${{ env.WORKING_DIRECTORY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: |
+          dotnet publish "${{ env.DOMAIN_CLASS_LIBRARY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish "${{ env.WORKING_DIRECTORY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
 
       - name: Upload artifact for deployment job
