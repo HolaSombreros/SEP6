@@ -46,7 +46,7 @@ jobs:
     needs: build
     environment:
       name: 'Production'
-      url: ${{ sep6group2moviemanagement.azurewebsites.net }}
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
