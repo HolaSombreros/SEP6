@@ -1,15 +1,20 @@
-var builder = WebApplication.CreateBuilder(args);
+using MovieManagement.TMDB.Api.Config;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureAppConfiguration(config =>
+{
+    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+});
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
-builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("TheMovieDatabase:APIKey"));
+builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
 builder.Services.AddSingleton(new JsonSerializerOptions {
     PropertyNameCaseInsensitive = true,
     WriteIndented = true
 });
-builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
 

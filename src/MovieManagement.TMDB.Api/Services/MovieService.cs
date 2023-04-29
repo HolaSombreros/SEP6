@@ -5,16 +5,14 @@ public class MovieService : IMovieService
     private readonly HttpClient _httpClient;
     private readonly IMapper _movieMapper;
     private readonly string ApiKey;
-    private readonly IConfiguration _configuration;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-    public MovieService(IMapper movieMapper, IConfiguration configuration, JsonSerializerOptions jsonSerializerOptions)
+    public MovieService(IOptions<ApiConfig> settings, IMapper movieMapper, JsonSerializerOptions jsonSerializerOptions)
     {
-        _configuration = configuration;
         _jsonSerializerOptions = jsonSerializerOptions;
         _movieMapper = movieMapper;
         _httpClient = new HttpClient();
-        ApiKey += Constants.Variables.ApiPath + _configuration["TheMovieDatabase:APIKey"];
+        ApiKey = Constants.Variables.ApiPath + settings.Value.APIKey;
     }
 
 
