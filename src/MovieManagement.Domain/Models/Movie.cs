@@ -7,4 +7,6 @@ public class Movie
     public int Revenue { get; set; }
     public DateTime ReleaseDate { get; set; }
     public int Budget { get; set; }
+    public string Description { get; set; }
+    public bool IsAdult { get; set; }
 }
