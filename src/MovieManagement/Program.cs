@@ -1,13 +1,13 @@
-using MovieManagement.TMDB.Api.Config;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureAppConfiguration(config =>
 {
-    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+    config.SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).AddUserSecrets<ApiConfig>().Build();
 });
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
