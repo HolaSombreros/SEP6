@@ -6,7 +6,7 @@ public class MovieDto
     public int Budget { get; set; }
     public int Revenue { get; set; }
     public string? Title { get; set; }
-    [JsonPropertyName("release_date")]
+    [JsonPropertyName("release_date")] 
     public string? ReleaseDate { get; set; }
     [JsonPropertyName("vote_average")]
     public double VoteAverage { get; set; }
@@ -14,4 +14,6 @@ public class MovieDto
     public string? Description { get; set; }
     [JsonPropertyName("adult")]
     public bool IsAdult { get; set; }
+    [JsonPropertyName("poster_path")] 
+    public string? ImageUrl { get; set; }
 }
