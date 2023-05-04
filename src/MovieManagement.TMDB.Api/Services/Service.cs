@@ -18,7 +18,6 @@ public class Service : IService
             Constants.Variables.MovieDatabaseUri + endpoint + ApiKey);
         var response = await _httpClient.SendAsync(request);
         response.EnsureSuccessStatusCode();
-        var result = JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions);
-        return result;
+        return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
 }
