@@ -5,8 +5,8 @@ name: Build Blazor Application
 
 on:
   push:
-    branches: 
-      - '*'
+    branches-ignore:
+      - main
 env:
   BLAZOR_PROJECT: ./src/MovieManagement/MovieManagement.csproj
   DOMAIN_CLASS_LIBRARY: ./src/MovieManagement.Domain/MovieManagement.Domain.csproj

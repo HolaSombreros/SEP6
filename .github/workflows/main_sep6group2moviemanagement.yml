@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - sep6group2moviemanagement
+name: Build and deploy Blazor Application
 
 on:
   push:
@@ -9,14 +9,11 @@ on:
       - main
   workflow_dispatch:
 env:
-  WORKING_DIRECTORY: ./MovieManagement/MovieManagement.csproj
-  AZURE_FUNCTION_DIRECTORY: ./AzureFunctions
-  DOMAIN_CLASS_LIBRARY: ./MovieManagement.Domain/MovieManagement.Domain.csproj
+    BLAZOR_PROJECT: ./src/MovieManagement/MovieManagement.csproj
+    DOMAIN_CLASS_LIBRARY: ./src/MovieManagement.Domain/MovieManagement.Domain.csproj
+    TEST_PROJECT: ./test/MovieManagement.Test/MovieManagement.Test.csproj
 jobs:
   build:
-#     strategy:
-#        matrix:
-#          dotnet: [ '6.0.x', '7.0.x']
     runs-on: ubuntu-latest
     
     steps:
@@ -29,41 +26,23 @@ jobs:
           include-prerelease: true
         
       - name: Dotnet restore
-        run: dotnet restore "${{ env.AZURE_FUNCTION_DIRECTORY }}"
-
-      - name: Build with dotnet
-        run: dotnet build "${{ env.AZURE_FUNCTION_DIRECTORY }}" --configuration Release
-        
-      - name: Test
-        run: dotnet test "${{ env.AZURE_FUNCTION_DIRECTORY }}" --no-build
-
-      - name: dotnet publish
-        run: dotnet publish "${{ env.AZURE_FUNCTION_DIRECTORY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
-      
-      - name: Set up .NET Core 7
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '7.0.x'
-          include-prerelease: true
-        
-      - name: Dotnet restore
         run: | 
           dotnet restore "${{ env.DOMAIN_CLASS_LIBRARY }}" 
-          dotnet restore "${{ env.WORKING_DIRECTORY }}"
+          dotnet restore "${{ env.BLAZOR_PROJECT }}"
 
       - name: Build with dotnet
         run: |
           dotnet build  "${{ env.DOMAIN_CLASS_LIBRARY }}" 
-          dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release
+          dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release
         
       - name: Test
-        run:  dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
+        run:  dotnet test "${{ env.TEST_PROJECT }}" --no-build
 
       - name: dotnet publish
         run: |
           dotnet publish "${{ env.DOMAIN_CLASS_LIBRARY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
-          dotnet publish "${{ env.WORKING_DIRECTORY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
+          dotnet publish "${{ env.BLAZOR_PROJECT }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish "${{ env.TEST_PROJECT }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
