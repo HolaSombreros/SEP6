@@ -2,7 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureAppConfiguration(config =>
 {
     config.SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).AddUserSecrets<ApiConfig>().Build();
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 });
 // Add services to the container.
 builder.Services.AddRazorPages();

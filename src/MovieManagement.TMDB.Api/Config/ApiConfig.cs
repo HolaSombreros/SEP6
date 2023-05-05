@@ -2,5 +2,9 @@
 public class ApiConfig
 {
     public static string Section { get; } = "ApiConfig";
-    public string? APIKey { get; set; }
+    public static string? ImageUri { get; set; }
+    public string? ApiKey { get; set; }
+    public string? MovieDatabaseUri { get; set; }
+    public string? MoviePath { get; set; }
+    public string? UpcomingPath { get; set; }
 }
