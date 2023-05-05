@@ -1,5 +1,6 @@
 ﻿@page "/counter"
 @using MovieManagement.TMDB.Api.Services
+@using MovieManagement.TMDB.Api.Dtos
 @inject IMovieService movieService
 
 <PageTitle>Counter</PageTitle>
@@ -21,10 +22,12 @@ else
 @code {
     private int currentCount = 0;
     private Movie movie;
+    private MovieList movies;
 
     protected override async Task OnInitializedAsync()
     {
         movie = await movieService.GetMovieByIdAsync(76341);
+        movies = await movieService.GetUpcomingMoviesAsync();
     }
 
     private Movie GetMovie()
