@@ -10,10 +10,18 @@ public class MovieDto
     public string? ReleaseDate { get; set; }
     [JsonPropertyName("vote_average")]
     public double VoteAverage { get; set; }
+    [JsonPropertyName("vote_count")]
+    public int VoteCount { get; set; }
     [JsonPropertyName("overview")]
     public string? Description { get; set; }
     [JsonPropertyName("adult")]
     public bool IsAdult { get; set; }
     [JsonPropertyName("poster_path")] 
     public string? ImageUrl { get; set; }
+    public IList<GenreDto>? Genres { get; set; }
+    [JsonPropertyName("runtime")]
+    public int Length { get; set; }
+    public double Popularity { get; set; }
+    [JsonPropertyName("original_language")]
+    public string? OriginalLanguage { get; set; }
 }
