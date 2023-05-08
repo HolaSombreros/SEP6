@@ -10,4 +10,6 @@ public class MovieCastDto
     public int Order { get; set; }
     [JsonPropertyName("original_name")]
     public string? OriginalName { get; set; }
+    [JsonPropertyName("profile_path")]
+    public string? ImageUrl { get; set; }
 }

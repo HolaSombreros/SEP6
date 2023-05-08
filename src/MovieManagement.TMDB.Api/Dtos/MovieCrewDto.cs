@@ -10,4 +10,6 @@ public class MovieCrewDto
     public string? Job { get; set; }
     public int Gender { get; set; }
     public double Popularity { get; set; }
+    [JsonPropertyName("profile_path")]
+    public string? ImageUrl { get; set; }
 }

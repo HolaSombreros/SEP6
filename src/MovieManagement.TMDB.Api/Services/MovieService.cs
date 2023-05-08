@@ -24,9 +24,9 @@ public class MovieService : IMovieService
         return _movieMapper.Map<UpcomingDto, MovieList>(upcomingMoviesDto);
     }
 
-    public async Task<MovieCreditsDto> GetMovieCredits(int id)
+    public async Task<MovieCredits> GetMovieCredits(int id)
     {
-        var moviecreditsDto = await _service.GetAsync<MovieCreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
-        return moviecreditsDto;
+        var movieCreditsDto = await _service.GetAsync<MovieCreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
+        return _movieMapper.Map<MovieCreditsDto, MovieCredits>(movieCreditsDto);
     }
 }
