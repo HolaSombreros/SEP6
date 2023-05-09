@@ -6,11 +6,11 @@ public class Service : IService
     private readonly string? _apiKey;
     private readonly IOptions<ApiConfig> _settings;
 
-    public Service(IOptions<ApiConfig> settings, JsonSerializerOptions jsonSerializerOptions)
+    public Service(IOptions<ApiConfig> settings, IHttpClientFactory clientFactory, IOptions<JsonSerializerOptions> jsonSerializerOptions)
     {
-        _httpClient = new HttpClient();
+        _httpClient = clientFactory.CreateClient();
         _settings = settings;
-        _jsonSerializerOptions = jsonSerializerOptions;
+        _jsonSerializerOptions = jsonSerializerOptions.Value;
         _apiKey = settings.Value.ApiKey;
     }
 

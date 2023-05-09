@@ -7,6 +7,7 @@ builder.WebHost.ConfigureAppConfiguration(config =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);

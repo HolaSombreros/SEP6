@@ -14,19 +14,40 @@ public class MovieService : IMovieService
     
     public async Task<Movie> GetMovieByIdAsync(int id)
     {
-        var movieDto = await _service.GetAsync<MovieDto>(_settings.Value.MoviePath + id);
-        return _movieMapper.Map<MovieDto, Movie>(movieDto);
+        try
+        {
+            var movieDto = await _service.GetAsync<MovieDto>(_settings.Value.MoviePath + id);
+            return _movieMapper.Map<MovieDto, Movie>(movieDto);
+        }
+        catch
+        {
+            return new Movie();
+        }
     }
 
     public async Task<MovieList> GetUpcomingMoviesAsync()
     {
-        var upcomingMoviesDto = await _service.GetAsync<UpcomingDto>(_settings.Value.MoviePath + _settings.Value.UpcomingPath);
-        return _movieMapper.Map<UpcomingDto, MovieList>(upcomingMoviesDto);
+        try
+        {
+            var upcomingMoviesDto = await _service.GetAsync<UpcomingDto>(_settings.Value.MoviePath + _settings.Value.UpcomingPath);
+            return _movieMapper.Map<UpcomingDto, MovieList>(upcomingMoviesDto);
+        }
+        catch
+        {
+            return new MovieList();
+        }
     }
 
     public async Task<MovieCredits> GetMovieCredits(int id)
     {
-        var movieCreditsDto = await _service.GetAsync<MovieCreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
-        return _movieMapper.Map<MovieCreditsDto, MovieCredits>(movieCreditsDto);
+        try
+        {
+            var movieCreditsDto = await _service.GetAsync<MovieCreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
+            return _movieMapper.Map<MovieCreditsDto, MovieCredits>(movieCreditsDto);
+        }
+        catch
+        {
+            return new MovieCredits();
+        }
     }
 }
