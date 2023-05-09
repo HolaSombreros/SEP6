@@ -4,10 +4,10 @@
 		<div class="rating-container">
 			@Movie.Ratings.Select(rating => rating.StarRating).Average()
 		</div>
-		<img class="image" src="@Movie.PosterPath" alt="Does not exist" />
+		<img class="image" src="@Movie.PosterPath" alt="Image not found" @onclick="(() => ShowMovieDetails(Movie.Id))" />
 		<div class="movie-details">
-			<h5 class="title">@Movie.Title</h5>
-			@string.Join(", ", Movie.GenreIds)
+			<h3>@Movie.Title</h3>
+			<p>@Movie.ReleaseDate</p>
 		</div>
 	</div>
 }

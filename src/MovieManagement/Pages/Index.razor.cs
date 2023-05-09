@@ -2,14 +2,14 @@
 using MovieManagement.Data;
 using MovieManagement.Models;
 
-namespace MovieManagement.Pages
+namespace MovieManagement.Pages;
+
+public partial class Index : ComponentBase
 {
-  public partial class Index : ComponentBase
+  private IEnumerable<MovieViewModel>? movies;
+
+  protected override async Task OnInitializedAsync()
   {
-    private IEnumerable<MovieViewModel>? movies;
-    protected override async Task OnInitializedAsync()
-    {
-      movies = await DummyData.GetMovies();
-    }
+    movies = await DummyData.GetMovies();
   }
 }

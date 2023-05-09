@@ -7,27 +7,22 @@
 
 .rating-container {
     position: absolute;
-    top: -1em;
+    top: -1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 2em;
-    width: 5em;
+    height: 2rem;
+    width: 5rem;
     background-color: orange;
-    border-radius: 1em;
+    border-radius: 1rem;
 }
 
 .image {
     width: 100%;
+    cursor: pointer;
 }
 
 .movie-details {
-    border: 1px solid green;
     width: 100%;
-    margin-top: 1em;
-    margin-bottom: 2em;
-}
-
-.movie-details > a {
-    margin-right: 1em;
+    margin-top: 1rem;
 }
