@@ -3,18 +3,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
 }
 
 .rating-container {
     position: absolute;
-    top: -1rem;
+    top: -1.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 2rem;
+    height: 2.5rem;
     width: 5rem;
-    background-color: orange;
-    border-radius: 1rem;
+    background-color: #653780;
+    border-radius: 1.25rem;
+    border: 1px solid #222222;
+    font-size: 1.5em;
 }
 
 .image {
@@ -23,6 +26,7 @@
 }
 
 .movie-details {
+    height: 100%;
     width: 100%;
     margin-top: 1rem;
 }

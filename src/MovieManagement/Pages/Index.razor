@@ -3,19 +3,25 @@
 
 <PageTitle>Index</PageTitle>
 
-<div class="container-fluid p-5">
-	@if (movies == null) {
+<div id="main-page" class="container-fluid p-5">
+	@if (movieList == null) {
 		<p>Loading...</p>
 	}
-	else if (movies.Any())
+	else if (movieList.Movies.Any())
 	{
-		<div class="row g-5">
-			@foreach (var movie in movies)
-			{
-				<div class="col-xxl-2 col-xl-4 col-lg-6">
-					<MovieCard Movie="@movie" />
+		<InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => FetchMovies()">
+				<div class="row g-5">
+					@foreach (var movie in movieList.Movies)
+					{
+						<div class="col-xxl-3 col-xl-4 col-lg-6">
+							<MovieCard Movie="@movie" />
+						</div>
+					}
+				  <div class="col-xxl-3 col-xl-4 col-lg-6" id="observerTarget"></div>
 				</div>
-			}
-		</div>
+				<div>
+					Showing @movieList.Movies.Count of @movieList.TotalResults
+				</div>
+		</InfiniteScroll>
 	}
 </div>
