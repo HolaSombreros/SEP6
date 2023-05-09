@@ -1,36 +1,43 @@
 .page {
-    position: relative;
+    background-color: #222222;
+    height: 100vh;
+    display: flex;
     flex-direction: column;
-    flex: 1;
 }
 
 .navheader{
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    background-color: #653780;
+    display: block;
 }
 
-main {
-    display: flex;
+.page-content{
+    overflow-y: hidden;
 }
 
 .sidebar {
-    background-color: rgb(5, 39, 103);
+    background-color: #333333;
 }
 
-@media (min-width: 641px) {
-    .page {
-        flex-direction: row;
-    }
-    
-    main {
-        margin-left:250px;
-    }
+main {
+    overflow: scroll;
+    height: 100%;
+}
 
+
+@media (min-width: 641px) {
     .sidebar {
         width: 250px;
-        height: 100vh;
-        position: fixed;
-        top: 0;
+        height: 100%;
+        float: left;
     }
+}
+
+@media (max-width: 641px) {
+    .sidebar {
+        display: block;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
 }

@@ -6,12 +6,14 @@
     <header class="navheader">
         <NavMenu/>
     </header>
-    <div class="sidebar">
-        <SideBar/>
+    <div class="page-content">
+        <div class="sidebar">
+            <SideBar/>
+        </div>
+        <main>
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
     </div>
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
 </div>

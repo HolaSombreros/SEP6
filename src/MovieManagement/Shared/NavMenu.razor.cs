@@ -2,12 +2,12 @@
 
 public partial class NavMenu
 {
-    private bool collapseNavMenu = true;
+    private bool hideMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass => hideMenu ? "hideMenu" : null;
 
     private void ToggleNavMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+        hideMenu = !hideMenu;
     }
 }

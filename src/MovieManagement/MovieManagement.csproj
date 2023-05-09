@@ -19,4 +19,8 @@
       <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data" />
+    </ItemGroup>
+
 </Project>

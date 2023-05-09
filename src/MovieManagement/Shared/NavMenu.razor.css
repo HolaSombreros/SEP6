@@ -1,24 +1,55 @@
+.mainheader {
+    display: flex;
+    justify-content: space-between;
+}
+
 .navbase{
     display: flex;
-    background-color: rgb(5, 39, 103);
+    justify-content: right;
 }
 
 .navitem{
-    padding: 10px 0;
+    padding: 15px 20px;
+    color: #cccccc;
 }
 
-.navitem a.active {
-    background-color: rgba(255,255,255,0.25);
+a{
+    text-decoration: none;
+    color: #cccccc;
+}
+
+a:hover {
     color: white;
 }
 
-.navitem a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
+.logo {
+    padding: 10px 15px;
+}
+
+img {
+    height: 100%;
+    width: auto;
+    max-height: 30px;
+}
+
+.toggle-nav {
+    padding: 15px 20px;
 }
 
 @media (min-width: 641px) {
-    .collapse {
-        display: block;
+    .toggle-nav {
+        display: none;
+    }
+    .mainheader {
+        float: left;
+    }
+}
+
+@media (max-width: 641px) {
+    .navbase {
+        display: inline;
+    }
+    .hideMenu {
+        display: none;
     }
 }

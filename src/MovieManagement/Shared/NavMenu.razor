@@ -1,17 +1,16 @@
-﻿<div class="navbase" @onclick="ToggleNavMenu">
-    <div class="navitem">
-        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-            <span class="oi oi-home" aria-hidden="true"></span> Home
-        </NavLink>
+﻿<div class="mainheader">
+    <div class="logo">
+        <img src="Images/Movie logo.png" alt="Logo"/>
     </div>
-    <div class="navitem">
-        <NavLink class="nav-link" href="counter">
-            <span class="oi oi-plus" aria-hidden="true"></span> Counter
-        </NavLink>
+    <div class="toggle-nav">
+        <span class="oi oi-collapse-down" @onclick="ToggleNavMenu"></span>
     </div>
+</div>
+
+<div class="navbase @NavMenuCssClass">
     <div class="navitem">
-        <NavLink class="nav-link" href="fetchdata">
-            <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-        </NavLink>
+        <a href="" @onclick="ToggleNavMenu">
+            <span class="oi oi-home"></span> Home
+        </a>
     </div>
 </div>
