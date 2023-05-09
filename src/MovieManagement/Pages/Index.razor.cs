@@ -6,10 +6,10 @@ namespace MovieManagement.Pages
 {
   public partial class Index : ComponentBase
   {
-	private IEnumerable<Movie>? movies;
-	protected override async Task OnInitializedAsync()
-	{
-	  movies = await DummyData.GetMovies();
-	}
+    private IEnumerable<MovieViewModel>? movies;
+    protected override async Task OnInitializedAsync()
+    {
+      movies = await DummyData.GetMovies();
+    }
   }
 }

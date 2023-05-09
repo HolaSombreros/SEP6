@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieManagement.Test", "tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieManagement", "src\MovieManagement\MovieManagement.csproj", "{C139C33F-CBB0-4C56-B5EA-257D993894EC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieManagement.TMDB.Api", "src\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj", "{07AD29D8-BBB5-4C45-B6CD-B5E1B7162272}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{C139C33F-CBB0-4C56-B5EA-257D993894EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C139C33F-CBB0-4C56-B5EA-257D993894EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C139C33F-CBB0-4C56-B5EA-257D993894EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07AD29D8-BBB5-4C45-B6CD-B5E1B7162272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07AD29D8-BBB5-4C45-B6CD-B5E1B7162272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07AD29D8-BBB5-4C45-B6CD-B5E1B7162272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07AD29D8-BBB5-4C45-B6CD-B5E1B7162272}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{11BA4949-C9D0-4331-9233-A8AD8EBC9155} = {A0724D38-2156-4E9A-AD6E-7CBBC7B73ABA}
 		{CB910E77-AFE3-499F-8A75-2C9F48EF6477} = {98EFFCEA-3E2D-4C7B-AB59-ED53894C7CD4}
 		{C139C33F-CBB0-4C56-B5EA-257D993894EC} = {A0724D38-2156-4E9A-AD6E-7CBBC7B73ABA}
+		{07AD29D8-BBB5-4C45-B6CD-B5E1B7162272} = {A0724D38-2156-4E9A-AD6E-7CBBC7B73ABA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E7CE72C-BD22-4111-8ABC-F52288A5F3BD}

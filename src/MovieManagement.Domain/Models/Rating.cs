@@ -2,6 +2,6 @@
 
 public class Rating
 {
-    public string Review { get; set; }
-    public int StarRating { get; set; }
+    public string? Review { get; set; }
+    public int? StarRating { get; set; }
 }

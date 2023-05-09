@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Models
 {
-	public class Movie
+	public class MovieViewModel
 	{
 		public long Id { get; set; }
 		public string Title { get; set; }
@@ -9,7 +9,7 @@
 		public List<Rating> Ratings { get; set; } = new();
 	}
 
-	public class Rating
+	public class RatingViewModel
 	{
 		public string Review { get; set; }
 		public int StarRating { get; set; }

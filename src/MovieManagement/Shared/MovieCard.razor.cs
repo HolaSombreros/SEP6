@@ -6,7 +6,7 @@ namespace MovieManagement.Shared;
 public partial class MovieCard : ComponentBase
 {
 	[Parameter]
-	public Movie Movie { get; set; } = default!;
+	public MovieViewModel Movie { get; set; } = default!;
 
 	protected override void OnInitialized()
 	{

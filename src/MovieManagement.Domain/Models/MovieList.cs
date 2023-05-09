@@ -2,6 +2,10 @@
 
 public class MovieList
 {
-    public string ListName { get; set; }
-    public int NumberOfMovies { get; set; }
+    public int? TotalPages { get; set; }
+    public int? TotalResults { get; set; }
+    public DatePeriod? Dates { get; set; }
+    public List<Movie>? Movies { get; set; }
+    public int? Page { get; set; }
+    public string? ListType { get; set; }
 }
