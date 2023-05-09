@@ -5,18 +5,21 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <UserSecretsId>82372064-0877-409b-98b3-d7cab7267eac</UserSecretsId>
-  </PropertyGroup>
+        <UserSecretsId>82372064-0877-409b-98b3-d7cab7267eac</UserSecretsId>
+    </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MovieManagement.Domain\MovieManagement.Domain.csproj" />
-      <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj" />
+        <ProjectReference Include="..\MovieManagement.Domain\MovieManagement.Domain.csproj" />
+        <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj" />
     </ItemGroup>
-
+    
+    <ItemGroup>
+        <Folder Include="Data" />
+    </ItemGroup>
 </Project>
