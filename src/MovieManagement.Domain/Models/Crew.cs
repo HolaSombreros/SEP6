@@ -2,9 +2,12 @@
 
 public class Crew
 {
-    public string FirstName { get; set; } = default!;
-    public string LastName { get; set; }= default!;
-    public Role Role { get; set; } = default!;
-    public DateTime BirthDate { get; set; } = default!;
+    public int Id { get; set; }
+    public string Department { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string Job { get; set; } = default!;
+    public double Popularity { get; set; }
+    public string OriginalName { get; set; } = default!;
+    public int Gender { get; set; }
     public string ImageUrl { get; set; } = default!;
 }
