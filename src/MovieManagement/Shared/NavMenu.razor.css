@@ -1,18 +1,18 @@
-.mainheader {
+.main-header {
     display: flex;
     justify-content: space-between;
 }
 
-.navbase{
+.nav-base {
     display: flex;
     justify-content: right;
 }
 
-.navitem{
+.nav-item {
     padding: 15px 20px;
 }
 
-a{
+a {
     text-decoration: none;
     color: #cccccc;
 }
@@ -39,16 +39,16 @@ img {
     .toggle-nav {
         display: none;
     }
-    .mainheader {
+    .main-header {
         float: left;
     }
 }
 
 @media (max-width: 641px) {
-    .navbase {
+    .nav-base {
         display: inline;
     }
-    .hideMenu {
+    .hide-menu {
         display: none;
     }
 }
