@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Domain.Models;
 
-public class MovieCrew
+public class Crew
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; }= default!;

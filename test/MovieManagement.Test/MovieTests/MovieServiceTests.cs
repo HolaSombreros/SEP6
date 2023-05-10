@@ -5,7 +5,7 @@ public class MovieServiceTests
 {
     private Mock<IHttpClientFactory> _httpClientFactory;
     private Mock<HttpMessageHandler> _httpMessageHandler;
-    private IOptions<JsonSerializerOptions> _jsonSerializerOptions;
+    private JsonSerializerOptions _jsonSerializerOptions;
     private Mock<IOptions<ApiConfig>> _apiConfig;
     
     [SetUp]
@@ -13,11 +13,11 @@ public class MovieServiceTests
     {
         _httpClientFactory = new Mock<IHttpClientFactory>();
         _httpMessageHandler = new Mock<HttpMessageHandler>();
-        _jsonSerializerOptions = Options.Create(new JsonSerializerOptions
+        _jsonSerializerOptions = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
             WriteIndented = true
-        });
+        };
         _apiConfig = new Mock<IOptions<ApiConfig>>();
 
         var apiConfig = new ApiConfig { MovieDatabaseUri = "https://api.themoviedb.org/3/"};
@@ -42,7 +42,7 @@ public class MovieServiceTests
         var apiService = new Service(_apiConfig.Object, _httpClientFactory.Object, _jsonSerializerOptions);
 
         var mockMapper = new Mock<IMapper>();
-        mockMapper.Setup(m => m.Map<UpcomingDto, MovieList>(It.IsAny<UpcomingDto>()))
+        mockMapper.Setup(m => m.Map<MovieListDto, MovieList>(It.IsAny<MovieListDto>()))
             .Returns(new MovieList { TotalResults = 1} );
         
         var movieService = new MovieService(apiService, mockMapper.Object, _apiConfig.Object);
