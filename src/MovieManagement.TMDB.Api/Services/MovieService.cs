@@ -16,7 +16,7 @@ public class MovieService : IMovieService
     {
         try
         {
-            var movieDto = await _service.GetAsync<MovieDto>(_settings.MoviePath + id);
+            var movieDto = await _service.GetAsync<MovieDto>(_settings.MoviePath + id + _settings.QueryBuilder);
             return _movieMapper.Map<MovieDto, Movie>(movieDto);
         }
         catch
@@ -25,18 +25,21 @@ public class MovieService : IMovieService
         }
     }
 
-    public async Task<MovieList> GetUpcomingMoviesAsync(ListType listType)
+    public async Task<MovieList> GetMovieListAsync(ListType listType, int page)
     {
         try
         {
+            var pagePath = _settings.QueryBuilder + _settings.PagePath + page + _settings.AndQueryBuilder;
             var movieList = listType switch
             {
                 ListType.UPCOMING => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.UpcomingPath +
-                                                                           _settings.QueryBuilder),
+                                                                           pagePath),
+                ListType.TOPRATED => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.TopRatedPath +
+                                                                          pagePath),
+                ListType.INTHEATRE => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.InTheatrePath +
+                                                                          pagePath),
                 ListType.POPULAR => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.PopularPath +
-                                                                          _settings.QueryBuilder),
-                ListType.LATEST => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.LatestPath +
-                                                                         _settings.QueryBuilder),
+                                                                          pagePath),
                 _ => new MovieListDto()
             };
             return _movieMapper.Map<MovieListDto, MovieList>(movieList);
