@@ -1,0 +1,20 @@
+﻿@if (Movie != null)
+{
+	<div class="movie-card">
+		<div class="rating-container">
+			@if (Movie.Ratings.Any())
+			{
+				@Movie.Ratings.Select(rating => rating.StarRating).Average()
+			}
+			else
+			{
+				<span>0</span>
+			}
+		</div>
+		<img class="image" src="@Movie.PosterPath" alt="Image not found" @onclick="(() => ShowMovieDetails(Movie.Id))" />
+		<div class="movie-details">
+			<h4>@Movie.Title</h4>
+			<p>@Movie.ReleaseDate</p>
+		</div>
+	</div>
+}
