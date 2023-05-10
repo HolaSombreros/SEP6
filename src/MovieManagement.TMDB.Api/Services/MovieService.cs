@@ -62,4 +62,19 @@ public class MovieService : IMovieService
             return new Credits();
         }
     }
+
+    public async Task<SearchAll> SearchAll(string query)
+    {
+        try
+        {
+            var searchResult = await _service.GetAsync<SearchAllListDto>(_settings.SearchPath + query + _settings.AndQueryBuilder);
+            searchResult.Results = searchResult.Results.DistinctBy(x => x.Name).ToList();
+            searchResult.TotalResults = searchResult.Results.Count;
+            return _movieMapper.Map<SearchAllListDto, SearchAll>(searchResult);
+        }
+        catch
+        {
+            return new SearchAll();
+        }
+    }
 }
