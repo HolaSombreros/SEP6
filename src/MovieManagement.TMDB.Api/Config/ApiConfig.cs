@@ -7,4 +7,5 @@ public class ApiConfig
     public string? MovieDatabaseUri { get; set; }
     public string? MoviePath { get; set; }
     public string? UpcomingPath { get; set; }
+    public string? CreditsPath { get; set; }
 }
