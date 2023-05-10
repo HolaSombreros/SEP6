@@ -10,4 +10,5 @@ public class Movie
     public string Description { get; set; } = default!;
     public bool IsAdult { get; set; }
     public string ImageUrl { get; set; } = default!;
+    public IList<Genre> Genres { get; set; } = default!;
 }
