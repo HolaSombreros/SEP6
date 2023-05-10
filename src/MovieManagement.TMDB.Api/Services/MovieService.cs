@@ -29,8 +29,8 @@ public class MovieService : IMovieService
     {
         try
         {
-            var upcomingMoviesDto = await _service.GetAsync<UpcomingDto>(_settings.Value.MoviePath + _settings.Value.UpcomingPath);
-            return _movieMapper.Map<UpcomingDto, MovieList>(upcomingMoviesDto);
+            var upcomingMoviesDto = await _service.GetAsync<MovieListDto>(_settings.Value.MoviePath + _settings.Value.UpcomingPath);
+            return _movieMapper.Map<MovieListDto, MovieList>(upcomingMoviesDto);
         }
         catch
         {
@@ -38,16 +38,16 @@ public class MovieService : IMovieService
         }
     }
 
-    public async Task<MovieCredits> GetMovieCredits(int id)
+    public async Task<Credits> GetMovieCreditsAsync(int id)
     {
         try
         {
-            var movieCreditsDto = await _service.GetAsync<MovieCreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
-            return _movieMapper.Map<MovieCreditsDto, MovieCredits>(movieCreditsDto);
+            var movieCreditsDto = await _service.GetAsync<CreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
+            return _movieMapper.Map<CreditsDto, Credits>(movieCreditsDto);
         }
         catch
         {
-            return new MovieCredits();
+            return new Credits();
         }
     }
 }

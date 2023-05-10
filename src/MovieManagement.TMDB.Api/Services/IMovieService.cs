@@ -4,5 +4,5 @@ public interface IMovieService
 {
     public Task<Movie> GetMovieByIdAsync(int id);
     public Task<MovieList> GetUpcomingMoviesAsync();
-    public Task<MovieCredits> GetMovieCredits(int id);
+    public Task<Credits> GetMovieCreditsAsync(int id);
 }

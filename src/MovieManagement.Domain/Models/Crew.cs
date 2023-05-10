@@ -1,10 +1,10 @@
 ﻿namespace MovieManagement.Domain.Models;
 
-public class MovieCrew
+public class Crew
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; }= default!;
-    public Role? Role { get; set; }
-    public DateTime? BirthDate { get; set; }
+    public Role Role { get; set; } = default!;
+    public DateTime BirthDate { get; set; } = default!;
     public string ImageUrl { get; set; } = default!;
 }
