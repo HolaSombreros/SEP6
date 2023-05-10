@@ -24,4 +24,5 @@ public class MovieDto
     public double Popularity { get; set; }
     [JsonPropertyName("original_language")]
     public string OriginalLanguage { get; set; } = default!;
+    
 }
