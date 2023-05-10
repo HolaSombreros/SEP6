@@ -37,9 +37,7 @@ jobs:
         dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal --logger "nunit.md;LogFile=test-results.xml"
         echo "Number of succeeded tests"
         grep -Po '(?<=total=)"\d+"' test-results.xml
-    - task: DotNetCoreCLI@2
-      displayName: 'DotNetCoreCLI: Run UnitTests'
-      inputs:
-        command: test
-        projects: ${{env.TEST_PROJECT}}
-        arguments: '--configuration ${{parameters.BuildConfiguration}} --collect "Code coverage"'
+    - name: Run UnitTests2
+      uses: DotNetCoreCLI@2
+      run : |
+          dotnet test "${{env.TEST_PROJECT}}" --configuration ${{parameters.BuildConfiguration}} --collect "Code coverage"
