@@ -34,6 +34,6 @@ jobs:
           dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release
     - name: Test
       run: |
-        dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal --logger "nunit.md;LogFile=test-results.xml"
+        dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal --logger "nunit;LogFile=test-results.xml"
         echo "Number of succeeded tests"
         grep -Po '(?<=total=)"\d+"' test-results.xml
