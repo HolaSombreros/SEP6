@@ -1,7 +1,8 @@
 ﻿@page "/MovieDetails/{id:int}"
 @using MovieManagement.Services
-@inject IJSRuntime JSRuntime
+@inject IModalService modal  
 @inject IMovieService MovieService
+@inject IJSRuntime JsRuntime
 
 <div class="container-fluid p-5">
 	@if (_movieDetailsViewModel == null)
@@ -33,39 +34,58 @@
                     </p>
                 </div>
                 <div class="col-md-4 order-first order-md-last py-3">
-                    <img class="popup" src="@_movieDetailsViewModel.ImageUrl" alt="Movie image">
+                    <img class="popup" 
+                         src="@_movieDetailsViewModel.ImageUrl" 
+                         @onclick="@(()=>modal.Show<ImageComponent>(@_movieDetailsViewModel.Title, new ModalParameters().Add("ImageUrl", @_movieDetailsViewModel.ImageUrl)))"
+                         alt="Movie image"/>
                 </div>
             </div>
-            <div class="row credit-row">
-                <!-- TODO add link to cast details on picture/name -->
-                @foreach (var member in _movieDetailsViewModel.Cast)
-                {
-                    <div class="credit-member">
-                        <img class ="popup" src=@member.ImageUrl alt="cast picture"/>
-                        <p class="pt-3">@member.Character</p>
-                        <a href="">@member.Name</a>
-                    </div>
-                }
+            <p>Cast:</p>
+            <div class="row align-items-center py-5">
+                <div class="col-1">
+                    <button class="float-end" @onclick="@(() => ScrollLeft("cast-row"))">&lt;</button>
+                </div>
+                <div id="cast-row" class="credit-row col-10">
+                    @foreach (var member in _movieDetailsViewModel.Cast)
+                    {
+                        <div class="credit-member">
+                            <img class="popup"
+                                 src=@member.ImageUrl
+                                 alt="cast picture"
+                                 @onclick="@(() => modal.Show<ImageComponent>(@member.Character, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
+                            <p class="pt-3">@member.Character</p>
+                            <!-- TODO add link to cast details on picture/name -->
+                            <a href="">@member.Name</a>
+                        </div>
+                    }
+                </div>
+                <div class="col-1">
+                    <button @onclick="@(() => ScrollRight("cast-row"))">&gt;</button>
+                </div>
             </div>
-            <div class="row">
-                @foreach (var member in _movieDetailsViewModel.Crew)
-                {
-                    <div class="credit-member">
-                        <img class ="popup" src=@member.ImageUrl alt="cast picture"/>
-                        <p class="pt-1">@member.FirstName @member.LastName</p>
-                        <p>@member.Role</p>
-                    </div>
-                }
-            </div>
-        }
-</div>   
+            
+            <p>Crew:</p>
+            <div class="row align-items-center">
+                <div class="col-1">
+                    <button class="float-end" @onclick="@(() => ScrollLeft("crew-row"))">&lt;</button>
+                </div>
+                <div id="crew-row" class="credit-row col-10">
+                    @foreach (var member in _movieDetailsViewModel.Crew)
+                    {
+                        <div class="credit-member">
+                            <img class="popup"
+                                 src=@member.ImageUrl 
+                             @onclick="@(() => modal.Show<ImageComponent>($"{@member.FirstName} {@member.LastName}", new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
+                                 alt="cast picture"/>
+                            <p class="pt-1">@member.FirstName @member.LastName</p>
+                            <p>@member.Role</p>
+                        </div>
+                    }
+                </div>
+                <div class="col-1">
+                    <button @onclick="@(() => ScrollRight("crew-row"))">&gt</button>
+                </div>
+            </div> 
 
-<script type="text/javascript">
-function popupImages() {
-  $('.popup').click(function() {
-      var currentImage = $(this);
-      currentImage.wrap("<a class='image-link' href='" + currentImage.attr("src") + "'</a>");
-  });
-  $('.image-link').magnificPopup({type:'image'});  
-};
-</script>
+        }
+</div>

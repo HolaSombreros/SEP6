@@ -8,6 +8,9 @@ h1 {
 }
 
 .credit-row {
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    white-space: nowrap;
     display: flex;
 }
 
@@ -18,16 +21,19 @@ h1 {
 }
 
 .credit-member {
-    display: inline;
     width: auto;
     text-align: center;
     padding: 25px;
 }
 
-.details {
+p {
     font-size: 20px;
 }
 
 a {
     color: #cccccc;
+}
+
+::-webkit-scrollbar { 
+    display: none;
 }

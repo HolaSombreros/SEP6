@@ -1,6 +1,8 @@
-﻿namespace MovieManagement.Shared;
+﻿using Microsoft.AspNetCore.Components;
 
-public partial class Sidebar
+namespace MovieManagement.Shared;
+
+public partial class Sidebar : ComponentBase
 {
     private bool hideSidebar = true;
 

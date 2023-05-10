@@ -4,7 +4,7 @@ using MovieManagement.ViewModels;
 
 namespace MovieManagement.Pages;
 
-public partial class MovieDetails
+public partial class MovieDetails : ComponentBase
 {
     [Parameter] public int Id { get; set; }
     private MovieDetailsViewModel _movieDetailsViewModel = default!;
@@ -16,14 +16,6 @@ public partial class MovieDetails
             movie: await MovieService.GetMovieDetailsAsync(Id),
             cast: credits.MovieCast,
             crew: credits.MovieCrew);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("popupImages");
-        }
     }
 
     private string GetGenresToString()
@@ -42,5 +34,15 @@ public partial class MovieDetails
 
         genres += _movieDetailsViewModel.Genres[count - 1].Name;
         return genres;
+    }
+    
+    async Task ScrollRight(string id)
+    {
+        await JsRuntime.InvokeVoidAsync("ScrollRight", id, 200);
+    }
+
+    async Task ScrollLeft(string id)
+    {
+        await JsRuntime.InvokeVoidAsync("ScrollLeft", id, 200);
     }
 }
