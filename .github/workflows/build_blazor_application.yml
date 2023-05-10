@@ -11,6 +11,8 @@ env:
   BLAZOR_PROJECT: ./src/MovieManagement/MovieManagement.csproj
   DOMAIN_CLASS_LIBRARY: ./src/MovieManagement.Domain/MovieManagement.Domain.csproj
   TEST_PROJECT: ./test/MovieManagement.Test/MovieManagement.Test.csproj
+  FILE_NAME: test-results.xml
+  FILE_TITLE: Tests
 jobs:
   build:
 
@@ -34,6 +36,10 @@ jobs:
           dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release
     - name: Test
       run: |
-        dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal --logger "nunit;LogFile=test-results.xml"
-        echo "Number of succeeded tests"
-        grep -Po '(?<=total=)"\d+"' test-results.xml
+        dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal --logger "nunit;LogFile=${{github.workspace}}/${{env.FILE_NAME}};Title=${{env.FILE_TITLE}}"
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
+      if: ${{always()}}
+      with:
+        name: 'Test Run'
+        path: ${{github.workspace}}/${{env.FILE_NAME}}     
