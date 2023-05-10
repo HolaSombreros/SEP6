@@ -22,4 +22,10 @@
     <ItemGroup>
         <Folder Include="Data" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <None Update="Pages\MovieDetails.razor.css">
+        <DependentUpon>MovieDetails.razor.razor</DependentUpon>
+      </None>
+    </ItemGroup>
 </Project>

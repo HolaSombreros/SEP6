@@ -13,4 +13,9 @@ public class MovieService : IMovieService
     {
         return await _movieService.GetMovieByIdAsync(id);
     }
+
+    public async Task<Credits> GetMoviesCreditsAsync(int id)
+    {
+        return await _movieService.GetMovieCreditsAsync(id);
+    }
 }

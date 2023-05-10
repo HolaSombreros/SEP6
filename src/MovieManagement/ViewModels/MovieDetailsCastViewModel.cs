@@ -12,6 +12,6 @@ public class MovieDetailsCastViewModel
         Id = cast.Id;
         Name = cast.Name;
         Character = cast.Character;
-        ImageUrl = cast.ImageUrl;
+        ImageUrl = !string.IsNullOrEmpty(cast.ImageUrl) ? cast.ImageUrl : "Images/CreditMemberMissingPicture.png";
     }
 }

@@ -1,7 +1,71 @@
 ﻿@page "/MovieDetails/{id:int}"
 @using MovieManagement.Services
+@inject IJSRuntime JSRuntime
 @inject IMovieService MovieService
 
-<div>
-    
-</div>
+<div class="container-fluid p-5">
+	@if (_movieDetailsViewModel == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <div>
+                <h1>@_movieDetailsViewModel.Title</h1>
+            </div>
+            <div class="row details">
+                <div class="col-md-8 col-md-push-5 py-3">
+                    <p>@_movieDetailsViewModel.Description</p>
+                    <p>
+                        ReleaseDate: @_movieDetailsViewModel.ReleaseDate.ToString("dd/MM/yyyy")
+                    </p>
+                    <p>
+                        Is Adult: @(_movieDetailsViewModel.IsAdult ? "Yes" : "No")
+                    </p> 
+                    <p>
+                        Budget: @string.Format("{0:C}", _movieDetailsViewModel.Budget)
+                    </p>
+                    <p>
+                        Revenue: @string.Format("{0:C}", _movieDetailsViewModel.Revenue)
+                    </p>
+                    <p>
+                        Genres: @GetGenresToString()
+                    </p>
+                </div>
+                <div class="col-md-4 order-first order-md-last py-3">
+                    <img class="popup" src="@_movieDetailsViewModel.ImageUrl" alt="Movie image">
+                </div>
+            </div>
+            <div class="row credit-row">
+                <!-- TODO add link to cast details on picture/name -->
+                @foreach (var member in _movieDetailsViewModel.Cast)
+                {
+                    <div class="credit-member">
+                        <img class ="popup" src=@member.ImageUrl alt="cast picture"/>
+                        <p class="pt-3">@member.Character</p>
+                        <a href="">@member.Name</a>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                @foreach (var member in _movieDetailsViewModel.Crew)
+                {
+                    <div class="credit-member">
+                        <img class ="popup" src=@member.ImageUrl alt="cast picture"/>
+                        <p class="pt-1">@member.FirstName @member.LastName</p>
+                        <p>@member.Role</p>
+                    </div>
+                }
+            </div>
+        }
+</div>   
+
+<script type="text/javascript">
+function popupImages() {
+  $('.popup').click(function() {
+      var currentImage = $(this);
+      currentImage.wrap("<a class='image-link' href='" + currentImage.attr("src") + "'</a>");
+  });
+  $('.image-link').magnificPopup({type:'image'});  
+};
+</script>

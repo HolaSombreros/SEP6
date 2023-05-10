@@ -10,8 +10,12 @@ public class MovieDetailsViewModel
     public string Description { get; }
     public bool IsAdult { get; }
     public string ImageUrl { get; }
+    public IReadOnlyList<Genre> Genres { get; }
+    public IReadOnlyList<MovieDetailsCrewViewModel> Crew { get; }
+    public IReadOnlyList<MovieDetailsCastViewModel> Cast { get; }
 
-    public MovieDetailsViewModel(Movie movie)
+
+    public MovieDetailsViewModel(Movie movie, IList<Cast> cast, IList<Crew> crew)
     {
         Id = movie.Id;
         Title = movie.Title;
@@ -21,5 +25,8 @@ public class MovieDetailsViewModel
         Description = movie.Description;
         IsAdult = movie.IsAdult;
         ImageUrl = movie.ImageUrl;
+        Genres = movie.Genres.ToList();
+        Cast = cast.Select(person => new MovieDetailsCastViewModel(person)).ToList();
+        Crew = crew.Select(person => new MovieDetailsCrewViewModel(person)).ToList();
     }
 }

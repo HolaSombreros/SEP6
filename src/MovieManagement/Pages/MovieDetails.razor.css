@@ -1,0 +1,33 @@
+img {
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.credit-row {
+    display: flex;
+}
+
+.credit-member img {
+    height: 10rem;
+    width: auto;
+    border-radius: 50%;
+}
+
+.credit-member {
+    display: inline;
+    width: auto;
+    text-align: center;
+    padding: 25px;
+}
+
+.details {
+    font-size: 20px;
+}
+
+a {
+    color: #cccccc;
+}

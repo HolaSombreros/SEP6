@@ -45,7 +45,7 @@ public class MovieService : IMovieService
             var movieCreditsDto = await _service.GetAsync<CreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
             return _movieMapper.Map<CreditsDto, Credits>(movieCreditsDto);
         }
-        catch
+        catch(Exception e)
         {
             return new Credits();
         }
