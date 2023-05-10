@@ -36,7 +36,7 @@ jobs:
           dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release
     - name: Test
       run: |
-        dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal --logger "nunit;LogFile=${{github.workspace}}/${{env.FILE_NAME}};Title=${{env.FILE_TITLE}}"
+        dotnet test "${{ env.TEST_PROJECT }}" --list-tests
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       if: ${{always()}}
