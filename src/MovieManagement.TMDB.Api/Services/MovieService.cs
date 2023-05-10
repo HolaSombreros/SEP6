@@ -4,19 +4,19 @@ public class MovieService : IMovieService
 {
     private readonly IMapper _movieMapper;
     private readonly IService _service;
-    private readonly IOptions<ApiConfig> _settings;
+    private readonly ApiConfig _settings;
     public MovieService(IService service, IMapper movieMapper, IOptions<ApiConfig> settings)
     {
         _service = service;
         _movieMapper = movieMapper;
-        _settings = settings;
+        _settings = settings.Value;
     }
     
     public async Task<Movie> GetMovieByIdAsync(int id)
     {
         try
         {
-            var movieDto = await _service.GetAsync<MovieDto>(_settings.Value.MoviePath + id);
+            var movieDto = await _service.GetAsync<MovieDto>(_settings.MoviePath + id);
             return _movieMapper.Map<MovieDto, Movie>(movieDto);
         }
         catch
@@ -25,12 +25,21 @@ public class MovieService : IMovieService
         }
     }
 
-    public async Task<MovieList> GetUpcomingMoviesAsync()
+    public async Task<MovieList> GetUpcomingMoviesAsync(ListType listType)
     {
         try
         {
-            var upcomingMoviesDto = await _service.GetAsync<MovieListDto>(_settings.Value.MoviePath + _settings.Value.UpcomingPath);
-            return _movieMapper.Map<MovieListDto, MovieList>(upcomingMoviesDto);
+            var movieList = listType switch
+            {
+                ListType.UPCOMING => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.UpcomingPath +
+                                                                           _settings.QueryBuilder),
+                ListType.POPULAR => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.PopularPath +
+                                                                          _settings.QueryBuilder),
+                ListType.LATEST => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.LatestPath +
+                                                                         _settings.QueryBuilder),
+                _ => new MovieListDto()
+            };
+            return _movieMapper.Map<MovieListDto, MovieList>(movieList);
         }
         catch
         {
@@ -42,7 +51,7 @@ public class MovieService : IMovieService
     {
         try
         {
-            var movieCreditsDto = await _service.GetAsync<CreditsDto>(_settings.Value.MoviePath + id + _settings.Value.CreditsPath);
+            var movieCreditsDto = await _service.GetAsync<CreditsDto>(_settings.MoviePath + id + _settings.CreditsPath + _settings.QueryBuilder);
             return _movieMapper.Map<CreditsDto, Credits>(movieCreditsDto);
         }
         catch

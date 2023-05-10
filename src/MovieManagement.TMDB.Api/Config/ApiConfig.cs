@@ -2,10 +2,14 @@
 public class ApiConfig
 {
     public static string Section { get; } = "ApiConfig";
-    public static string? ImageUri { get; set; }
-    public string? ApiKey { get; set; }
-    public string? MovieDatabaseUri { get; set; }
-    public string? MoviePath { get; set; }
-    public string? UpcomingPath { get; set; }
-    public string? CreditsPath { get; set; }
+    public static string ImageUri { get; set; } = default!;
+    public string ApiKey { get; set; } = default!;
+    public string MovieDatabaseUri { get; set; } = default!;
+    public string MoviePath { get; set; } = default!;
+    public string UpcomingPath { get; set; } = default!;
+    public string CreditsPath { get; set; } = default!;
+    public string PopularPath { get; set; } = default!;
+    public string LatestPath { get; set; } = default!;
+    public string PagePath { get; set; } = default!;
+    public string QueryBuilder { get; set; } = default!;
 }
