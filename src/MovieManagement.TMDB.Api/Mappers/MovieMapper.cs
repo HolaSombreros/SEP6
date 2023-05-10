@@ -11,5 +11,8 @@ public class MovieMapper : Profile
         CreateMap<CastDto, Cast>().ForMember(dest=> dest.ImageUrl, opt => opt.MapFrom(src => ApiConfig.ImageUri + src.ImageUrl));;
         CreateMap<CrewDto, Crew>().ForMember(dest=> dest.ImageUrl, opt => opt.MapFrom(src => ApiConfig.ImageUri + src.ImageUrl));;
         CreateMap<CreditsDto, Credits>();
+        CreateMap<ProductionCompanyDto, ProductionCompany>();
+        CreateMap<ProductionCountryDto, ProductionCountry>();
+        CreateMap<SpokenLanguageDto, SpokenLanguage>();
     }
 }
