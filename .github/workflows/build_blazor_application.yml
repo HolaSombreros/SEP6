@@ -38,8 +38,8 @@ jobs:
         echo "Number of succeeded tests"
         grep -Po '(?<=total=)"\d+"' test-results.xml
     - task: DotNetCoreCLI@2
-    displayName: 'DotNetCoreCLI: Run UnitTests'
-    inputs:
-      command: test
-      projects: ${{env.TEST_PROJECT}}
-      arguments: '--configuration ${{parameters.BuildConfiguration}} --collect "Code coverage"'
+      displayName: 'DotNetCoreCLI: Run UnitTests'
+      inputs:
+        command: test
+        projects: ${{env.TEST_PROJECT}}
+        arguments: '--configuration ${{parameters.BuildConfiguration}} --collect "Code coverage"'
