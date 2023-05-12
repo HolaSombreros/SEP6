@@ -8,7 +8,6 @@ public partial class Sidebar
 {
   [Inject]
   public NavigationManager NavigationManager { get; set; } = default!;
-
   private bool hideSidebar = true;
   private string? SidebarCssClass => hideSidebar ? "hide-sidebar" : null;
   private List<MovieListViewModel>? customMovieLists;
