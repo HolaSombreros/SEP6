@@ -1,9 +1,7 @@
-﻿using MovieManagement.Database.Context;
+﻿
+namespace MovieManagement.Database.Repositories; 
 
-namespace MovieManagement.Database.Repositories;
-
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
-{
+public class Repository <TEntity> : IRepository<TEntity> where TEntity : class{
     private readonly MovieManagementDbContext _context;
     private readonly DbSet<TEntity?> _dbSet;
 

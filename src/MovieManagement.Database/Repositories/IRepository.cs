@@ -1,7 +1,6 @@
-﻿namespace MovieManagement.Database.Repositories;
+﻿namespace MovieManagement.Database.Repositories; 
 
-public interface IRepository<TEntity>
-{
+public interface IRepository<TEntity> {
     public Task<TEntity?> GetAsync(Guid id);
     public Task<TEntity?> AddAsync(TEntity entity);
     public Task<TEntity?> UpdateAsync(TEntity entity);

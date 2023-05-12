@@ -21,7 +21,7 @@ public partial class MovieManagementDbContext : DbContext
 
     public virtual DbSet<RatingEntity> Ratings { get; set; }
 
-    public virtual DbSet<UserEntity> Users { get; set; }
+    public virtual DbSet<UserEntity?> Users { get; set; }
     
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,7 +40,8 @@ public partial class MovieManagementDbContext : DbContext
             entity.ToTable("MovieList");
 
             entity.Property(e => e.MovielistId)
-                .HasMaxLength(50)
+                .HasColumnType("UNIQUEIDENTIFIER")
+                .HasMaxLength(36)
                 .HasColumnName("movielist_id");
             entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.Title)
@@ -48,9 +49,10 @@ public partial class MovieManagementDbContext : DbContext
                 .HasMaxLength(250)
                 .HasColumnName("title");
             entity.Property(e => e.UserId)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("user_id");
+                .HasMaxLength(36)
+                .HasColumnName("user_id")
+                .HasColumnType("UNIQUEIDENTIFIER")
+                .IsRequired();
             
             entity.HasKey(m => m.MovielistId);
 
@@ -68,7 +70,8 @@ public partial class MovieManagementDbContext : DbContext
             entity.Property(e => e.MovieId).HasColumnName("movie_id");
             entity.Property(e => e.MovieListId)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasColumnType("UNIQUEIDENTIFIER")
+                .HasMaxLength(36)
                 .HasColumnName("movielist_id");
 
             entity.HasOne(d => d.MovieEntity).WithMany()
@@ -119,9 +122,10 @@ public partial class MovieManagementDbContext : DbContext
                 .HasColumnName("rating");
             entity.Property(e => e.Review).HasColumnName("review");
             entity.Property(e => e.UserId)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("user_id");
+                .HasMaxLength(36)
+                .HasColumnName("user_id")
+                .HasColumnType("UNIQUEIDENTIFIER")
+                .IsRequired();
             entity.HasKey(r => r.RatingId);
 
             entity.HasOne(d => d.UserEntity).WithMany(p => p.Ratings)
@@ -132,10 +136,11 @@ public partial class MovieManagementDbContext : DbContext
         modelBuilder.Entity<UserEntity>(entity =>
         {
             entity.ToTable("User");
-
             entity.Property(e => e.UserId)
-                .HasMaxLength(50)
-                .HasColumnName("user_id");
+                .HasMaxLength(36)
+                .HasColumnName("user_id")
+                .HasColumnType("UNIQUEIDENTIFIER")
+                .IsRequired();
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(50)

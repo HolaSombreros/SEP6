@@ -1,4 +1,5 @@
-using MovieManagement.Database.Context;
+using MovieManagement.Database.Repositories;
+
 [assembly: FunctionsStartup(typeof(MovieManagement.Functions.Startup))]
 namespace MovieManagement.Functions; 
 
@@ -12,5 +13,7 @@ public class Startup : FunctionsStartup
         builder.Services.AddDbContext<MovieManagementDbContext>(options =>
             options.UseSqlServer(config["DbConnectionString"]));
         builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
+        builder.Services.AddScoped<IRepository<UserEntity>, Repository<UserEntity>>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
     }
 }
