@@ -33,4 +33,5 @@ jobs:
           dotnet build  "${{ env.DOMAIN_CLASS_LIBRARY }}" 
           dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release
     - name: Test
-      run: dotnet test "${{ env.TEST_PROJECT }}" --no-build --verbosity normal
+      run: |
+        dotnet test "${{ env.TEST_PROJECT }}"     
