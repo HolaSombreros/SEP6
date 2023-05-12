@@ -9,13 +9,22 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IService, Service>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
-builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
 builder.Services.AddSingleton(new JsonSerializerOptions {
     PropertyNameCaseInsensitive = true,
     WriteIndented = true
 });
+builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
+// Database and configurations
+builder.Services.Configure<DatabaseConfig>(builder.Configuration.GetSection(DatabaseConfig.Section));
+builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
+var databaseConfig = builder.Configuration.GetSection(DatabaseConfig.Section).Get<DatabaseConfig>();
+builder.Services.AddDbContext<MovieManagementDbContext>(
+    options =>
+        options.UseSqlServer(
+            databaseConfig.ConnectionString,
+            x => x.MigrationsAssembly("MovieManagement")));
 
 var app = builder.Build();
 
