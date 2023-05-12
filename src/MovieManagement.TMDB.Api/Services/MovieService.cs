@@ -68,9 +68,10 @@ public class MovieService : IMovieService
         try
         {
             var searchResult = await _service.GetAsync<SearchAllListDto>(_settings.SearchPath + query + _settings.AndQueryBuilder);
-            searchResult.Results = searchResult.Results.Where(s => s.MediaType == "movie").GroupBy(m => new { m.ReleaseDate, m.Title })
+            var uniqueMovies = searchResult.Results.Where(s =>  string.Equals(s.MediaType, MediaType.Movie.ToString(), StringComparison.OrdinalIgnoreCase)).GroupBy(m => new { m.ReleaseDate, m.Title })
                 .Select(s => s.FirstOrDefault()).ToList()!;
-            //searchResult.Results = searchResult.Results.DistinctBy(x => x.Name).ToList();
+            var uniquePeople = searchResult.Results.Where(r => string.Equals(r.MediaType, MediaType.Person.ToString(), StringComparison.OrdinalIgnoreCase)).ToList();
+            searchResult.Results = uniqueMovies.Concat(uniquePeople).ToList()!;
             searchResult.TotalResults = searchResult.Results.Count;
             return _movieMapper.Map<SearchAllListDto, SearchAll>(searchResult);
         }

@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\MovieManagement.Database\MovieManagement.Database.csproj" />
         <ProjectReference Include="..\MovieManagement.Domain\MovieManagement.Domain.csproj" />
         <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj" />
     </ItemGroup>

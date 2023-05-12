@@ -6,3 +6,4 @@ global using Microsoft.EntityFrameworkCore;
 global using MovieManagement.Database.Config;
 global using MovieManagement.Database.Repositories;
 global using MovieManagement.Database.Context;
+global using MovieManagement.Domain.Models.TMDB;

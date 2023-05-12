@@ -9,8 +9,6 @@ public class MovieDetailsCrewViewModel
 
     public MovieDetailsCrewViewModel(Crew crew)
     {
-        FirstName = crew.FirstName;
-        LastName = crew.LastName;
         Role = Enum.GetName(typeof(Role), crew.Role) ?? default!;
         ImageUrl = crew.ImageUrl;
     }

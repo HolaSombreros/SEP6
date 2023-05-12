@@ -1,4 +1,5 @@
-﻿namespace MovieManagement.ViewModels;
+﻿
+namespace MovieManagement.ViewModels;
 
 public class MovieDetailsCastViewModel
 {
