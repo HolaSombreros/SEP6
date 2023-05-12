@@ -1,6 +1,4 @@
-﻿using MovieManagement.Domain.Models.TMDB;
-
-namespace MovieManagement.TMDB.Api.Mappers;
+﻿namespace MovieManagement.TMDB.Api.Mappers;
 
 public class MovieMapper : Profile
 {
