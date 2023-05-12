@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MovieManagement.Models;
+using MovieManagement.Models.Index;
 
 namespace MovieManagement.Shared;
 
@@ -9,7 +9,7 @@ public partial class MovieCard : ComponentBase
 	public MovieViewModel Movie { get; set; } = default!;
 
 	[Inject]
-	public NavigationManager navManager { get; set; } = default!;
+	public NavigationManager NavigationManager { get; set; } = default!;
 
 	protected override void OnInitialized()
 	{
@@ -18,6 +18,6 @@ public partial class MovieCard : ComponentBase
 
 	private void ShowMovieDetails(long movieId)
 	{
-		navManager.NavigateTo($"/movies/{movieId}");
+		NavigationManager.NavigateTo($"/movies/all/{movieId}");
 	}
 }

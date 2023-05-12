@@ -1,23 +1,44 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #cccccc;
-    overflow: hidden;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #cccccc;
+  overflow: hidden;
 }
 
-h1:focus {
-    outline: none;
+a {
+  text-decoration: none;
+  color: #cccccc;
 }
 
- .btn-link{
-     
+  a:hover {
+    color: white;
+  }
+
+.btn {
+  color: #CCCCCC !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none;
 }
 
 .btn-primary {
-
+  background-color: #653780;
 }
 
+  .btn-primary:focus {
+    background-color: #653780;
+  }
+
+  .btn-primary:hover {
+    background-color: #5A3173;
+    color: #CCCCCC;
+  }
+
 .content {
-    padding-top: 1.1rem;
+  padding-top: 1.1rem;
+}
+
+li {
+  list-style-type: none;
 }

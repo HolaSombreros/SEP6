@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MovieManagement.Models;
+using MovieManagement.Models.Index;
 
 namespace MovieManagement.Shared;
 
-public partial class MovieListView : ComponentBase
+public partial class MoviesView : ComponentBase
 {
 	[Inject]
 	public IMovieService MovieService { get; set; } = default!;
@@ -11,7 +11,7 @@ public partial class MovieListView : ComponentBase
 	[Parameter]
 	public ListType ListType { get; set; } = default!;
 
-	private MovieListViewModel? movieList;
+	private MoviesViewModel? movieList;
 
 	protected override async Task OnInitializedAsync()
 	{
