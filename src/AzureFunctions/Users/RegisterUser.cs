@@ -1,22 +1,22 @@
-﻿namespace AzureFunctions;
+﻿namespace AzureFunctions.Users;
 
-public static class RegisterUser
-{
+public class RegisterUser {
+    private readonly IUserService _userService;
+
+    public RegisterUser(IUserService userService) {
+        _userService = userService;
+    }
+
     [FunctionName("RegisterUser")]
-    public static async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log)
+    public async Task<IActionResult> RunAsync(
+        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Post), Route = null)] HttpRequest req, ILogger log)
     {
-        log.LogInformation("C# HTTP trigger function processed a request.");
-
-        string name = req.Query["name"];
-
-        string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-        dynamic data = JsonConvert.DeserializeObject(requestBody);
-        name = name ?? data?.name;
-
-        return name != null
-            ? (ActionResult)new OkObjectResult($"Hello, {name}")
-            : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+        log.LogInformation("C# HTTP received user dto");
         
+        var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+        var registerUserDto = JsonConvert.DeserializeObject<RegisterUserDto>(requestBody);
+        var user = await _userService.RegisterUser(registerUserDto);
+        
+        return new OkObjectResult(user);
     }
 }
