@@ -1,3 +1,5 @@
+using Blazored.Modal;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureAppConfiguration(config =>
 {
@@ -11,6 +13,9 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<MovieManagement.Services.IMovieService, MovieManagement.Services.MovieService>();
+builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
+builder.Services.AddBlazoredModal();
 builder.Services.AddSingleton(new JsonSerializerOptions {
     PropertyNameCaseInsensitive = true,
     WriteIndented = true

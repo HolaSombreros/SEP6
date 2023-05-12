@@ -10,8 +10,10 @@ h1:focus {
     outline: none;
 }
 
- .btn-link{
-     
+button {
+    background-color: #333333;
+    color: #653780;
+    font-size: 20px;
 }
 
 .btn-primary {

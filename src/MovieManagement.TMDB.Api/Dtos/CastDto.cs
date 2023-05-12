@@ -11,5 +11,5 @@ public class CastDto
     [JsonPropertyName("original_name")]
     public string OriginalName { get; set; } = default!;
     [JsonPropertyName("profile_path")]
-    public string ImageUrl { get; set; } = default!;
+    public string? ImageUrl { get; set; } = default!;
 }

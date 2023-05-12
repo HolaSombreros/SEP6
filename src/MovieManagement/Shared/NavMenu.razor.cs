@@ -1,6 +1,8 @@
-﻿namespace MovieManagement.Shared;
+﻿using Microsoft.AspNetCore.Components;
 
-public partial class NavMenu
+namespace MovieManagement.Shared;
+
+public partial class NavMenu : ComponentBase
 {
     private bool hideMenu = true;
 
