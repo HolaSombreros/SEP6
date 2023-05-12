@@ -8,5 +8,5 @@ public class SearchResult
     public string ProfilePath { get; set; } = default!;
     public string Title { get; set; } = default!;
     public string PosterPath { get; set; } = default!;
-
+    public DateTime ReleaseDate { get; set; }
 }

@@ -11,4 +11,6 @@ public class SearchResultDto
     public string Title { get; set; } = default!;
     [JsonPropertyName("poster_path")]
     public string PosterPath { get; set; } = default!;
+    [JsonPropertyName("release_date")]
+    public string ReleaseDate { get; set; }
 }
