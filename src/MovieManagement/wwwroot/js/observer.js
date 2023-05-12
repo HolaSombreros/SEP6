@@ -1,12 +1,12 @@
 ﻿window.Observer = {
-    observer: null,
-    Initialize: function (component, observerTargetId) {
-        this.observer = new IntersectionObserver(e => {
-            component.invokeMethodAsync("OnIntersection")
-        });
+  observer: null,
+  Initialize: function (component, observableTargetId) {
+    this.observer = new IntersectionObserver(e => {
+      component.invokeMethodAsync('OnIntersection');
+    });
 
-        let element = document.getElementById(observerTargetId);
-        if (element == null) throw new Error("Target was not found");
-        this.observer.observe(element);
-    }
-}
+    let element = document.getElementById(observableTargetId);
+    if (element == null) throw new Error("The observable target was not found");
+    this.observer.observe(element);
+  }
+};

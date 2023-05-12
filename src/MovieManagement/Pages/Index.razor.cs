@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MovieManagement.Data;
 using MovieManagement.Models;
 
 namespace MovieManagement.Pages;
@@ -12,15 +11,14 @@ public partial class Index : ComponentBase
 
 	protected override async Task OnInitializedAsync()
 	{
-		//movieList = new(await MovieService.GetUpcomingMoviesAsync());
-		movieList = await DummyData.GetMovies();
+		movieList = new(await MovieService.GetUpcomingMoviesAsync());
+		//movieList = await DummyData.GetMovies();
 	}
 
-	private async Task FetchMovies()
+	private async Task FetchData()
 	{
-		Console.WriteLine("Current: " + movieList.Movies.Count);
-		var movies = await DummyData.GetMovies();
-		movieList.Movies.AddRange(movies.Movies);
-		Console.WriteLine("New: " + movieList.Movies.Count);
+		Console.WriteLine(movieList.Page);
+		//var data = await DummyData.GetMovies();
+		//movieList?.Movies.AddRange(data.Movies);
 	}
 }
