@@ -1,8 +1,12 @@
-﻿namespace AzureFunctions.Dtos; 
+﻿namespace MovieManagement.Functions.Dtos; 
 
-public class RegisterUserDto {
+public class UserDto {
+    
+    public Guid UserId { get; set; }
+
     public string Username { get; set; }
-    [EmailAddress]
+
     public string Email { get; set; }
+
     public string Password { get; set; }
 }

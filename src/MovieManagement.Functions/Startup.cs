@@ -1,5 +1,5 @@
-﻿[assembly: FunctionsStartup(typeof(AzureFunctions.Startup))]
-namespace AzureFunctions; 
+﻿[assembly: FunctionsStartup(typeof(MovieManagement.Functions.Startup))]
+namespace MovieManagement.Functions; 
 
 public class Startup : FunctionsStartup
 {

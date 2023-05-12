@@ -1,4 +1,4 @@
-﻿namespace AzureFunctions; 
+﻿namespace MovieManagement.Functions; 
 
 public class MapperProfile : Profile   {
     public  MapperProfile() {

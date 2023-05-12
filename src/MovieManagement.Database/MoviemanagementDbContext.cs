@@ -1,7 +1,9 @@
 ﻿namespace MovieManagement.Database;
 
 public partial class MoviemanagementDbContext : DbContext {
-    public MoviemanagementDbContext() {
+    private readonly IConfiguration _configuration;
+    public MoviemanagementDbContext(IConfiguration configuration) {
+        _configuration = configuration;
     }
 
     public MoviemanagementDbContext(DbContextOptions<MoviemanagementDbContext> options)
@@ -20,7 +22,9 @@ public partial class MoviemanagementDbContext : DbContext {
     public virtual DbSet<RatingEntity> Ratings { get; set; }
 
     public virtual DbSet<UserEntity> Users { get; set; }
-    
+
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //     => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SqlConnectionString"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

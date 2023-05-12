@@ -1,4 +1,4 @@
-﻿namespace AzureFunctions.Services; 
+﻿namespace MovieManagement.Functions.Services; 
 
 public class UserService : IUserService {
 

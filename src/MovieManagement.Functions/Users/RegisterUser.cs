@@ -1,4 +1,4 @@
-﻿namespace AzureFunctions.Users;
+﻿namespace MovieManagement.Functions.Users;
 
 public class RegisterUser {
     private readonly IUserService _userService;
