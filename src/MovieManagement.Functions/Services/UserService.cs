@@ -11,13 +11,18 @@ public class UserService : IUserService {
         _context = context;
     }
 
-    private async Task<UserEntity> GetUser(RegisterUserDto registerUserDto) {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(registerUserDto.Email) && !u.IsDeleted);
+    public async Task<UserDto> GetUser(LoginUserDto loginUserDto) {
+        var user = await Get(loginUserDto.Email);
+        return user.Password.Equals(loginUserDto.Password) ? _mapper.Map<UserDto>(user) : null;
+    }
+
+    private async Task<UserEntity> Get(string email) {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email) && !u.IsDeleted);
         return user;
     }
 
     public async Task<UserDto> RegisterUser(RegisterUserDto registerUserDto) {
-        if (await GetUser(registerUserDto) != null)
+        if (await Get(registerUserDto.Email) != null)
             return null;
         var user = _mapper.Map<UserEntity>(registerUserDto);
         user.UserId = new Guid();
