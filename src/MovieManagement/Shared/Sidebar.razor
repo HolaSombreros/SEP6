@@ -1,0 +1,30 @@
+﻿
+<div class="sidebar-header">
+    <h3 class="title">
+        Movie Lists
+    </h3>
+    <span class="oi oi-list toggle-sidebar" @onclick="ToggleSidebar"></span>
+</div>
+<div class="@SidebarCssClass">
+    
+    <li>
+        <ul>
+            <a href="" @onclick="ToggleSidebar">
+                <span class="oi oi-arrow-right"></span> Upcoming
+            </a>
+        </ul>
+        <ul>
+            <a href="PopularMovies" @onclick="ToggleSidebar">
+                <span class="oi oi-star"></span> Popular
+            </a>
+        </ul>
+        <ul>
+            <a href="LatestMovies" @onclick="ToggleSidebar">
+                <span class="oi oi-clock"></span> Latest
+            </a>
+        </ul>
+    </li>
+    <h3 class="title">
+        Your List
+    </h3>
+</div>

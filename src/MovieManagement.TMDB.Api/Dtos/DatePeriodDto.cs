@@ -3,8 +3,8 @@
 public class DatePeriodDto
 {
     [JsonPropertyName("maximum")]
-    public DateTime PeriodTo { get; set; }
+    public DateTime PeriodTo { get; set; } = default!;
 
     [JsonPropertyName("minimum")]
-    public DateTime PeriodFrom { get; set; }
+    public DateTime PeriodFrom { get; set; } = default!;
 }

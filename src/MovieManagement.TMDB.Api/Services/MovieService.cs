@@ -4,23 +4,62 @@ public class MovieService : IMovieService
 {
     private readonly IMapper _movieMapper;
     private readonly IService _service;
-    private readonly IOptions<ApiConfig> _settings;
+    private readonly ApiConfig _settings;
     public MovieService(IService service, IMapper movieMapper, IOptions<ApiConfig> settings)
     {
         _service = service;
         _movieMapper = movieMapper;
-        _settings = settings;
+        _settings = settings.Value;
     }
     
     public async Task<Movie> GetMovieByIdAsync(int id)
     {
-        var movieDto = await _service.GetAsync<MovieDto>(_settings.Value.MoviePath + id);
-        return _movieMapper.Map<MovieDto, Movie>(movieDto);
+        try
+        {
+            var movieDto = await _service.GetAsync<MovieDto>(_settings.MoviePath + id + _settings.QueryBuilder);
+            return _movieMapper.Map<MovieDto, Movie>(movieDto);
+        }
+        catch
+        {
+            return new Movie();
+        }
     }
 
-    public async Task<MovieList> GetUpcomingMoviesAsync()
+    public async Task<MovieList> GetMovieListAsync(ListType listType, int page)
     {
-        var upcomingMoviesDto = await _service.GetAsync<UpcomingDto>(_settings.Value.MoviePath + _settings.Value.UpcomingPath);
-        return _movieMapper.Map<UpcomingDto, MovieList>(upcomingMoviesDto);
+        try
+        {
+            var pagePath = _settings.QueryBuilder + _settings.PagePath + page + _settings.AndQueryBuilder;
+            var movieList = listType switch
+            {
+                ListType.UPCOMING => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.UpcomingPath +
+                                                                           pagePath),
+                ListType.TOPRATED => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.TopRatedPath +
+                                                                          pagePath),
+                ListType.INTHEATRE => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.InTheatrePath +
+                                                                          pagePath),
+                ListType.POPULAR => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.PopularPath +
+                                                                          pagePath),
+                _ => new MovieListDto()
+            };
+            return _movieMapper.Map<MovieListDto, MovieList>(movieList);
+        }
+        catch
+        {
+            return new MovieList();
+        }
+    }
+
+    public async Task<Credits> GetMovieCreditsAsync(int id)
+    {
+        try
+        {
+            var movieCreditsDto = await _service.GetAsync<CreditsDto>(_settings.MoviePath + id + _settings.CreditsPath + _settings.QueryBuilder);
+            return _movieMapper.Map<CreditsDto, Credits>(movieCreditsDto);
+        }
+        catch
+        {
+            return new Credits();
+        }
     }
 }

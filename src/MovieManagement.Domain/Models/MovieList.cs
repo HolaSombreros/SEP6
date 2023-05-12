@@ -2,7 +2,6 @@
 
 public class MovieList
 {
-    public Guid MovieListId { get; set; }
     public int? TotalPages { get; set; }
     public int? TotalResults { get; set; }
     public DatePeriod? Dates { get; set; }

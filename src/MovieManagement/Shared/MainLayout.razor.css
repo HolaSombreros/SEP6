@@ -5,13 +5,14 @@
     flex-direction: column;
 }
 
-.navheader{
+.nav-header {
     background-color: #653780;
     display: block;
 }
 
-.page-content{
+.page-content {
     overflow-y: hidden;
+    height: 100%;
 }
 
 .sidebar {
@@ -35,6 +36,10 @@ main {
 @media (max-width: 641px) {
     .sidebar {
         display: block;
+    }
+    .page-content{
+        display: flex;
+        flex-direction: column;
     }
 }
 
