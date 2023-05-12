@@ -48,7 +48,7 @@ public class MovieServiceTests
         var movieService = new MovieService(apiService, mockMapper.Object, _apiConfig.Object);
         
         // Act
-        var result = movieService.GetMovieListAsync(ListType.UPCOMING, 1);
+        var result = movieService.GetMovieListAsync(ListType.Upcoming, 1);
         
         // Assert
         Assert.That(result.Result.TotalResults, Is.EqualTo(0));

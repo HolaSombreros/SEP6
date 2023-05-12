@@ -4,14 +4,14 @@
 	{
 		public int TotalPages { get; } = default!;
 		public int TotalResults { get; } = default!;
-		public int Page { get; } = 0;
+		public int Page { get; set; } = default!;
 		public List<MovieViewModel> Movies { get; set; } = new();
 
 		public MovieListViewModel(MovieList movieList)
 		{
-			TotalPages = (int)movieList.TotalPages;
-			TotalResults = (int)movieList.TotalResults;
-			Page = (int)movieList.Page;
+			TotalPages = movieList.TotalPages;
+			TotalResults = movieList.TotalResults;
+			Page = movieList.Page;
 
 			foreach (var movie in movieList.Movies)
 			{
@@ -35,10 +35,10 @@
 
 		public MovieViewModel(Movie movie)
 		{
-			Id = (int)movie.Id;
+			Id = movie.Id;
 			Title = movie.Title;
 			PosterPath = movie.ImageUrl;
-			ReleaseDate = DateOnly.FromDateTime((DateTime)movie.ReleaseDate);
+			ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate);
 			// TODO - Map ratings.
 		}
 

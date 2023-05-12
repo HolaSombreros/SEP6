@@ -2,5 +2,8 @@
 
 public enum ListType
 {
-    UPCOMING, POPULAR, TOPRATED, INTHEATRE
+  Upcoming,
+  Popular,
+  TopRated,
+  InTheater
 }
