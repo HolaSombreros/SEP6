@@ -3,7 +3,7 @@
 [Table("MovieListMovie")]
 public class MovieListMovie
 {
-    public Guid MovielistId { get; set; }
+    public Guid MovieListId { get; set; }
 
     public int MovieId { get; set; }
 

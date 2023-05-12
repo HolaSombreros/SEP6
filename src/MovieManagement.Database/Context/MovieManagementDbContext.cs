@@ -1,16 +1,16 @@
-﻿namespace MovieManagement.Database;
+﻿namespace MovieManagement.Database.Context;
 
-public partial class MoviemanagementDbContext : DbContext {
-    private readonly IConfiguration _configuration;
-    public MoviemanagementDbContext(IConfiguration configuration) {
-        _configuration = configuration;
-    }
+public partial class MovieManagementDbContext : DbContext
+{
 
-    public MoviemanagementDbContext(DbContextOptions<MoviemanagementDbContext> options)
-        : base(options)
+    public MovieManagementDbContext()
     {
     }
 
+    public MovieManagementDbContext(DbContextOptions<MovieManagementDbContext> options)
+        : base(options)
+    {
+    }
     public virtual DbSet<MovieEntity> Movies { get; set; }
 
     public virtual DbSet<MovieListEntity> MovieLists { get; set; }
@@ -22,9 +22,7 @@ public partial class MoviemanagementDbContext : DbContext {
     public virtual DbSet<RatingEntity> Ratings { get; set; }
 
     public virtual DbSet<UserEntity> Users { get; set; }
-
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SqlConnectionString"));
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,10 +32,6 @@ public partial class MoviemanagementDbContext : DbContext {
             entity.Property(e => e.MovieId)
                 .ValueGeneratedNever()
                 .HasColumnName("movie_id");
-            entity.Property(e => e.Title)
-                .IsRequired()
-                .HasMaxLength(250)
-                .HasColumnName("title");
             entity.HasKey(m => m.MovieId);
         });
 
@@ -72,7 +66,7 @@ public partial class MoviemanagementDbContext : DbContext {
                 .ToTable("MovieList_Movie");
 
             entity.Property(e => e.MovieId).HasColumnName("movie_id");
-            entity.Property(e => e.MovielistId)
+            entity.Property(e => e.MovieListId)
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("movielist_id");
@@ -82,7 +76,7 @@ public partial class MoviemanagementDbContext : DbContext {
                 .HasConstraintName("FK_movie_id_movielist");
 
             entity.HasOne(d => d.Movielist).WithMany()
-                .HasForeignKey(d => d.MovielistId)
+                .HasForeignKey(d => d.MovieListId)
                 .HasConstraintName("FK_movielist_id_movie");
         });
 

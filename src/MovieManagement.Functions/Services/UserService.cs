@@ -1,12 +1,15 @@
-﻿namespace MovieManagement.Functions.Services; 
+using MovieManagement.Database.Context;
+
+namespace MovieManagement.Functions.Services; 
+
 
 public class UserService : IUserService {
 
     private readonly IMapper _mapper;
-    private readonly MoviemanagementDbContext _context;
+    private readonly MovieManagementDbContext _context;
 
 
-    public UserService(IMapper mapper, MoviemanagementDbContext context) {
+    public UserService(IMapper mapper, MovieManagementDbContext context) {
         _mapper = mapper;
         _context = context;
     }
