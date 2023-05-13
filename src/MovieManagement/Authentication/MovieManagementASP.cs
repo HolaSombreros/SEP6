@@ -51,6 +51,14 @@ public class MovieManagementASP : AuthenticationStateProvider
 
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
     }
+    
+    public async Task LogoutAsync()
+    {
+        _cached = default!;
+        var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
+        await _jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claimsPrincipal)));
+    }
 
     private ClaimsIdentity SetupClaims(UserViewModel user)
     {

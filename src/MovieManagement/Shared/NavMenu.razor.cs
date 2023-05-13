@@ -10,4 +10,9 @@ public partial class NavMenu
     {
         hideMenu = !hideMenu;
     }
+
+    private async Task LogoutAsync()
+    {
+        await ((MovieManagementASP) AuthenticationStateProvider).LogoutAsync();
+    }
 }
