@@ -18,24 +18,6 @@ public partial class MovieDetails : ComponentBase
             crew: credits.MovieCrew);
     }
 
-    private string GetGenresToString()
-    {
-        if (!_movieDetailsViewModel.Genres.Any())
-        {
-            return "No genres on this movie";
-        }
-
-        var genres = "";
-        var count = _movieDetailsViewModel.Genres.Count;
-        for (var i = 0; i < count - 1; i++)
-        {
-            genres += $"{_movieDetailsViewModel.Genres[i].Name}, ";
-        }
-
-        genres += _movieDetailsViewModel.Genres[count - 1].Name;
-        return genres;
-    }
-    
     async Task ScrollRight(string id)
     {
         await JsRuntime.InvokeVoidAsync("ScrollRight", id, 200);

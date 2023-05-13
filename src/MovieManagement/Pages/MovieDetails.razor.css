@@ -34,6 +34,12 @@ a {
     color: #cccccc;
 }
 
+.homepage {
+    color: #cccccc;
+    background-color: #653780;
+    width: 100%;
+}
+
 ::-webkit-scrollbar { 
     display: none;
 }

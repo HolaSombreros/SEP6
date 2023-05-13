@@ -15,32 +15,52 @@
                 <h1>@_movieDetailsViewModel.Title</h1>
             </div>
             <div class="row details">
-                <div class="col-md-8 col-md-push-5 py-3">
+                <div class="col-md-7 offset-md-1 col-md-push-5 py-3">
                     <p>@_movieDetailsViewModel.Description</p>
-                    <p>
-                        ReleaseDate: @_movieDetailsViewModel.ReleaseDate.ToString("dd/MM/yyyy")
-                    </p>
-                    <p>
-                        Is Adult: @(_movieDetailsViewModel.IsAdult ? "Yes" : "No")
-                    </p> 
-                    <p>
-                        Budget: @string.Format("{0:C}", _movieDetailsViewModel.Budget)
-                    </p>
-                    <p>
-                        Revenue: @string.Format("{0:C}", _movieDetailsViewModel.Revenue)
-                    </p>
-                    <p>
-                        Genres: @GetGenresToString()
-                    </p>
+                    <p>ReleaseDate: @_movieDetailsViewModel.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                    @if (_movieDetailsViewModel.IsAdult)
+                    {
+                        <p>&#128286</p>
+                    }
+                    <p>Budget: @string.Format("{0:C}", _movieDetailsViewModel.Budget)</p>
+                    <p>Revenue: @string.Format("{0:C}", _movieDetailsViewModel.Revenue)</p>
+                    <p>Genres: @_movieDetailsViewModel.Genres</p>
+                    <p>Vote count: @_movieDetailsViewModel.VoteCount</p>
+                    <p>Vote Average: @_movieDetailsViewModel.VoteAverage</p>
+                    <p>Length: @_movieDetailsViewModel.Length</p>
+                    <p>Popularity Rank: #@_movieDetailsViewModel.Popularity</p>
+                    <p>Original Languages: @_movieDetailsViewModel.OriginalLanguage</p>
+                    <p>Status: @_movieDetailsViewModel.Status</p>
+                    <p>Production Countries: @_movieDetailsViewModel.ProductionCountries</p>
+                    <p>Spoken Languages: @_movieDetailsViewModel.SpokenLanguages</p>
+                    @if (_movieDetailsViewModel.ProductionCompanies.Any())
+                    {
+                        <ul>
+                            @foreach (var company in _movieDetailsViewModel.ProductionCompanies)
+                            {
+                                <li>
+                                    <p>@company.Name</p>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    <p>Production Companies: @_movieDetailsViewModel.ProductionCompanies[0].Name</p>
                 </div>
-                <div class="col-md-4 order-first order-md-last py-3">
-                    <img class="popup" 
-                         src="@_movieDetailsViewModel.ImageUrl" 
-                         @onclick="@(()=>modal.Show<ImageComponent>(@_movieDetailsViewModel.Title, new ModalParameters().Add("ImageUrl", @_movieDetailsViewModel.ImageUrl)))"
+                <div class="col-md-3 order-first order-md-last py-3">
+                    <img class="popup"
+                         src="@_movieDetailsViewModel.ImageUrl"
+                         @onclick="@(() => modal.Show<ImageComponent>(@_movieDetailsViewModel.Title, new ModalParameters().Add("ImageUrl", @_movieDetailsViewModel.ImageUrl)))"
                          alt="Movie image"/>
+                    <button class="homepage mt-3 py-3">
+                        <a href="@_movieDetailsViewModel.Homepage"></a>Home Page
+                    </button>
                 </div>
             </div>
-            <p>Cast:</p>
+            <div class="row">
+                <div class="col-md-11 offset-md-1">   
+                    <p>Cast:</p>
+                </div>
+            </div>
             <div class="row align-items-center py-5">
                 <div class="col-1">
                     <button class="float-end" @onclick="@(() => ScrollLeft("cast-row"))">&lt;</button>
@@ -64,7 +84,11 @@
                 </div>
             </div>
             
-            <p>Crew:</p>
+            <div class="row">
+                <div class="col-md-11 offset-md-1">   
+                    <p>Crew:</p>
+                </div>
+            </div>            
             <div class="row align-items-center">
                 <div class="col-1">
                     <button class="float-end" @onclick="@(() => ScrollLeft("crew-row"))">&lt;</button>
