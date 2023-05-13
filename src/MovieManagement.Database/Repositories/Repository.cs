@@ -1,5 +1,4 @@
-﻿
-namespace MovieManagement.Database.Repositories; 
+﻿namespace MovieManagement.Database.Repositories; 
 
 public class Repository <TEntity> : IRepository<TEntity> where TEntity : class{
     private readonly MovieManagementDbContext _context;
@@ -35,7 +34,7 @@ public class Repository <TEntity> : IRepository<TEntity> where TEntity : class{
         var result = await _dbSet.FindAsync(id);
         _dbSet.Remove(result);
         await SaveAsync();
-        return result;
+        return result!;
     }
 
     private async Task SaveAsync()
