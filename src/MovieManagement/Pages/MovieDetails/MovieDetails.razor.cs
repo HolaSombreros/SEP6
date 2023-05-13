@@ -7,9 +7,9 @@ public partial class MovieDetails : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        var credits = await MovieService.GetMoviesCreditsAsync(Id);
+        var credits = await MovieService.GetMovieCreditsAsync(Id);
         _details = new MovieDetailsViewModel(
-            movie: await MovieService.GetMovieDetailsAsync(Id),
+            movie: await MovieService.GetMovieByIdAsync(Id),
             credits: credits);
     }
 }

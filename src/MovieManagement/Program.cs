@@ -1,5 +1,3 @@
-using Blazored.Modal;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureAppConfiguration(config =>
 {
@@ -12,7 +10,6 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<MovieManagement.Services.IMovieService, MovieManagement.Services.MovieService>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
 builder.Services.AddBlazoredModal();

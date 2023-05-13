@@ -1,6 +1,6 @@
 ﻿@page "/MovieDetails/{id:int}"
 @inject IModalService Modal  
-@inject Services.IMovieService MovieService
+@inject IMovieService MovieService
 
 <div class="container-fluid p-5">
 	@if (_details == null)
@@ -48,7 +48,7 @@
                     <p>Revenue: @_details.Revenue</p>
                     @if (_details.IsAdult)
                     {
-                        <p>Recommended age: &#128286</p>
+                        <p>Restricted age: &#128286</p>
                     }
                     
                 </div>
