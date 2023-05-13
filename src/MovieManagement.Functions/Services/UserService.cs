@@ -14,13 +14,17 @@ public class UserService : IUserService {
 
     public async Task<UserDto> GetUser(LoginUserDto loginUserDto) {
         var user = await _repository.GetByEmail(loginUserDto.Email);
-        return user!.Password.Equals(loginUserDto.Password) ? _mapper.Map<UserDto>(user) : null;
+        if (!user!.Password.Equals(loginUserDto.Password))
+            throw new Exception("Password and email don't match");
+        return _mapper.Map<UserDto>(user);
     }
     
 
     public async Task<UserDto> RegisterUser(RegisterUserDto registerUserDto) {
         if (await _repository.GetByEmail(registerUserDto.Email) != null)
-            return null;
+            throw new Exception("An account with this email already exists");
+        if (await _repository.GetByUsername(registerUserDto.Username) != null)
+            throw new Exception("An account with this username already exists");
         var user = _mapper.Map<UserEntity>(registerUserDto);
         user.UserId = new Guid();
         user.IsDeleted = false;

@@ -24,6 +24,10 @@ public class UserRepository : IUserRepository {
     }
 
     public async Task<UserEntity?> GetByEmail(string email) {
-        return await _context.Users.FirstOrDefaultAsync(u => u!.Email.Equals(email));
+        return await _context.Users.FirstOrDefaultAsync(u => u!.Email.Equals(email) && !u.IsDeleted);
+    }
+
+    public async Task<UserEntity?> GetByUsername(string username) {
+        return await _context.Users.FirstOrDefaultAsync(u => u!.Username.Equals(username) && !u.IsDeleted);
     }
 }

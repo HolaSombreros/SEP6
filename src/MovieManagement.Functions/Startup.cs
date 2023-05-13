@@ -1,5 +1,3 @@
-using MovieManagement.Database.Repositories;
-
 [assembly: FunctionsStartup(typeof(MovieManagement.Functions.Startup))]
 namespace MovieManagement.Functions; 
 

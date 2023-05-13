@@ -11,12 +11,18 @@ public class LoginUser {
     public async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Post), Route = null)] HttpRequest req, ILogger log)
     {
-        var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+        try {
+            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
         
-        var loginUserDto = JsonConvert.DeserializeObject<LoginUserDto>(requestBody);
+            var loginUserDto = JsonConvert.DeserializeObject<LoginUserDto>(requestBody);
 
-        var user = await _userService.GetUser(loginUserDto);
+            var user = await _userService.GetUser(loginUserDto);
 
-        return new OkObjectResult(user);
+            return new OkObjectResult(user);
+        }
+        catch (Exception e) {
+            return new BadRequestObjectResult(e.Message);
+        }
+       
     }
 }
