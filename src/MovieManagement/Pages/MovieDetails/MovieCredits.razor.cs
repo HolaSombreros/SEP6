@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using MovieManagement.ViewModels.MovieDetails;
-
-namespace MovieManagement.Pages.MovieDetails;
+﻿namespace MovieManagement.Pages.MovieDetails;
 
 public partial class MovieCredits : ComponentBase
 {

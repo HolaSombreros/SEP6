@@ -1,7 +1,6 @@
 ﻿@page "/MovieDetails/{id:int}"
-@using MovieManagement.Services
 @inject IModalService Modal  
-@inject IMovieService MovieService
+@inject Services.IMovieService MovieService
 
 <div class="container-fluid p-5">
 	@if (_details == null)

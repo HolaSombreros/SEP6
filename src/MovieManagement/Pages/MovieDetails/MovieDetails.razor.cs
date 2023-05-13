@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using MovieManagement.ViewModels.MovieDetails;
-
-namespace MovieManagement.Pages.MovieDetails;
+﻿namespace MovieManagement.Pages.MovieDetails;
 
 public partial class MovieDetails : ComponentBase
 {

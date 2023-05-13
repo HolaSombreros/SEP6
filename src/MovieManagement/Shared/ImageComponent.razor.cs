@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace MovieManagement.Shared;
+﻿namespace MovieManagement.Shared;
 
 public partial class ImageComponent : ComponentBase
 {
