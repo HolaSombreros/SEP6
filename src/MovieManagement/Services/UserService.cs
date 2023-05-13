@@ -18,4 +18,13 @@ public class UserService : IUserService
         user.UserId = userDto.UserId;
         return user;
     }
+    
+    public async Task<UserViewModel> LoginUserAsync(UserViewModel user)
+    {
+        var newUser = new RegisterUserDto(user);
+        var userDto = await _service.PostAsync<UserDto>(_settings.LoginUserPath, newUser);
+        user.UserId = userDto.UserId;
+        user.Username = userDto.Username;
+        return user;
+    }
 }

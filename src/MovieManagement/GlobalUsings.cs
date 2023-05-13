@@ -8,3 +8,7 @@ global using MovieManagement.TMDB.Api.Config;
 global using Microsoft.Extensions.Options;
 global using Microsoft.AspNetCore.Components;
 global using System.Text.Json;
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Components.Authorization;
+global using Microsoft.JSInterop;
+global using MovieManagement.Authentication;
