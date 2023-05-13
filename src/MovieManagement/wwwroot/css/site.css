@@ -21,3 +21,8 @@ h1:focus {
 .content {
     padding-top: 1.1rem;
 }
+
+.validation-message {
+    padding-top: 1rem;
+    color: orangered;
+}

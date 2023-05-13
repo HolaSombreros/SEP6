@@ -1,0 +1,52 @@
+﻿@page "/Register"
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+
+<div class="container-fluid">
+    <div class="text-center mt-3">
+        <h1>Register an account</h1>
+    </div>
+    <div class="row align-items-center">
+        <EditForm Model="@_userViewModel" OnValidSubmit="@RegisterAsync">
+            <DataAnnotationsValidator/>
+            <div class="col-md-6 offset-md-3 py-4">
+                <fieldset>
+                    <div class="input-group">
+                        <InputText @bind-Value="_userViewModel.Username" placeholder="Username" class="form-control"/>
+                    </div>
+                    <ValidationMessage For="@(() => _userViewModel.Username)"/>
+                </fieldset>
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <fieldset>
+                    <div class="input-group">
+                        <InputText @bind-Value="_userViewModel.Email" placeholder="Email" class="form-control"/>
+                    </div>
+                    <ValidationMessage For="@(() => _userViewModel.Email)"/>
+                </fieldset>
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <fieldset>
+                    <div class="input-group">
+                        <InputText @bind-Value="_userViewModel.Password" placeholder="Password" class="form-control" type="password"/>
+                    </div>
+                    <ValidationMessage For="@(() => _userViewModel.Password)"/>
+                </fieldset>
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <fieldset>
+                    <div class="input-group">
+                        <InputText @bind-Value="_userViewModel.ConfirmPassword" placeholder="ConfirmPassword" class="form-control" type="password"/>
+                    </div>
+                    <ValidationMessage For="@(() => _userViewModel.ConfirmPassword)"/>
+                </fieldset>
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <p class="error-message">@_errorMessage</p>
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <button class="btn btn-primary">Register</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
