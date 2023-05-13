@@ -32,8 +32,4 @@
     <ItemGroup>
       <PackageReference Include="Blazored.Modal" Version="7.1.0" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Content Include="wwwroot\js\scrollbuttons.js" />
-    </ItemGroup>
 </Project>

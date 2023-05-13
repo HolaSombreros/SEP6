@@ -18,6 +18,6 @@ public partial class MovieCard : ComponentBase
 
 	private void ShowMovieDetails(long movieId)
 	{
-		navManager.NavigateTo($"/movies/{movieId}");
+		navManager.NavigateTo($"/MovieDetails/{movieId}");
 	}
 }

@@ -1,13 +1,4 @@
-img {
-    width: 100%;
-}
-
-h1 {
-    text-align: center;
-    padding-bottom: 2rem;
-}
-
-.credit-row {
+﻿.credit-row {
     overflow-x: scroll;
     flex-wrap: nowrap;
     white-space: nowrap;
@@ -34,12 +25,6 @@ a {
     color: #cccccc;
 }
 
-.homepage {
-    color: #cccccc;
-    background-color: #653780;
-    width: 100%;
-}
-
-::-webkit-scrollbar { 
+::-webkit-scrollbar {
     display: none;
 }

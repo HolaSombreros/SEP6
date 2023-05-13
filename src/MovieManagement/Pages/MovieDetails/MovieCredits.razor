@@ -1,0 +1,57 @@
+﻿@inject IJSRuntime JsRuntime
+@inject IModalService Modal 
+
+<div class="row">
+    <div class="col-md-11 offset-md-1">   
+        <p>Cast:</p>
+    </div>
+</div>
+<div class="row align-items-center">
+    <div class="col-1">
+        <button class="float-end" @onclick="@(() => ScrollLeft("cast-row"))">&lt;</button>
+    </div>
+    <div id="cast-row" class="credit-row col-10">
+        @foreach (var member in Credits.Cast)
+        {
+            <div class="credit-member">
+                <img class="popup"
+                     src=@member.ImageUrl
+                     alt="cast picture"
+                     @onclick="@(() => Modal.Show<ImageComponent>(@member.Character, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
+                <p class="pt-3">@member.Character</p>
+                <!-- TODO add link to cast details on name -->
+                <a href="">@member.Name</a>
+            </div>
+        }
+    </div>
+    <div class="col-1">
+        <button @onclick="@(() => ScrollRight("cast-row"))">&gt;</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-11 offset-md-1">   
+        <p>Crew:</p>
+    </div>
+</div>            
+<div class="row align-items-center">
+    <div class="col-1">
+        <button class="float-end" @onclick="@(() => ScrollLeft("crew-row"))">&lt;</button>
+    </div>
+    <div id="crew-row" class="credit-row col-10">
+        @foreach (var member in Credits.Crew)
+        {
+            <div class="credit-member">
+                <img class="popup"
+                     src=@member.ImageUrl 
+                 @onclick="@(() => Modal.Show<ImageComponent>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
+                     alt="cast picture"/>
+                <p class="pt-1">@member.Name</p>
+                <p>@member.Department</p>
+            </div>
+        }
+    </div>
+    <div class="col-1">
+        <button @onclick="@(() => ScrollRight("crew-row"))">&gt;</button>
+    </div>
+</div> 
