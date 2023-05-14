@@ -25,4 +25,17 @@ public class PersonService : IPersonService
             return new Credits();
         }
     }
+
+    public async Task<Person> GetPersonDetails(int id)
+    {
+        try
+        {
+            var personDetailsDto = await _service.GetAsync<PersonDto>(_settings.PersonPath + id + _settings.QueryBuilder);
+            return _mapper.Map<PersonDto, Person>(personDetailsDto);
+        }
+        catch
+        {
+            return new Person();
+        }
+    }
 }
