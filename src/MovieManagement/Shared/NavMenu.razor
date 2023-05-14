@@ -16,11 +16,16 @@
         </a>
     </div>
     <AuthorizeView>
-         <Authorized>
+        <Authorized>
             <div class="nav-item">
-            <a href="/" @onclick="LogoutAsync">
-                <span class="oi oi-account-logout"></span> Logout
-            </a>
+                <a href="/Account">
+                    <span class="oi oi-person"></span> Account
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="/" @onclick="LogoutAsync">
+                    <span class="oi oi-account-logout"></span> Logout
+                </a>
             </div>
         </Authorized>
         <NotAuthorized>
