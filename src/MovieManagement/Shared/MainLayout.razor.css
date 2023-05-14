@@ -24,10 +24,9 @@ main {
     height: 100%;
 }
 
-
 @media (min-width: 641px) {
     .sidebar {
-        width: 250px;
+        width: 300px;
         height: 100%;
         float: left;
     }
