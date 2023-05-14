@@ -2,6 +2,7 @@
 
 public class Rating
 {
-    public string Review { get; set; } = default!;
-    public int StarRating { get; set; }
+    public Guid RatingId { get; set; }
+    public string? Review { get; set; }
+    public int? StarRating { get; set; }
 }
