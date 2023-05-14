@@ -9,8 +9,15 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IService, Service>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAzureService, AzureService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
+builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
+builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
+builder.Services.Configure<AzureFunctionsConfig>(builder.Configuration.GetSection(AzureFunctionsConfig.Section));
 builder.Services.AddSingleton(new JsonSerializerOptions {
     PropertyNameCaseInsensitive = true,
     WriteIndented = true

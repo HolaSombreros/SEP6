@@ -2,8 +2,6 @@
 
 public class CreditsDto
 {
-    [JsonPropertyName("cast")]
-    public IList<CastDto>? MovieCast { get; set; }
-    [JsonPropertyName("crew")]
-    public IList<CrewDto>? MovieCrew { get; set; }
+    public IList<CastDto> Cast { get; set; } = default!;
+    public IList<CrewDto> Crew { get; set; } = default!;
 }

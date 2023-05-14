@@ -12,4 +12,15 @@ public class CastDto
     public string OriginalName { get; set; } = default!;
     [JsonPropertyName("profile_path")]
     public string ImageUrl { get; set; } = default!;
+    public string Title { get; set; } = default!;
+    [JsonPropertyName("overview")] 
+    public string Description { get; set; } = default!;
+    [JsonPropertyName("poster_path")]
+    public string PosterUrl { get; set; } = default!;
+    [JsonPropertyName("release_date")] 
+    public string ReleaseDate { get; set; } = default!;
+    [JsonPropertyName("vote_average")]
+    public double VoteAverage { get; set; }
+    [JsonPropertyName("vote_count")]
+    public int VoteCount { get; set; }
 }
