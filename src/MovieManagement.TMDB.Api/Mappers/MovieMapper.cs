@@ -15,5 +15,8 @@ public class MovieMapper : Profile
         CreateMap<ProductionCompanyDto, ProductionCompany>().ForMember(dest=> dest.LogoPath, opt => opt.MapFrom(src => src.LogoPath == null ? null : ApiConfig.ImageUri + src.LogoPath));;
         CreateMap<ProductionCountryDto, ProductionCountry>();
         CreateMap<SpokenLanguageDto, SpokenLanguage>();
+        CreateMap<PersonDto, Person>().ForMember(dest => dest.ImageUrl,
+                opt => opt.MapFrom(src => src.ImageUrl == null ? null : ApiConfig.ImageUri + src.ImageUrl))
+            .ForMember(dest => dest.DeathDay, opt => opt.MapFrom(src => src.DeathDay == null ? null : src.DeathDay));
     }
 }

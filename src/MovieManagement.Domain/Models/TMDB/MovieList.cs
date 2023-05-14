@@ -1,4 +1,4 @@
-﻿namespace MovieManagement.Domain.Models;
+﻿namespace MovieManagement.Domain.Models.TMDB;
 
 public class MovieList
 {

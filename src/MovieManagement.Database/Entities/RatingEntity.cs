@@ -11,11 +11,11 @@ public class RatingEntity
 
     public decimal? Rating { get; set; }
 
-    public string Review { get; set; }
+    public string Review { get; set; } = default!;
 
-    public byte[] Datetime { get; set; }
+    public byte[] Datetime { get; set; } = default!;
 
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = default!;
 
-    public virtual UserEntity UserEntity { get; set; }
+    public virtual UserEntity UserEntity { get; set; } = default!;
 }
