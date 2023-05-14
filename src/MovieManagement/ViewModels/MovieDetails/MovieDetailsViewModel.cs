@@ -50,7 +50,7 @@ public class MovieDetailsViewModel
     {
         if (!genres.Any())
         {
-            return "No genres on this movie";
+            return "No genres available for this movie";
         }
 
         var genresToString = "";
@@ -68,7 +68,7 @@ public class MovieDetailsViewModel
     {
         if (!productionCountries.Any())
         {
-            return "No genres on this movie";
+            return "No production countries available for this movie";
         }
 
         var productionCountriesToString = "";
@@ -86,7 +86,7 @@ public class MovieDetailsViewModel
     {
         if (!spokenLanguages.Any())
         {
-            return "No genres on this movie";
+            return "No spoken languages available for this movie";
         }
 
         var spokenLanguagesToString = "";
