@@ -13,9 +13,12 @@ public class MoviesViewModel
     TotalResults = movieList.TotalResults;
     Page = movieList.Page;
 
-    foreach (var movie in movieList.Movies)
+    if (movieList.Movies != null)
     {
-      Movies.Add(new MovieViewModel(movie));
+      foreach (var movie in movieList.Movies)
+      {
+        Movies.Add(new MovieViewModel(movie));
+      }
     }
   }
 
