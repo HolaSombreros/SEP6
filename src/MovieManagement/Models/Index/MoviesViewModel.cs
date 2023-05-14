@@ -7,7 +7,7 @@ public class MoviesViewModel
   public int Page { get; set; } = default!;
   public List<MovieViewModel> Movies { get; set; } = new();
 
-  public MoviesViewModel(Domain.Models.MovieList movieList)
+  public MoviesViewModel(Domain.Models.TMDB.MovieList movieList)
   {
     TotalPages = movieList.TotalPages;
     TotalResults = movieList.TotalResults;
