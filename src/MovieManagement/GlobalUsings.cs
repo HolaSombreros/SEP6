@@ -9,3 +9,6 @@ global using Microsoft.Extensions.Options;
 global using System.ComponentModel.DataAnnotations;
 global using Microsoft.AspNetCore.Components;
 global using System.Text.Json;
+global using MovieManagement.Domain.Models;
+global using MovieManagement.Models.Index;
+
