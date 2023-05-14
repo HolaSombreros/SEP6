@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MovieManagement.ViewModels;
+﻿namespace MovieManagement.ViewModels;
 
 public class UserViewModel
 {
