@@ -1,0 +1,23 @@
+﻿@inject IMovieService MovieService
+
+<div class="container-fluid p-5">
+@if (movieList == null)
+{
+  <p>Loading...</p>
+}
+else if (movieList.Movies.Any())
+{
+  <p>Showing @movieList.Movies.Count of @movieList.TotalResults results</p>
+  <div class="row g-5">
+    <InfiniteScroll ObservableTargetId="observableTarget" ObservableTargetReached="(e) => FetchData()">
+      @foreach (var movie in movieList.Movies)
+      {
+        <div class="col-xxl-3 col-xl-4 col-lg-6">
+          <MovieCard Movie="@movie" />
+        </div>
+      }
+      <div id="observableTarget"></div>
+    </InfiniteScroll>
+  </div>
+}
+</div>

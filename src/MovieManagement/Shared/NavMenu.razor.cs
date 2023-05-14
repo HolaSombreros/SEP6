@@ -2,15 +2,14 @@
 
 public partial class NavMenu
 {
-    private bool hideMenu = true;
-
-    private string? NavMenuCssClass => hideMenu ? "hide-menu" : null;
+  private bool _hideMenu = true;
+  private string? NavMenuCssClass => _hideMenu ? "hide-menu" : null;
 
     private void ToggleNavMenu()
     {
-        hideMenu = !hideMenu;
+        _hideMenu = !_hideMenu;
     }
-
+    
     private async Task LogoutAsync()
     {
         await ((MovieManagementASP) AuthenticationStateProvider).LogoutAsync();

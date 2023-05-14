@@ -3,11 +3,11 @@
 [Table("MovieListMovie")]
 public class MovieListMovie
 {
-    public Guid MovielistId { get; set; }
+    public Guid MovieListId { get; set; }
 
     public int MovieId { get; set; }
 
-    public virtual MovieEntity MovieEntity { get; set; }
+    public virtual MovieEntity MovieEntity { get; set; } = default!;
 
-    public virtual MovieListEntity Movielist { get; set; }
+    public virtual MovieListEntity Movielist { get; set; } = default!;
 }
