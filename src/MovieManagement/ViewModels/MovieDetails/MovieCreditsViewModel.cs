@@ -7,7 +7,7 @@ public class MovieCreditsViewModel
 
     public MovieCreditsViewModel(Credits credits)
     {
-        Cast = credits.MovieCast.Select(person => new MovieDetailsCastViewModel(person)).ToList();
-        Crew = credits.MovieCrew.Select(person => new MovieDetailsCrewViewModel(person)).ToList();
+        Cast = credits.Cast.Select(person => new MovieDetailsCastViewModel(person)).ToList();
+        Crew = credits.Crew.Select(person => new MovieDetailsCrewViewModel(person)).ToList();
     }
 }
