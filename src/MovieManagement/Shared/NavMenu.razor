@@ -1,4 +1,6 @@
-﻿<div class="main-header">
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="main-header">
     <div class="logo">
         <img src="Images/Movie logo.png" alt="Logo"/>
     </div>
@@ -13,4 +15,25 @@
             <span class="oi oi-home"></span> Home
         </a>
     </div>
+    <AuthorizeView>
+        <Authorized>
+            <div class="nav-item">
+                <a href="/Account">
+                    <span class="oi oi-person"></span> Account
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="/" @onclick="LogoutAsync">
+                    <span class="oi oi-account-logout"></span> Logout
+                </a>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <div class="nav-item">
+                <a href="/Login">
+                    <span class="oi oi-account-login"></span> Login
+                </a>
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
 </div>

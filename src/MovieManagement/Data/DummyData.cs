@@ -1,13 +1,13 @@
-﻿using MovieManagement.Models;
+﻿using MovieManagement.Models.Index;
 
 namespace MovieManagement.Data;
 
 public class DummyData
 {
-  public static async Task<MovieListViewModel> GetMovies()
+  public static async Task<MoviesViewModel> GetMovies()
   {
     return await Task.FromResult(
-      new MovieListViewModel()
+      new MoviesViewModel()
       {
         Movies = new()
         {
@@ -264,5 +264,34 @@ public class DummyData
         }
       }
     );
+  }
+
+  public static async Task<List<MovieListViewModel>> GetCustomMovieLists()
+  {
+    var data = new List<MovieListViewModel>()
+    {
+      new MovieListViewModel
+      {
+        Id = "1",
+        Name = "ToWatch",
+      },
+      new MovieListViewModel
+      {
+        Id = "2",
+        Name = "Favourites",
+      },
+      new MovieListViewModel
+      {
+        Id = "3",
+        Name = "My first list",
+      },
+      new MovieListViewModel
+      {
+        Id = "4",
+        Name = "My second list",
+      }
+    };
+
+    return data;
   }
 }

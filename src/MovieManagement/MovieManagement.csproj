@@ -20,16 +20,6 @@
     </ItemGroup>
     
     <ItemGroup>
-        <Folder Include="Data" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <None Update="Pages\MovieDetails.razor.css">
-        <DependentUpon>MovieDetails.razor.razor</DependentUpon>
-      </None>
-    </ItemGroup>
-    
-    <ItemGroup>
       <PackageReference Include="Blazored.Modal" Version="7.1.0" />
     </ItemGroup>
 </Project>
