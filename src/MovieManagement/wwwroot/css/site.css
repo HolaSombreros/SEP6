@@ -42,3 +42,8 @@ a {
 li {
   list-style-type: none;
 }
+
+.validation-message {
+    padding-top: 1rem;
+    color: orangered;
+}

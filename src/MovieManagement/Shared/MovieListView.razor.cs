@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using MovieManagement.Models.Index;
-
-namespace MovieManagement.Shared;
+﻿namespace MovieManagement.Shared;
 
 public partial class MovieListView : ComponentBase
 {
