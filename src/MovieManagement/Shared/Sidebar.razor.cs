@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using MovieManagement.Data;
-using MovieManagement.Models.Index;
-
-namespace MovieManagement.Shared;
+﻿namespace MovieManagement.Shared;
 
 public partial class Sidebar : ComponentBase
 {
@@ -10,9 +6,9 @@ public partial class Sidebar : ComponentBase
   private string? SidebarCssClass => hideSidebar ? "hide-sidebar" : null;
   private List<MovieListViewModel>? customMovieLists;
 
-  protected override async Task OnInitializedAsync()
+  protected override void OnInitialized()
   {
-    customMovieLists = await DummyData.GetCustomMovieLists();
+    customMovieLists = DummyData.GetCustomMovieLists();
     // TODO - Implement me.
   }
 

@@ -1,8 +1,9 @@
-﻿namespace MovieManagement.Pages.MovieDetails;
+﻿namespace MovieManagement.Components;
 
 public partial class MovieCredits : ComponentBase
 {
-    [Parameter] public MovieCreditsViewModel Credits { get; set; } = default!;
+    [Parameter] 
+    public MovieCreditsViewModel Credits { get; set; } = default!;
     
     async Task ScrollRight(string id)
     {

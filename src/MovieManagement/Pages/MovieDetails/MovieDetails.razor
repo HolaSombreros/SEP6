@@ -1,4 +1,5 @@
-﻿@page "/MovieDetails/{id:int}"
+﻿@page "/Movies/{id:int}"
+@using MovieManagement.Components
 @inject IModalService Modal  
 @inject IMovieService MovieService
 
@@ -58,7 +59,7 @@
                          @onclick="@(() => Modal.Show<ImageComponent>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
                          alt="Movie image"/>
                     <a href="@_details.Homepage" target="_blank">
-                        <button class="homepage mt-3 py-3">Home Page</button>
+                        <button class="btn btn-primary homepage mt-3 py-3">Home Page</button>
                     </a>
                 </div>
             </div>

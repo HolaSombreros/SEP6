@@ -2,7 +2,8 @@
 
 public partial class MovieDetails : ComponentBase
 {
-    [Parameter] public int Id { get; set; }
+    [Parameter]
+    public int Id { get; set; }
     private MovieDetailsViewModel _details = default!;
 
     protected override async Task OnInitializedAsync()
@@ -14,7 +15,7 @@ public partial class MovieDetails : ComponentBase
                 movie: await MovieService.GetMovieByIdAsync(Id),
                 credits: credits);
         }
-        catch (Exception exception)
+        catch (Exception)
         {
             _details = default!;
         }

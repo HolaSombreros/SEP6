@@ -18,7 +18,7 @@ public class Movie
     public string OriginalLanguage { get; set; } = default!;
     public string Status { get; set; } = default!;
     public string Homepage { get; set; } = default!;
-    public IList<ProductionCompany> ProductionCompanies { get; set; } = default;
-    public IList<ProductionCountry> ProductionCountries { get; set; } = default;
+    public IList<ProductionCompany> ProductionCompanies { get; set; } = default!;
+    public IList<ProductionCountry> ProductionCountries { get; set; } = default!;
     public IList<SpokenLanguage> SpokenLanguages { get; set; } = default!;
 }

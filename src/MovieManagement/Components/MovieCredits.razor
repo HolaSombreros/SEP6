@@ -8,7 +8,7 @@
 </div>
 <div class="row align-items-center">
     <div class="col-1">
-        <button class="float-end" @onclick="@(() => ScrollLeft("cast-row"))">&lt;</button>
+        <button class="btn btn-primary float-end" @onclick="@(() => ScrollLeft("cast-row"))">&lt;</button>
     </div>
     <div id="cast-row" class="credit-row col-10">
         @foreach (var member in Credits.Cast)
@@ -25,7 +25,7 @@
         }
     </div>
     <div class="col-1">
-        <button @onclick="@(() => ScrollRight("cast-row"))">&gt;</button>
+        <button class="btn btn-primary" @onclick="@(() => ScrollRight("cast-row"))">&gt;</button>
     </div>
 </div>
 
@@ -36,7 +36,7 @@
 </div>            
 <div class="row align-items-center">
     <div class="col-1">
-        <button class="float-end" @onclick="@(() => ScrollLeft("crew-row"))">&lt;</button>
+        <button class="btn btn-primary float-end" @onclick="@(() => ScrollLeft("crew-row"))">&lt;</button>
     </div>
     <div id="crew-row" class="credit-row col-10">
         @foreach (var member in Credits.Crew)
@@ -52,6 +52,6 @@
         }
     </div>
     <div class="col-1">
-        <button @onclick="@(() => ScrollRight("crew-row"))">&gt;</button>
+        <button class="btn btn-primary" @onclick="@(() => ScrollRight("crew-row"))">&gt;</button>
     </div>
 </div> 
