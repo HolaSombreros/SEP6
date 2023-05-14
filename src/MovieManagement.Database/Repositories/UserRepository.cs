@@ -2,9 +2,9 @@
 
 public class UserRepository : IUserRepository{
     private readonly MovieManagementDbContext _context;
-    private readonly IRepository<UserEntity> _repository;
+    private readonly IRepository<UserEntity?> _repository;
 
-    public UserRepository(MovieManagementDbContext context, IRepository<UserEntity> repository) {
+    public UserRepository(MovieManagementDbContext context, IRepository<UserEntity?> repository) {
         _context = context;
         _repository = repository;
     }
@@ -29,7 +29,7 @@ public class UserRepository : IUserRepository{
         return await _repository.UpdateAsync(entity);
     }
 
-    public async Task<UserEntity> DeleteAsync(Guid id) {
+    public async Task<UserEntity?> DeleteAsync(Guid id) {
         return await _repository.DeleteAsync(id);
     }
 }
