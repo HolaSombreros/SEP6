@@ -14,4 +14,6 @@ public class ApiConfig
     public string InTheatrePath { get; set; } = default!;
     public string QueryBuilder { get; set; } = default!;
     public string AndQueryBuilder { get; set; } = default!;
+    public string PersonPath { get; set; } = default!;
+    public string MovieCredits { get; set; } = default!;
 }
