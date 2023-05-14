@@ -11,18 +11,18 @@ public partial class MovieManagementDbContext : DbContext
         : base(options)
     {
     }
-    public virtual DbSet<MovieEntity> Movies { get; set; }
+    public  DbSet<MovieEntity> Movies { get; set; } = default!;
 
-    public virtual DbSet<MovieListEntity> MovieLists { get; set; }
+    public  DbSet<MovieListEntity> MovieLists { get; set; } = default!;
 
-    public virtual DbSet<MovieListMovie> MovieListMovies { get; set; }
+    public  DbSet<MovieListMovie> MovieListMovies { get; set; } = default!;
 
-    public virtual DbSet<MovieRating> MovieRatings { get; set; }
+    public  DbSet<MovieRating> MovieRatings { get; set; } = default!;
 
-    public virtual DbSet<RatingEntity> Ratings { get; set; }
+    public  DbSet<RatingEntity> Ratings { get; set; } = default!;
 
-    public virtual DbSet<UserEntity?> Users { get; set; }
-    
+    public  DbSet<UserEntity> Users { get; set; } = default!;
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -7,7 +7,7 @@ public class MovieListMovie
 
     public int MovieId { get; set; }
 
-    public virtual MovieEntity MovieEntity { get; set; }
+    public virtual MovieEntity MovieEntity { get; set; } = default!;
 
-    public virtual MovieListEntity Movielist { get; set; }
+    public virtual MovieListEntity Movielist { get; set; } = default!;
 }
