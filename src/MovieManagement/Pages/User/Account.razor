@@ -1,0 +1,40 @@
+﻿@page "/Account"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="container-fluid">
+    <div class="text-center mt-3">
+        <h1>Your Account</h1>
+    </div>
+    @if (_userViewModel != null)
+    {
+        <div class="row align-items-center">
+            <EditForm Model="@_userViewModel" OnValidSubmit="@SaveDetails">
+                <DataAnnotationsValidator/>
+                <div class="col-md-6 offset-md-3 py-4">
+                    <fieldset>
+                        <p>User Id:</p>
+                        <div class="input-group">
+                            <InputText @bind-Value="@_userIdString" placeholder="Id" class="form-control" disabled="true"/>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6 offset-md-3 py-4">
+                    <fieldset>
+                    <p>Username:</p>
+                        <div class="input-group">
+                            <InputText @bind-Value="_userViewModel.Username" placeholder="Username" class="form-control"/>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6 offset-md-3 py-4">
+                    <fieldset>
+                        <p>Email:</p>
+                        <div class="input-group">
+                            <InputText @bind-Value="_userViewModel.Email" placeholder="Email" class="form-control"/>
+                        </div>
+                    </fieldset>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
