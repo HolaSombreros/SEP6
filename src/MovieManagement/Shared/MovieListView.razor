@@ -1,4 +1,6 @@
-﻿<div class="container-fluid p-5">
+﻿@inject IMovieService MovieService
+
+<div class="container-fluid p-5">
 @if (movieList == null)
 {
   <p>Loading...</p>

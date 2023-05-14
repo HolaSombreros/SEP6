@@ -5,9 +5,6 @@ namespace MovieManagement.Shared;
 
 public partial class InfiniteScroll : ComponentBase
 {
-  [Inject]
-  public IJSRuntime JSRuntime { get; set; } = default!;
-
   [Parameter]
   public RenderFragment ChildContent { get; set; } = default!;
 

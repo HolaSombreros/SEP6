@@ -5,9 +5,6 @@ namespace MovieManagement.Shared;
 
 public partial class MovieListView : ComponentBase
 {
-  [Inject]
-  public IMovieService MovieService { get; set; } = default!;
-
   [Parameter]
   public ListType ListType { get; set; } = default!;
   private MoviesViewModel? movieList;
