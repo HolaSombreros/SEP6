@@ -23,7 +23,7 @@ public partial class RegisterAccount : ComponentBase
             }
 
             await UserService.RegisterUserAsync(_userViewModel);
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/Login");
         }
         catch (Exception e) {
             _errorMessage = e.Message;

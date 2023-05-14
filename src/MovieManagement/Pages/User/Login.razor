@@ -1,0 +1,36 @@
+﻿@page "/Login"
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="container-fluid">
+    <div class="text-center mt-3">
+        <h1>Log into your account</h1>
+    </div>
+    <div class="row align-items-center">
+        <EditForm Model="@_userViewModel" OnValidSubmit="@LoginAsync">
+            <div class="col-md-6 offset-md-3 py-4">
+                <fieldset>
+                    <div class="input-group">
+                        <InputText @bind-Value="_userViewModel.Email" placeholder="Email" class="form-control"/>
+                    </div>
+                </fieldset> 
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <fieldset>
+                    <div class="input-group">
+                        <InputText @bind-Value="_userViewModel.Password" placeholder="Password" class="form-control" type="password"/>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <p class="error-message">@_errorMessage</p>
+            </div>
+            <div class="col-md-6 offset-md-3 py-4">
+                <button class="btn btn-primary">Login</button>
+            </div>
+        </EditForm>
+         <div class="col-md-6 offset-md-3 py-4 text-center">
+             <p>Do you not have an account yet? Make sure you register <a href="/Register">here</a></p>
+         </div>
+    </div>
+</div>

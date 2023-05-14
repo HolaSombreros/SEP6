@@ -11,4 +11,7 @@ global using Microsoft.AspNetCore.Components;
 global using System.Text.Json;
 global using MovieManagement.Domain.Models;
 global using MovieManagement.Models.Index;
-
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Components.Authorization;
+global using Microsoft.JSInterop;
+global using MovieManagement.Authentication;

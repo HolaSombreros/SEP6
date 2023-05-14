@@ -12,6 +12,7 @@ builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAzureService, AzureService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
 builder.Services.Configure<AzureFunctionsConfig>(builder.Configuration.GetSection(AzureFunctionsConfig.Section));
