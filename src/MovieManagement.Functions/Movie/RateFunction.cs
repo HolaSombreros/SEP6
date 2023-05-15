@@ -1,11 +1,19 @@
-﻿using MovieManagement.Functions.Database;
+﻿using FluentValidation;
+using MovieManagement.Functions.Database;
+using MovieEntity = MovieManagement.Functions.Database.MovieEntity;
+using RatingEntity = MovieManagement.Functions.Database.RatingEntity;
 
 namespace MovieManagement.Functions.Movie;
 
-public static class RateFunction
+public class RateFunction
 {
+    private readonly IValidator<MovieRatingDto> _validator;
+    public RateFunction(IValidator<MovieRatingDto> validator)
+    {
+        _validator = validator;
+    }
     [FunctionName("AddRating")]
-    public static async Task<IActionResult> RunAsync(
+    public async Task<IActionResult> RunAsync(
     [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Post), Route = null)] HttpRequest req,
     [Sql(commandText: "dbo.Rating", connectionStringSetting: "DbConnectionString")] IAsyncCollector<RatingEntity> ratingTable,
     [Sql(commandText: "dbo.Movie_Rating", connectionStringSetting: "DbConnectionString")] IAsyncCollector<MovieRatingEntity> movieRatingTable,
@@ -16,15 +24,18 @@ public static class RateFunction
         
         var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
         var movieRatingDto = JsonConvert.DeserializeObject<MovieRatingDto>(requestBody);
+        var result = await _validator.ValidateAsync(movieRatingDto);
+        if (!result.IsValid)
+        {
+            return new BadRequestObjectResult(result.Errors);
+        }
         
-        //TODO: add validation
         var ratingId = Guid.NewGuid();
         
         await movieTable.AddAsync(new MovieEntity()
         {
             movie_id = movieRatingDto.MovieId
         });
-        
         await ratingTable.AddAsync(new RatingEntity()
         {
             rating_id = ratingId,
