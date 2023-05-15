@@ -1,0 +1,35 @@
+﻿.credit-row {
+    overflow-x: scroll;
+    display: flex;
+}
+
+.credit-member img {
+    height: 10rem;
+    width: auto;
+    border-radius: 50%;
+}
+
+.credit-member {
+    width: auto;
+    text-align: center;
+    padding: 25px;
+}
+
+p {
+    font-size: 20px;
+}
+
+.actor-link {
+    color: #cccccc;
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+.person-box {
+    width: 10rem;
+    height: auto;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

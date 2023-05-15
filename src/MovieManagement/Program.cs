@@ -17,6 +17,7 @@ builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
+builder.Services.AddBlazoredModal();
 builder.Services.Configure<AzureFunctionsConfig>(builder.Configuration.GetSection(AzureFunctionsConfig.Section));
 builder.Services.AddSingleton(new JsonSerializerOptions {
     PropertyNameCaseInsensitive = true,
