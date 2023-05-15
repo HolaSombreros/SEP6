@@ -1,7 +1,5 @@
 ﻿.credit-row {
     overflow-x: scroll;
-    flex-wrap: nowrap;
-    white-space: nowrap;
     display: flex;
 }
 
@@ -21,8 +19,15 @@ p {
     font-size: 20px;
 }
 
-a {
+.actor-link {
     color: #cccccc;
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+.person-box {
+    width: 10rem;
+    height: auto;
 }
 
 ::-webkit-scrollbar {
