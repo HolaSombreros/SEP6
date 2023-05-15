@@ -35,13 +35,14 @@ public class UserService : IUserService {
             throw new Exception("An account with this username already exists");
         }
         
-        var user = _mapper.Map<UserEntity>(registerUserDto);
-        user.UserId = new Guid();
-        user.IsDeleted = false;
-        
-        await _repository.AddAsync(user);
-
-        var userDto = _mapper.Map<UserDto>(user);
-        return userDto;
+        // var user = _mapper.Map<UserEntity>(registerUserDto);
+        // user.UserId = new Guid();
+        // user.IsDeleted = false;
+        //
+        // await _repository.AddAsync(user);
+        //
+        // var userDto = _mapper.Map<UserDto>(user);
+        // return userDto;
+        return null;
     }
 }

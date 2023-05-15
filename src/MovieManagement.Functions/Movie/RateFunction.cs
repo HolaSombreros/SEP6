@@ -1,6 +1,4 @@
-﻿using MovieManagement.Functions.Database;
-
-namespace MovieManagement.Functions.Movie;
+﻿namespace MovieManagement.Functions.Movie;
 
 public static class RateFunction
 {
