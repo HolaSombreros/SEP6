@@ -1,4 +1,6 @@
-﻿namespace MovieManagement.Functions; 
+﻿using MovieManagement.Database.Entities;
+
+namespace MovieManagement.Functions; 
 
 public class MapperProfile : Profile   {
     public  MapperProfile() {
