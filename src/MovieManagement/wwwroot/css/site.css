@@ -47,3 +47,8 @@ li {
     padding-top: 1rem;
     color: orangered;
 }
+
+.blazored-modal {
+  background-color: #333333 !important;
+  border: none !important;
+}

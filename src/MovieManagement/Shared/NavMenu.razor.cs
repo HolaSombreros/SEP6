@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Shared;
 
-public partial class NavMenu
+public partial class NavMenu : ComponentBase
 {
   private bool _hideMenu = true;
   private string? NavMenuCssClass => _hideMenu ? "hide-menu" : null;
