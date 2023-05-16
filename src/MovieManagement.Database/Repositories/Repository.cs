@@ -1,10 +1,12 @@
 ﻿namespace MovieManagement.Database.Repositories; 
 
-public class Repository <TEntity> : IRepository<TEntity> where TEntity : class{
+public class Repository <TEntity> : IRepository<TEntity> where TEntity : class
+{
     private readonly MovieManagementDbContext _context;
     private readonly DbSet<TEntity> _dbSet;
 
-    public Repository(MovieManagementDbContext context) {
+    public Repository(MovieManagementDbContext context)
+    {
         _context = context;
         _dbSet = _context.Set<TEntity>();
     }

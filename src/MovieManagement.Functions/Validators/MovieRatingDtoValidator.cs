@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Functions.Validators;
 
-public class MovieRatingDtoValidator : AbstractValidator<MovieRatingDto>
+public class MovieRatingDtoValidator : AbstractValidator<RatingDto>
 {
     public MovieRatingDtoValidator()
     {

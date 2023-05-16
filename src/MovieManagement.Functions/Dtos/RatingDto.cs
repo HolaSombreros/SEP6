@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Functions.Dtos;
 
-public class MovieRatingDto
+public class RatingDto
 {
     public int MovieId { get; set; }
     public int Rating { get; set; }

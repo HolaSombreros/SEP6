@@ -16,6 +16,7 @@ public class RatingEntity
     public byte[] Datetime { get; set; } = default!;
 
     public bool IsDeleted { get; set; } = default!;
+    public virtual MovieEntity MovieEntity { get; set; } = default!;
 
     public virtual UserEntity UserEntity { get; set; } = default!;
 }
