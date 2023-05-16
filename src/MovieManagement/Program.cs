@@ -15,7 +15,6 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
-builder.Services.AddScoped<MovieManagement.Services.IMovieService, MovieManagement.Services.MovieService>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.AddBlazoredModal();
 builder.Services.Configure<AzureFunctionsConfig>(builder.Configuration.GetSection(AzureFunctionsConfig.Section));

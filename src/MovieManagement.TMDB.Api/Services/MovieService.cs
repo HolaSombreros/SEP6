@@ -34,11 +34,11 @@ public class MovieService : IMovieService
             {
                 ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.UpcomingPath +
                                                                            pagePath),
-                ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.TopRatedPath +
+                ListType.TopRated => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.TopRatedPath +
                                                                            pagePath),
-                ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.InTheatrePath +
+                ListType.InTheater => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.InTheatrePath +
                                                                            pagePath),
-                ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.PopularPath +
+                ListType.Popular => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.PopularPath +
                                                                            pagePath),
                 _ => new MovieListDto()
             };

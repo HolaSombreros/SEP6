@@ -2,5 +2,5 @@
 
 public enum Role
 { 
-    OTHER, DIRECTOR
+    Other, Director
 }
