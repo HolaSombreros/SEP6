@@ -27,9 +27,9 @@ public class MovieDto
     public string Status { get; set; } = default!;
     public string Homepage { get; set; } = default!;
     [JsonPropertyName("production_companies")]
-    public IList<ProductionCompanyDto> ProductionCompanies { get; set; } = default;
+    public IList<ProductionCompanyDto> ProductionCompanies { get; set; } = default!;
     [JsonPropertyName("production_countries")]
-    public IList<ProductionCountryDto> ProductionCountries { get; set; } = default;
+    public IList<ProductionCountryDto> ProductionCountries { get; set; } = default!;
     [JsonPropertyName("spoken_languages")]
     public IList<SpokenLanguageDto> SpokenLanguages { get; set; } = default!;
 }

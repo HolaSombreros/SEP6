@@ -32,14 +32,14 @@ public class MovieService : IMovieService
             var pagePath = _settings.QueryBuilder + _settings.PagePath + page + _settings.AndQueryBuilder;
             var movieList = listType switch
             {
-                ListType.UPCOMING => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.UpcomingPath +
+                ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.UpcomingPath +
                                                                            pagePath),
-                ListType.TOPRATED => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.TopRatedPath +
-                                                                          pagePath),
-                ListType.INTHEATRE => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.InTheatrePath +
-                                                                          pagePath),
-                ListType.POPULAR => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.PopularPath +
-                                                                          pagePath),
+                ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.TopRatedPath +
+                                                                           pagePath),
+                ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.InTheatrePath +
+                                                                           pagePath),
+                ListType.Upcoming => await _service.GetAsync<MovieListDto>(_settings.MoviePath + _settings.PopularPath +
+                                                                           pagePath),
                 _ => new MovieListDto()
             };
             return _movieMapper.Map<MovieListDto, MovieList>(movieList);

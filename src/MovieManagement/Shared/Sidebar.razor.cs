@@ -1,15 +1,24 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace MovieManagement.Shared;
+﻿namespace MovieManagement.Shared;
 
 public partial class Sidebar : ComponentBase
 {
-    private bool hideSidebar = true;
+  private bool hideSidebar = true;
+  private string? SidebarCssClass => hideSidebar ? "hide-sidebar" : null;
+  private List<MovieListViewModel>? customMovieLists;
 
-    private string? SidebarCssClass => hideSidebar ? "hide-sidebar" : null;
+  protected override void OnInitialized()
+  {
+    customMovieLists = DummyData.GetCustomMovieLists();
+    // TODO - Implement me.
+  }
 
-    private void ToggleSidebar()
-    {
-        hideSidebar = !hideSidebar;
-    }
+  private void ToggleSidebar()
+  {
+    hideSidebar = !hideSidebar;
+  }
+
+  private void CreateNewMovieList()
+  {
+    // TODO - Implement me.
+  }
 }

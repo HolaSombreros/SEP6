@@ -1,7 +1,7 @@
 ﻿namespace MovieManagement.Database.Entities;
 
 [Table("MovieRating")]
-public partial class MovieRating
+public class MovieRating
 {
     [Key]
     public int MovieId { get; set; }
@@ -9,7 +9,7 @@ public partial class MovieRating
     [Key]
     public Guid RatingId { get; set; }
 
-    public virtual MovieEntity MovieEntity { get; set; }
+    public virtual MovieEntity MovieEntity { get; set; } = default!;
 
-    public virtual RatingEntity RatingEntity { get; set; }
+    public virtual RatingEntity RatingEntity { get; set; } = default!;
 }

@@ -1,0 +1,30 @@
+h1 {
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+p {
+    font-size: 20px;
+}
+
+.homepage {
+    width: 100%;
+}
+
+.logo {
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    margin-left: 1rem;
+    background-color: white;
+}
+
+.rating {
+    height: 25px;
+    width: auto;
+    display: inline;
+    float: right;
+    padding-right: 1rem;
+}

@@ -1,5 +1,3 @@
-using Blazored.Modal;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureAppConfiguration(config =>
 {
@@ -11,11 +9,16 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IService, Service>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAzureService, AzureService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
 builder.Services.AddScoped<MovieManagement.Services.IMovieService, MovieManagement.Services.MovieService>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.AddBlazoredModal();
+builder.Services.Configure<AzureFunctionsConfig>(builder.Configuration.GetSection(AzureFunctionsConfig.Section));
 builder.Services.AddSingleton(new JsonSerializerOptions {
     PropertyNameCaseInsensitive = true,
     WriteIndented = true

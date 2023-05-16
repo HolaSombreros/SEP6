@@ -15,11 +15,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MovieManagement.Database\MovieManagement.Database.csproj" />
-        <ProjectReference Include="..\MovieManagement.Domain\MovieManagement.Domain.csproj" />
-        <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj" />
+        <ProjectReference Include="..\MovieManagement.Database\MovieManagement.Database.csproj"/>
+        <ProjectReference Include="..\MovieManagement.Domain\MovieManagement.Domain.csproj"/>
+        <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Folder Include="Data" />
     </ItemGroup>
@@ -36,5 +36,37 @@
     
     <ItemGroup>
       <Content Include="wwwroot\js\scrollbuttons.js" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16"/>
+        <PackageReference Include="Blazored.Modal" Version="7.1.0"/>
     </ItemGroup>
+
+        <ProjectReference Include="..\MovieManagement.Database\MovieManagement.Database.csproj"/>
+        <ProjectReference Include="..\MovieManagement.Domain\MovieManagement.Domain.csproj"/>
+        <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj"/>
+
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16"/>
+        <Folder Include="Data" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Update="Pages\MovieDetails.razor.css">
+        <DependentUpon>MovieDetails.razor.razor</DependentUpon>
+      </None>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Blazored.Modal" Version="7.1.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Content Include="wwwroot\js\scrollbuttons.js" />
+        <PackageReference Include="Blazored.Modal" Version="7.1.0"/>
 </Project>
