@@ -2,6 +2,7 @@
 @using MovieManagement.Components
 @inject IModalService Modal  
 @inject IMovieService MovieService
+@inject IJSRuntime JSRuntime
 
 <div class="container-fluid p-5">
 	@if (_details == null)
@@ -58,9 +59,7 @@
                          src="@_details.ImageUrl"
                          @onclick="@(() => Modal.Show<ImageComponent>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
                          alt="Movie image"/>
-                    <a href="@_details.Homepage" target="_blank">
-                        <button class="btn btn-primary homepage mt-3 py-3">Home Page</button>
-                    </a>
+                    <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
                 </div>
             </div>
             

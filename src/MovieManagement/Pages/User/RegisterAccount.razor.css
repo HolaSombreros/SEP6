@@ -2,7 +2,6 @@ button {
     width: 100%;
 }
 
-.error-message
-{
+.error-message {
     color: orangered;
 }

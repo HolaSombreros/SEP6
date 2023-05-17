@@ -20,4 +20,9 @@ public partial class MovieDetails : ComponentBase
             _details = default!;
         }
     }
+
+    private async Task OpenMovieHomePage()
+    {
+        await JSRuntime.InvokeVoidAsync("open", _details.Homepage, "_blank");
+    }
 }

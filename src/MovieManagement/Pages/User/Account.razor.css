@@ -1,0 +1,11 @@
+.error-message {
+    color: orangered;
+}
+
+.success-message {
+    color: lightgreen;
+}
+
+button {
+    width: 45%;
+}

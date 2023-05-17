@@ -27,4 +27,14 @@ public class UserService : IUserService
         user.Username = userDto.Username;
         return user;
     }
+
+    public async Task<UserViewModel> EditUserAsync(UserViewModel user)
+    {
+        var newUser = new UserDto(user);
+        var userDto = await _service.PutAsync<UserDto>(_settings.UpdateUserPath, newUser);
+        user.Username = userDto.Username;
+        user.Email = userDto.Email;
+        user.Password = userDto.Password;
+        return user;
+    }
 }

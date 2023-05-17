@@ -1,9 +1,4 @@
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.ConfigureAppConfiguration(config =>
-{
-    config.SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
-});
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -17,6 +12,7 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
+builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
 builder.Services.AddBlazoredModal();
 builder.Services.Configure<AzureFunctionsConfig>(builder.Configuration.GetSection(AzureFunctionsConfig.Section));
 builder.Services.AddSingleton(new JsonSerializerOptions {
@@ -26,7 +22,6 @@ builder.Services.AddSingleton(new JsonSerializerOptions {
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 // Database and configurations
 builder.Services.Configure<DatabaseConfig>(builder.Configuration.GetSection(DatabaseConfig.Section));
-builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
 var databaseConfig = builder.Configuration.GetSection(DatabaseConfig.Section).Get<DatabaseConfig>();
 builder.Services.AddDbContext<MovieManagementDbContext>(
     options =>
