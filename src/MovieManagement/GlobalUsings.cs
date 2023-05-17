@@ -1,4 +1,4 @@
-global using Blazored.Modal;
+﻿global using Blazored.Modal;
 global using Microsoft.AspNetCore.Components;
 global using Microsoft.AspNetCore.Components.Authorization;
 global using Microsoft.AspNetCore.Mvc;
@@ -12,8 +12,8 @@ global using MovieManagement.Data;
 global using MovieManagement.Database.Config;
 global using MovieManagement.Database.Repositories;
 global using MovieManagement.Database.Context;
-global using MovieManagement.Domain.Models;
 global using MovieManagement.Domain.Models.TMDB;
+global using MovieManagement.Domain.Models;
 global using MovieManagement.FunctionDtos;
 global using MovieManagement.Services;
 global using MovieManagement.TMDB.Api.Config;

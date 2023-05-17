@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Domain.Models.TMDB;
 
-public enum Role
-{ 
-    Other, Director
+public enum MediaType
+{
+    Movie, Person
 }
