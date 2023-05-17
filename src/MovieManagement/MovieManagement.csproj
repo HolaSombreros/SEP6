@@ -25,28 +25,12 @@
     </ItemGroup>
     
     <ItemGroup>
-      <None Update="Pages\MovieDetails.razor.css">
-        <DependentUpon>MovieDetails.razor.razor</DependentUpon>
-      </None>
-    </ItemGroup>
-    
-    <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
         <PackageReference Include="Blazored.Modal" Version="7.1.0" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <None Update="Pages\MovieDetails.razor.css">
-        <DependentUpon>MovieDetails.razor.razor</DependentUpon>
-      </None>
-    </ItemGroup>
-    
-    <ItemGroup>
-      <Content Include="wwwroot\js\scrollbuttons.js" />
     </ItemGroup>
 
 </Project>
