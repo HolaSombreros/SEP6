@@ -1,4 +1,7 @@
-﻿namespace MovieManagement.Functions.Movie;
+﻿using MovieEntity = MovieManagement.Functions.Database.MovieEntity;
+using RatingEntity = MovieManagement.Functions.Database.RatingEntity;
+
+namespace MovieManagement.Functions.Movie;
 
 public static class RateFunction
 {

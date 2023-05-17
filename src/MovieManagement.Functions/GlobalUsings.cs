@@ -18,4 +18,7 @@ global using Microsoft.Extensions.Configuration;
 global using MovieManagement.Database.Context;
 global using MovieManagement.Database.Repositories;
 global using MovieManagement.Functions.Database;
+global using MovieManagement.Database.Entities;
+
+
 

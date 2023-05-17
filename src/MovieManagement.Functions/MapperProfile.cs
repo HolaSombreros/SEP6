@@ -1,5 +1,4 @@
 ﻿using MovieManagement.Database.Entities;
-using UserEntity = MovieManagement.Functions.Database.UserEntity;
 
 namespace MovieManagement.Functions; 
 
