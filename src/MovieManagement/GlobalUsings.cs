@@ -28,3 +28,4 @@ global using System.Security.Claims;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using MovieManagement.ViewModels.Search;
+global using System;

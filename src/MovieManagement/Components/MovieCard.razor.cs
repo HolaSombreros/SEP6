@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MovieManagement.Components;
+﻿namespace MovieManagement.Components;
 
 public partial class MovieCard : ComponentBase
 {
