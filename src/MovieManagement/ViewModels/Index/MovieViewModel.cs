@@ -4,7 +4,7 @@ public class MovieViewModel
 {
     public int Id { get; }
     public string Title { get;  }
-    public string? PosterPath { get; set; }
+    public string PosterPath { get; set; }
     public DateOnly ReleaseDate { get; }
     public List<RatingViewModel> Ratings { get; }
 
