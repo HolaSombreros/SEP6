@@ -7,6 +7,11 @@ public class Startup : FunctionsStartup
     {
         var config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IValidator<MovieDto>, MovieDtoValidator>();
+        builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();
+        builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
+        builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
+        builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
         builder.Services.AddScoped<IRatingService, RatingService>();
         builder.Services.AddScoped<IMovieService, MovieService>();
         builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();

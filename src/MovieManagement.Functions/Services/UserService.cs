@@ -1,6 +1,5 @@
-using MovieManagement.Database.Entities;
-
 namespace MovieManagement.Functions.Services;
+
 public class UserService : IUserService {
 
     private readonly IMapper _mapper;
@@ -15,6 +14,9 @@ public class UserService : IUserService {
     public async Task<UserDto> GetUser(LoginUserDto loginUserDto)
     {
         var user = await _repository.GetByEmail(loginUserDto.Email);
+        if (user is null) {
+            throw new Exception("User with this email doesn't exist");
+        }
         if (!user!.Password.Equals(loginUserDto.Password)) {
             throw new Exception("Password and email don't match");
         }
@@ -22,15 +24,31 @@ public class UserService : IUserService {
         return _mapper.Map<UserDto>(user);
     }
     
-
-    public async Task<UserDto> RegisterUser(RegisterUserDto registerUserDto)
-    {
-        if (await _repository.GetByEmail(registerUserDto.Email) != null) 
+    public async Task<UserDto> UpdateUser(UserDto userDto) {
+        var existsWithEmail = await _repository.GetByEmail(userDto.Email);
+        if (existsWithEmail != null && !existsWithEmail.UserId.Equals(userDto.UserId)) 
         {
             throw new Exception("An account with this email already exists");
         }
 
-        if (await _repository.GetByUsername(registerUserDto.Username) != null) 
+        var existsWithUsername = await _repository.GetByUsername(userDto.Username);
+        if (existsWithUsername != null && !existsWithUsername.UserId.Equals(userDto.UserId)) 
+        {
+            throw new Exception("An account with this username already exists");
+        }
+        var user = _mapper.Map<UserEntity>(userDto);
+        var userUpdated = await _repository.UpdateAsync(user,user.UserId);
+        return _mapper.Map<UserDto>(userUpdated);
+    }
+
+    public async Task<UserDto> RegisterUser(RegisterUserDto registerUserDto)
+    {
+        if (await _repository.GetByEmail(registerUserDto.Email) is not null) 
+        {
+            throw new Exception("An account with this email already exists");
+        }
+
+        if (await _repository.GetByUsername(registerUserDto.Username) is not null) 
         {
             throw new Exception("An account with this username already exists");
         }
@@ -40,8 +58,16 @@ public class UserService : IUserService {
         user.IsDeleted = false;
         
         await _repository.AddAsync(user);
-
+        
         var userDto = _mapper.Map<UserDto>(user);
         return userDto;
+    }
+
+    public async Task DeleteUser(Guid userId) {
+        var user = await _repository.GetAsync(userId);
+        if (user is null || user.IsDeleted) {
+            throw new Exception("Account doesn't exist");
+        }
+        await _repository.DeleteAsync(userId);
     }
 }

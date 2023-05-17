@@ -30,12 +30,11 @@ public class Repository <TEntity> : IRepository<TEntity> where TEntity : class
         return updatedResult.Entity;
     }
 
-    public async Task<TEntity> DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
         var result = await _dbSet.FindAsync(id);
         _dbSet.Remove(result!);
         await SaveAsync();
-        return result!;
     }
 
     private async Task SaveAsync()

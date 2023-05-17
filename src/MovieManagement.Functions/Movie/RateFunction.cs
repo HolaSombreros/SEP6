@@ -1,4 +1,4 @@
-﻿namespace MovieManagement.Functions.Movie;
+namespace MovieManagement.Functions.Movie;
 
 public class RateFunction
 {

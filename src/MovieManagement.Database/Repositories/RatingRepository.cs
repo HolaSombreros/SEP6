@@ -38,8 +38,8 @@ public class RatingRepository : IRatingRepository
         return await _repository.AddAsync(entity);
     }
     
-    public async Task<RatingEntity?> DeleteAsync(Guid id) 
+    public async Task DeleteAsync(Guid id) 
     {
-        return await _repository.DeleteAsync(id);
+        await _repository.DeleteAsync(id);
     }
 }
