@@ -7,7 +7,8 @@ public partial class MovieCard : ComponentBase
 
     protected override void OnInitialized()
     {
-        Movie.PosterPath = "https://image.tmdb.org/t/p/w500" + Movie.PosterPath;
+        // TODO - Remove this?
+        //Movie.PosterPath = "https://image.tmdb.org/t/p/w500" + Movie.PosterPath;
     }
 
     private void ShowMovieDetails(long movieId)

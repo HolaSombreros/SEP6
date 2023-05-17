@@ -16,4 +16,5 @@ public class ApiConfig
     public string AndQueryBuilder { get; set; } = default!;
     public string PersonPath { get; set; } = default!;
     public string MovieCredits { get; set; } = default!;
+    public string ApiQueryString { get; set; } = default!;
 }
