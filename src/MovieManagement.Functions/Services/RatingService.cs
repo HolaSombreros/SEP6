@@ -2,20 +2,26 @@
 
 public class RatingService : IRatingService
 {
+    private readonly IMapper _mapper;
     private readonly IRatingRepository _repository;
 
-    public RatingService(IRatingRepository repository)
+    public RatingService(IRatingRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public Task<RatingDto> PutRating(RatingDto rating)
+    public async Task<RatingDto> PutRating(RatingDto rating)
     {
-        throw new NotImplementedException();
+        var ratingEntity = _mapper.Map<RatingEntity>(rating);
+        ratingEntity.RatingId = new Guid();
+        var updatedRating = await _repository.UpdateAsync(ratingEntity);
+        var mappedRating = _mapper.Map<RatingDto>(updatedRating);
+        return mappedRating;
     }
 
-    public Task<RatingDto> GetMovieUserRating(int movieId, Guid userId)
-    {
-        throw new NotImplementedException();
-    }
+    // public async Task<RatingDto> GetMovieUserRating(int movieId, Guid userId)
+    // {
+    //     return await _repository.GetMovieUserRating(movieId, userId);
+    // }
 }

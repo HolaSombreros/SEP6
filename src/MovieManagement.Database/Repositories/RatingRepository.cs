@@ -16,10 +16,22 @@ public class RatingRepository : IRatingRepository
         return await _context.Ratings.FirstOrDefaultAsync(r =>
             r.UserEntity.UserId.Equals(userId) && r.MovieEntity.MovieId.Equals(movieId));
     }
-    public async Task<RatingEntity?> GetAsync(Guid id) {
+    public async Task<RatingEntity?> GetAsync(Guid id)
+    {
         return await _repository.GetAsync(id);
     }
-    public async Task<RatingEntity?> UpdateAsync(RatingEntity entity) {
+    public async Task<RatingEntity?> UpdateAsync(RatingEntity entity)
+    {
         return await _repository.UpdateAsync(entity);
+    }
+    
+    public async Task<RatingEntity?> AddAsync(RatingEntity entity)
+    {
+        return await _repository.AddAsync(entity);
+    }
+    
+    public async Task<RatingEntity?> DeleteAsync(Guid id) 
+    {
+        return await _repository.DeleteAsync(id);
     }
 }

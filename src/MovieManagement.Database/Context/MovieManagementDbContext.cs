@@ -107,6 +107,9 @@ public partial class MovieManagementDbContext : DbContext
             entity.HasOne(d => d.UserEntity).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_user_id");
+            entity.HasOne(d => d.MovieEntity).WithMany(p => p.Ratings)
+                .HasForeignKey(d => d.MovieId)
+                .HasConstraintName("FK_movie_id");
         });
 
         modelBuilder.Entity<UserEntity>(entity =>

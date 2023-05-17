@@ -8,6 +8,7 @@ public class RateFunction
     public RateFunction(IRatingService ratingService, IValidator<RatingDto> validator)
     {
         _ratingService = ratingService;
+        _validator = validator;
     }
     
     [FunctionName("AddRating")]
@@ -28,7 +29,7 @@ public class RateFunction
 
             var updatedRating = await _ratingService.PutRating(ratingDto);
             
-            return new OkObjectResult("Successfully inserted record");
+            return new OkObjectResult(updatedRating);
 
         }
         catch (Exception e)
