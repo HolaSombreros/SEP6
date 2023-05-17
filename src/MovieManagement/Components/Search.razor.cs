@@ -1,6 +1,4 @@
-﻿using MovieManagement.ViewModels.Search;
-
-namespace MovieManagement.Components;
+﻿namespace MovieManagement.Components;
 
 public partial class Search : ComponentBase
 {

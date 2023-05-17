@@ -1,6 +1,4 @@
-﻿using MovieManagement.ViewModels.Search;
-
-namespace MovieManagement.Shared;
+﻿namespace MovieManagement.Shared;
 
 public partial class Sidebar : ComponentBase
 {
