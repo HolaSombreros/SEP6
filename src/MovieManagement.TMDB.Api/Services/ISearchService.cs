@@ -2,5 +2,5 @@
 
 public interface ISearchService
 {
-    public Task<SearchAll> SearchAll(string query);
+    public Task<SearchAll> SearchAll(string query, int page);
 }
