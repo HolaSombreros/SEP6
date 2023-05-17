@@ -1,13 +1,13 @@
-﻿
-namespace MovieManagement.Functions.Users; 
+﻿namespace MovieManagement.Functions.Users; 
 
 public class EditUser {
     
     private readonly IUserService _userService;
+    private readonly IValidator<UserDto> _validator;
 
-    public EditUser(IUserService userService)
-    {
+    public EditUser(IUserService userService, IValidator<UserDto> validator) {
         _userService = userService;
+        _validator = validator;
     }
     
     [FunctionName("EditUser")]
@@ -19,9 +19,13 @@ public class EditUser {
             log.LogInformation("C# HTTP trigger function processed a request.");
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
-            var registerUserDto = JsonConvert.DeserializeObject<RegisterUserDto>(requestBody);
-
-            var user = await _userService.RegisterUser(registerUserDto);
+            var userDto = JsonConvert.DeserializeObject<UserDto>(requestBody);
+            var result = await _validator.ValidateAsync(userDto);
+            if (!result.IsValid)
+            {
+                return new BadRequestObjectResult(result.Errors);
+            }
+            var user = await _userService.UpdateUser(userDto);
             
             return new OkObjectResult(user);
         }
