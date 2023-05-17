@@ -37,7 +37,7 @@ public class UserService : IUserService {
             throw new Exception("An account with this username already exists");
         }
         var user = _mapper.Map<UserEntity>(userDto);
-        var userUpdated = await _repository.UpdateAsync(user);
+        var userUpdated = await _repository.UpdateAsync(user,user.UserId);
         return _mapper.Map<UserDto>(userUpdated);
     }
 
