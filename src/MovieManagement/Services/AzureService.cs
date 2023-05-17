@@ -43,7 +43,7 @@ public class AzureService : IAzureService
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
     
-    public async Task<T> DeleteAsync<T>(string endpoint, object body)
+    public async Task DeleteAsync(string endpoint, object body)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Delete,
@@ -52,8 +52,6 @@ public class AzureService : IAzureService
             _settings.QueryBuilder + 
             _hostKey);
         request.Content = JsonContent.Create(body);
-        var response = await _httpClient.SendAsync(request);
-        response.EnsureSuccessStatusCode();
-        return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
+        await _httpClient.SendAsync(request);
     }
 }

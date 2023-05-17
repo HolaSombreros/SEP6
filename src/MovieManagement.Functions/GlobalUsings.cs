@@ -16,6 +16,10 @@ global using System;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
 global using MovieManagement.Database.Context;
-global using MovieManagement.Database.Entities;
 global using MovieManagement.Database.Repositories;
+global using FluentValidation;
+global using MovieManagement.Functions.Validators;
+global using MovieManagement.Database.Entities;
+global using MovieManagement.Functions.Mappers;
+
 

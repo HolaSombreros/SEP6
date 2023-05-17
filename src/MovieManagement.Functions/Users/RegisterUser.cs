@@ -1,9 +1,11 @@
 ﻿namespace MovieManagement.Functions.Users;
 
-public class RegisterUser {
+public class RegisterUser
+{
     private readonly IUserService _userService;
 
-    public RegisterUser(IUserService userService) {
+    public RegisterUser(IUserService userService)
+    {
         _userService = userService;
     }
 
@@ -11,7 +13,8 @@ public class RegisterUser {
     public async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Post), Route = null)] HttpRequest req, ILogger log)
     {
-        try {
+        try 
+        {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
             var registerUserDto = JsonConvert.DeserializeObject<RegisterUserDto>(requestBody);
@@ -23,7 +26,5 @@ public class RegisterUser {
         catch (Exception e) {
             return new BadRequestObjectResult(e.Message);
         }
-        
-        
     }
 }

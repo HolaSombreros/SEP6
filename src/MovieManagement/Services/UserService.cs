@@ -37,4 +37,9 @@ public class UserService : IUserService
         user.Password = userDto.Password;
         return user;
     }
+    
+    public async Task DeleteUserAsync(Guid userId)
+    {
+        await _service.DeleteAsync(_settings.DeleteUserPath, userId);
+    }
 }

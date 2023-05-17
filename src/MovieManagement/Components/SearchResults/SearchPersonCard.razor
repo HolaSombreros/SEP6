@@ -3,10 +3,7 @@
 
 <img src="@Person.ImageUrl" alt="Image not found" @onclick="(() => ShowPersonDetails(Person.Id))" />
 <h4>@Person.Name</h4>
-<div class="details">
-    <p>Known for: @Person.KnownFor</p>
-    <p>Id: #@Person.Id</p>
-</div>
+<p>Known for: @Person.KnownFor</p>
 
 @code {
     [Parameter]

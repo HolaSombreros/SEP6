@@ -4,10 +4,10 @@
 
 <img src="@Movie.PosterUrl" alt="Image not found" @onclick="@(() => ShowMovieDetails(Movie.Id))" />
 <h4>@Movie.Title</h4>
-<div class="details">
+@if (Movie.ReleaseDate != null)
+{
     <p>Release date: @Movie.ReleaseDate</p>
-    <p>Id: #@Movie.Id</p>
-</div>
+}
 
 @code {
     [Parameter]
