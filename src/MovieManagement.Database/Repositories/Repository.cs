@@ -1,10 +1,12 @@
 ﻿namespace MovieManagement.Database.Repositories; 
 
-public class Repository <TEntity> : IRepository<TEntity> where TEntity : class{
+public class Repository <TEntity> : IRepository<TEntity> where TEntity : class
+{
     private readonly MovieManagementDbContext _context;
     private readonly DbSet<TEntity> _dbSet;
 
-    public Repository(MovieManagementDbContext context) {
+    public Repository(MovieManagementDbContext context)
+    {
         _context = context;
         _dbSet = _context.Set<TEntity>();
     }
@@ -21,10 +23,9 @@ public class Repository <TEntity> : IRepository<TEntity> where TEntity : class{
         return result.Entity;
     }
 
-    public async Task<TEntity?> UpdateAsync(TEntity entity)
+    public async Task<TEntity?> UpdateAsync(TEntity entity, Guid id)
     {
-        var result = await _dbSet.FindAsync(entity);
-        var updatedResult = _dbSet.Update(result!);
+        var updatedResult = _dbSet.Update(entity!);
         await SaveAsync();
         return updatedResult.Entity;
     }

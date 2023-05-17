@@ -1,0 +1,45 @@
+﻿namespace MovieManagement.Database.Repositories;
+
+public class RatingRepository : IRatingRepository
+{
+    private readonly MovieManagementDbContext _context;
+    private readonly IRepository<RatingEntity?> _repository;
+
+    public RatingRepository(MovieManagementDbContext context, IRepository<RatingEntity?> repository)
+    {
+        _context = context;
+        _repository = repository;
+    }
+
+    public async Task<RatingEntity?> GetMovieUserRating(int movieId, Guid userId)
+    {
+        return await _context.Ratings.FirstOrDefaultAsync(r =>
+            r.UserEntity.UserId.Equals(userId) && r.MovieEntity.MovieId.Equals(movieId));
+    }
+    public async Task<RatingEntity?> GetAsync(Guid id)
+    {
+        return await _repository.GetAsync(id);
+    }
+    public async Task<RatingEntity?> UpdateAsync(RatingEntity entity, Guid id)
+    {
+        var existingRating = await GetMovieUserRating(entity.MovieId, entity.UserId);
+        
+        if (existingRating is not null)
+        {
+            existingRating.Rating = entity.Rating;
+            existingRating.Review = entity.Review;
+        }
+        await _context.SaveChangesAsync();
+        return entity;
+    }
+    
+    public async Task<RatingEntity?> AddAsync(RatingEntity entity)
+    {
+        return await _repository.AddAsync(entity);
+    }
+    
+    public async Task<RatingEntity?> DeleteAsync(Guid id) 
+    {
+        return await _repository.DeleteAsync(id);
+    }
+}

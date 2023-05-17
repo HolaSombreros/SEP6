@@ -16,9 +16,7 @@ public partial class MovieManagementDbContext : DbContext
     public  DbSet<MovieListEntity> MovieLists { get; set; } = default!;
 
     public  DbSet<MovieListMovie> MovieListMovies { get; set; } = default!;
-
-    public  DbSet<MovieRating> MovieRatings { get; set; } = default!;
-
+    
     public  DbSet<RatingEntity> Ratings { get; set; } = default!;
 
     public  DbSet<UserEntity> Users { get; set; } = default!;
@@ -28,11 +26,17 @@ public partial class MovieManagementDbContext : DbContext
     {
         modelBuilder.Entity<MovieEntity>(entity => {
             entity.ToTable("Movie");
-
             entity.Property(e => e.MovieId)
                 .ValueGeneratedNever()
                 .HasColumnName("movie_id");
             entity.HasKey(m => m.MovieId);
+            entity.Property(e => e.Title)
+                .HasColumnName("title");
+            entity.Property(e => e.PosterUrl)
+                .HasColumnName("poster_url");
+            entity.Property(e => e.ReleaseDate)
+                .HasColumnType("datetime2")
+                .HasColumnName("release_date");
         });
 
         modelBuilder.Entity<MovieListEntity>(entity =>
@@ -83,33 +87,13 @@ public partial class MovieManagementDbContext : DbContext
                 .HasConstraintName("FK_movielist_id_movie");
         });
 
-        modelBuilder.Entity<MovieRating>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("Movie_Rating");
-
-            entity.Property(e => e.MovieId).HasColumnName("movie_id");
-            entity.Property(e => e.RatingId)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("rating_id");
-
-            entity.HasOne(d => d.MovieEntity).WithMany()
-                .HasForeignKey(d => d.MovieId)
-                .HasConstraintName("FK_movie_id_rating");
-
-            entity.HasOne(d => d.RatingEntity).WithMany()
-                .HasForeignKey(d => d.RatingId)
-                .HasConstraintName("FK_rating_id_movie");
-        });
-
         modelBuilder.Entity<RatingEntity>(entity =>
         {
             entity.ToTable("Rating");
 
             entity.Property(e => e.RatingId)
-                .HasMaxLength(50)
+                .HasMaxLength(36)
+                .HasColumnType("UNIQUEIDENTIFIER")
                 .HasColumnName("rating_id");
             entity.Property(e => e.Datetime)
                 .IsRequired()
@@ -126,11 +110,17 @@ public partial class MovieManagementDbContext : DbContext
                 .HasColumnName("user_id")
                 .HasColumnType("UNIQUEIDENTIFIER")
                 .IsRequired();
+            entity.Property(e => e.MovieId)
+                .HasColumnName("movie_id")
+                .HasColumnType("int")
+                .IsRequired();
             entity.HasKey(r => r.RatingId);
-
             entity.HasOne(d => d.UserEntity).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_user_id");
+            entity.HasOne(d => d.MovieEntity).WithMany(p => p.Ratings)
+                .HasForeignKey(d => d.MovieId)
+                .HasConstraintName("FK_movie_id");
         });
 
         modelBuilder.Entity<UserEntity>(entity =>

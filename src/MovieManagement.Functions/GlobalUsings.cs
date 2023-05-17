@@ -21,5 +21,7 @@ global using MovieManagement.Functions.Database;
 global using MovieManagement.Database.Entities;
 global using FluentValidation;
 global using MovieManagement.Functions.Validators;
+global using MovieManagement.Database.Entities;
+global using MovieManagement.Functions.Mappers;
 
 

@@ -25,8 +25,8 @@ public class UserRepository : IUserRepository{
         return await _repository.AddAsync(entity);
     }
 
-    public async Task<UserEntity?> UpdateAsync(UserEntity? entity) {
-        return await _repository.UpdateAsync(entity);
+    public async Task<UserEntity?> UpdateAsync(UserEntity entity, Guid id) {
+        return await _repository.UpdateAsync(entity, id);
     }
 
     public async Task DeleteAsync(Guid id) {
