@@ -1,0 +1,20 @@
+﻿@using MovieManagement.ViewModels.Search;
+
+@inject NavigationManager NavigationManager
+
+<img src="@Movie.PosterUrl" alt="Image not found" @onclick="@(() => ShowMovieDetails(Movie.Id))" />
+<h4>@Movie.Title</h4>
+<div class="details">
+    <p>Release date: @Movie.ReleaseDate</p>
+    <p>Id: #@Movie.Id</p>
+</div>
+
+@code {
+    [Parameter]
+    public SearchMovieViewModel Movie { get; set; } = default!;
+
+    private void ShowMovieDetails(long movieId)
+    {
+        NavigationManager.NavigateTo($"/movies/{movieId}");
+    }
+}

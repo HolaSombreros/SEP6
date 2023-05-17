@@ -4,11 +4,11 @@ namespace MovieManagement.Components;
 
 public partial class Search : ComponentBase
 {
-    private SearchViewModel searchModel = new();
+    private SearchInputViewModel searchModel = new();
 
     private void MakeSure()
     {
-        NavigationManager.NavigateTo($"/search-results/{searchModel.SearchInput}");
+        NavigationManager.NavigateTo($"/search-results/{searchModel.SearchInput}", true);
         searchModel = new();
     }
 }

@@ -1,11 +1,46 @@
 ﻿@page "/search-results/{SearchInput}"
+@using MovieManagement.Components.SearchResults
+@inject ISearchService SearchService
 
-<p>Search results for: <code>@SearchInput</code></p>
-
-<div>
-    <h3>Movies:</h3>
-</div>
-
-<div>
-    <h3>Actors</h3>
+<div class="container-fluid p-5">
+    <h2>Search results for:</h2>
+    <h4 class="search-input">@SearchInput</h4>
+    
+    @if (searchResults == null)
+    {
+        <p>Loading...</p>
+    }
+    else if (searchResults.Movies.Any() || searchResults.People.Any())
+    {
+        <div class="row gx-5">
+            <div class="col-lg-6">
+                <h3>Movies:</h3>
+                <hr />
+                <div class="row g-5">
+                    @foreach (var movie in searchResults.Movies)
+                    {
+                        <div class="col-xxl-6 col-xl-12">
+                            <div class="search-card">
+                                <SearchMovieCard Movie="movie" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h3>People:</h3>
+                <hr />
+                <div class="row g-5">
+                    @foreach (var person in searchResults.People)
+                    {
+                        <div class="col-xxl-6 col-xl-12">
+                            <div class="search-card">
+                                <SearchPersonCard Person="person" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
 </div>

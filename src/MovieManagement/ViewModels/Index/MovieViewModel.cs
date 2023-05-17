@@ -12,7 +12,7 @@ public class MovieViewModel
     {
         Id = movie.Id;
         Title = movie.Title;
-        PosterPath = movie.ImageUrl;
+        PosterPath = movie.ImageUrl ?? "Images/MovieMissingPicture.png";
         ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate);
         Ratings = new List<RatingViewModel>();
         // TODO - Map ratings.

@@ -1,0 +1,19 @@
+﻿@using MovieManagement.ViewModels.Search;
+@inject NavigationManager NavigationManager
+
+<img src="@Person.ImageUrl" alt="Image not found" @onclick="(() => ShowPersonDetails(Person.Id))" />
+<h4>@Person.Name</h4>
+<div class="details">
+    <p>Known for: @Person.KnownFor</p>
+    <p>Id: #@Person.Id</p>
+</div>
+
+@code {
+    [Parameter]
+    public SearchPersonViewModel Person { get; set; } = default!;
+
+    private void ShowPersonDetails(long id)
+    {
+        NavigationManager.NavigateTo($"/people/{id}");
+    }
+}
