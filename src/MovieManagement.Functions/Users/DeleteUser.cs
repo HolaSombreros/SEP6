@@ -21,6 +21,5 @@ public class DeleteUser {
         catch (Exception e) {
             return new BadRequestObjectResult(e.Message);
         }
-        
     }
 }

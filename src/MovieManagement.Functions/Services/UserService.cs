@@ -26,16 +26,17 @@ public class UserService : IUserService {
     
     public async Task<UserDto> UpdateUser(UserDto userDto) {
         var existsWithEmail = await _repository.GetByEmail(userDto.Email);
-        if (existsWithEmail != null && !existsWithEmail.UserId.Equals(userDto.UserId)) 
+        if (existsWithEmail is not null && !existsWithEmail.UserId.Equals(userDto.UserId)) 
         {
             throw new Exception("An account with this email already exists");
         }
 
         var existsWithUsername = await _repository.GetByUsername(userDto.Username);
-        if (existsWithUsername != null && !existsWithUsername.UserId.Equals(userDto.UserId)) 
+        if (existsWithUsername is not null && !existsWithUsername.UserId.Equals(userDto.UserId)) 
         {
             throw new Exception("An account with this username already exists");
-        }
+        }  
+        
         var user = _mapper.Map<UserEntity>(userDto);
         var userUpdated = await _repository.UpdateAsync(user,user.UserId);
         return _mapper.Map<UserDto>(userUpdated);
