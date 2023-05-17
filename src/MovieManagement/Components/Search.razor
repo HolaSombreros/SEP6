@@ -1,6 +1,6 @@
 ﻿@inject NavigationManager NavigationManager
 
-<EditForm Model="@searchModel" OnValidSubmit="MakeSure">
+<EditForm Model="@searchModel" OnValidSubmit="MakeSearch">
     <DataAnnotationsValidator />
     <InputText class="w-100 form-control" @bind-Value="searchModel.SearchInput" placeholder="Search" />
     <button class="btn btn-primary mt-2 w-100">Search</button>
