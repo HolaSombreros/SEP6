@@ -23,6 +23,7 @@
 .image {
     width: 100%;
     cursor: pointer;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .85);
 }
 
 .movie-details {
