@@ -40,12 +40,12 @@ public class UserService : IUserService {
 
     public async Task<UserDto> RegisterUser(RegisterUserDto registerUserDto)
     {
-        if (await _repository.GetByEmail(registerUserDto.Email) != null) 
+        if (await _repository.GetByEmail(registerUserDto.Email) is not null) 
         {
             throw new Exception("An account with this email already exists");
         }
 
-        if (await _repository.GetByUsername(registerUserDto.Username) != null) 
+        if (await _repository.GetByUsername(registerUserDto.Username) is not null) 
         {
             throw new Exception("An account with this username already exists");
         }
@@ -58,5 +58,13 @@ public class UserService : IUserService {
         
         var userDto = _mapper.Map<UserDto>(user);
         return userDto;
+    }
+
+    public async Task DeleteUser(Guid userId) {
+        var user = await _repository.GetAsync(userId);
+        if (user is null || user.IsDeleted) {
+            throw new Exception("Account doesn't exist");
+        }
+        await _repository.DeleteAsync(userId);
     }
 }

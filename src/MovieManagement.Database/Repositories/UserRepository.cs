@@ -21,15 +21,19 @@ public class UserRepository : IUserRepository{
        return await _repository.GetAsync(id);
     }
 
-    public async Task<UserEntity?> AddAsync(UserEntity entity) {
+    public async Task<UserEntity?> AddAsync(UserEntity? entity) {
         return await _repository.AddAsync(entity);
     }
 
-    public async Task<UserEntity?> UpdateAsync(UserEntity entity) {
+    public async Task<UserEntity?> UpdateAsync(UserEntity? entity) {
         return await _repository.UpdateAsync(entity);
     }
 
-    public async Task<UserEntity?> DeleteAsync(Guid id) {
-        return await _repository.DeleteAsync(id);
+    public async Task DeleteAsync(Guid id) {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId.Equals(id) && !u.IsDeleted);
+        if (user is not null) {
+            user!.IsDeleted = true;
+            await _context.SaveChangesAsync();
+        }
     }
 }
