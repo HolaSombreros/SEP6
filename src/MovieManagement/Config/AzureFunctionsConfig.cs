@@ -8,6 +8,7 @@ public class AzureFunctionsConfig
     public string RegisterUserPath { get; set; } = default!;
     public string LoginUserPath { get; set; } = default!;
     public string UpdateUserPath { get; set; } = default!;
+    public string DeleteUserPath { get; set; } = default!;
     public string QueryBuilder { get; set; } = default!;
     public string AndQueryBuilder { get; set; } = default!;
 }
