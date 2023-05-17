@@ -19,6 +19,7 @@ global using MovieManagement.Database.Context;
 global using MovieManagement.Database.Repositories;
 global using MovieManagement.Functions.Database;
 global using MovieManagement.Database.Entities;
-
+global using FluentValidation;
+global using MovieManagement.Functions.Validators;
 
 
