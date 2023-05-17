@@ -5,6 +5,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IAzureService, AzureService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieService, MovieService>();
