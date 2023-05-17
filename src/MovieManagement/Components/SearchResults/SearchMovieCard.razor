@@ -1,6 +1,4 @@
-﻿@using MovieManagement.ViewModels.Search;
-
-@inject NavigationManager NavigationManager
+﻿@inject NavigationManager NavigationManager
 
 <img src="@Movie.PosterUrl" alt="Image not found" @onclick="@(() => ShowMovieDetails(Movie.Id))" />
 <h4>@Movie.Title</h4>
