@@ -3,5 +3,5 @@
 public interface IRatingService
 {
     Task<RatingDto> PutRating(RatingDto rating);
-    //Task<RatingDto?> GetMovieUserRating(int movieId, Guid userId); 
+    Task<RatingDto> AddRating(RatingDto ratingDto);
 }

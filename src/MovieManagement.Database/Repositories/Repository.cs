@@ -23,10 +23,9 @@ public class Repository <TEntity> : IRepository<TEntity> where TEntity : class
         return result.Entity;
     }
 
-    public async Task<TEntity?> UpdateAsync(TEntity entity)
+    public async Task<TEntity?> UpdateAsync(TEntity entity, Guid id)
     {
-        var result = await _dbSet.FindAsync(entity);
-        var updatedResult = _dbSet.Update(result!);
+        var updatedResult = _dbSet.Update(entity!);
         await SaveAsync();
         return updatedResult.Entity;
     }

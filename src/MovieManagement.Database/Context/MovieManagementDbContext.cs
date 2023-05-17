@@ -26,11 +26,17 @@ public partial class MovieManagementDbContext : DbContext
     {
         modelBuilder.Entity<MovieEntity>(entity => {
             entity.ToTable("Movie");
-
             entity.Property(e => e.MovieId)
                 .ValueGeneratedNever()
                 .HasColumnName("movie_id");
             entity.HasKey(m => m.MovieId);
+            entity.Property(e => e.Title)
+                .HasColumnName("title");
+            entity.Property(e => e.PosterUrl)
+                .HasColumnName("poster_url");
+            entity.Property(e => e.ReleaseDate)
+                .HasColumnType("datetime2")
+                .HasColumnName("release_date");
         });
 
         modelBuilder.Entity<MovieListEntity>(entity =>
@@ -86,7 +92,8 @@ public partial class MovieManagementDbContext : DbContext
             entity.ToTable("Rating");
 
             entity.Property(e => e.RatingId)
-                .HasMaxLength(50)
+                .HasMaxLength(36)
+                .HasColumnType("UNIQUEIDENTIFIER")
                 .HasColumnName("rating_id");
             entity.Property(e => e.Datetime)
                 .IsRequired()
@@ -102,6 +109,10 @@ public partial class MovieManagementDbContext : DbContext
                 .HasMaxLength(36)
                 .HasColumnName("user_id")
                 .HasColumnType("UNIQUEIDENTIFIER")
+                .IsRequired();
+            entity.Property(e => e.MovieId)
+                .HasColumnName("movie_id")
+                .HasColumnType("int")
                 .IsRequired();
             entity.HasKey(r => r.RatingId);
             entity.HasOne(d => d.UserEntity).WithMany(p => p.Ratings)

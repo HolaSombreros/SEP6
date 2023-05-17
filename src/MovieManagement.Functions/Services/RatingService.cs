@@ -14,14 +14,22 @@ public class RatingService : IRatingService
     public async Task<RatingDto> PutRating(RatingDto rating)
     {
         var ratingEntity = _mapper.Map<RatingEntity>(rating);
+        ratingEntity.MovieId = rating.MovieDto.MovieId;
+        var existingRating = await _repository.GetMovieUserRating(rating.MovieDto.MovieId, rating.UserId);
+        if (existingRating != null)
+        {
+            var updatedRating = await _repository.UpdateAsync(ratingEntity, existingRating.RatingId);
+            return _mapper.Map<RatingDto>(updatedRating);
+        }
         ratingEntity.RatingId = new Guid();
-        var updatedRating = await _repository.UpdateAsync(ratingEntity);
-        var mappedRating = _mapper.Map<RatingDto>(updatedRating);
-        return mappedRating;
+        var addedRating = await _repository.AddAsync(ratingEntity);
+        return _mapper.Map<RatingDto>(addedRating);
     }
 
-    // public async Task<RatingDto> GetMovieUserRating(int movieId, Guid userId)
-    // {
-    //     return await _repository.GetMovieUserRating(movieId, userId);
-    // }
+    public async Task<RatingDto> AddRating(RatingDto ratingDto)
+    {
+        var ratingEntity = _mapper.Map<RatingEntity>(ratingDto);
+        var addedRating = await _repository.AddAsync(ratingEntity);
+        return _mapper.Map<RatingDto>(addedRating);
+    }
 }

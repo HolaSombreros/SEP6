@@ -20,9 +20,17 @@ public class RatingRepository : IRatingRepository
     {
         return await _repository.GetAsync(id);
     }
-    public async Task<RatingEntity?> UpdateAsync(RatingEntity entity)
+    public async Task<RatingEntity?> UpdateAsync(RatingEntity entity, Guid id)
     {
-        return await _repository.UpdateAsync(entity);
+        var existingRating = await GetMovieUserRating(entity.MovieId, entity.UserId);
+        
+        if (existingRating is not null)
+        {
+            existingRating.Rating = entity.Rating;
+            existingRating.Review = entity.Review;
+        }
+        await _context.SaveChangesAsync();
+        return entity;
     }
     
     public async Task<RatingEntity?> AddAsync(RatingEntity entity)
