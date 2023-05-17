@@ -17,7 +17,7 @@
                 <img
                      src=@member.ImageUrl
                      alt="cast picture"
-                     @onclick="@(() => Modal.Show<ImageComponent>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
+                     @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
                 <div class="person-box pt-3">
                     <!-- TODO add link to cast details on name -->
                     <a class="actor-link" href="">@member.Name</a>
@@ -46,7 +46,7 @@
             <div class="credit-member">
                 <img
                      src=@member.ImageUrl   
-                     @onclick="@(() => Modal.Show<ImageComponent>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
+                     @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
                      alt="cast picture"/>
                 <div class="person-box pt-3">
                     <p>@member.Name</p>

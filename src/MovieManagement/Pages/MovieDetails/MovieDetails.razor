@@ -57,7 +57,7 @@
                 <div class="col-md-4 order-first order-md-last py-3">
                     <img class="homepage"
                          src="@_details.ImageUrl"
-                         @onclick="@(() => Modal.Show<ImageComponent>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
+                         @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
                          alt="Movie image"/>
                     <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
                 </div>

@@ -17,4 +17,7 @@ public class UserDto {
         Email = userViewModel.Email;
         Password = userViewModel.Password;
     }
+    
+    [JsonConstructor]
+    public UserDto(){}
 }
