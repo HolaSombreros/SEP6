@@ -1,5 +1,6 @@
 ﻿@inject IJSRuntime JsRuntime
 @inject IModalService Modal 
+@inject NavigationManager NavigationManager
 
 <div class="row">
     <div class="col-md-11 offset-md-1">   
@@ -19,7 +20,6 @@
                      alt="cast picture"
                      @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
                 <div class="person-box pt-3">
-                    <!-- TODO add link to cast details on name -->
                     <a class="actor-link" href="">@member.Name</a>
                     <p class="pt-3">@member.Character</p>
                 </div>
@@ -49,7 +49,7 @@
                      @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
                      alt="cast picture"/>
                 <div class="person-box pt-3">
-                    <p>@member.Name</p>
+                    <a class="actor-link" href="">@member.Name</a>
                     <p>@member.Department</p>
                 </div>
             </div>

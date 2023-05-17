@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace MovieManagement.TMDB.Api.Services;
+﻿namespace MovieManagement.TMDB.Api.Services;
 public class Service : IService
 {
     private readonly HttpClient _httpClient;

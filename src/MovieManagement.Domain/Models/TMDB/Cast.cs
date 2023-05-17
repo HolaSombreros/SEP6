@@ -10,4 +10,10 @@ public class Cast
     public int Order { get; set; }
     public string OriginalName { get; set; } = default!;
     public string ImageUrl { get; set; } = default!;
+    public string Title { get; set; } = default!;
+    public string Description { get; set; } = default!;
+    public string PosterUrl { get; set; } = default!;
+    public DateTime ReleaseDate { get; set; } = default!;
+    public double VoteAverage { get; set; } 
+    public int VoteCount { get; set; }
 }

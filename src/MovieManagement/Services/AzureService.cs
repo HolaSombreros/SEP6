@@ -25,7 +25,13 @@ public class AzureService : IAzureService
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
-        response.EnsureSuccessStatusCode();
+        try {
+            response.EnsureSuccessStatusCode();
+        }
+        catch {
+            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!);
+        }
+        
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
     
@@ -39,10 +45,16 @@ public class AzureService : IAzureService
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
-        response.EnsureSuccessStatusCode();
+        try {
+            response.EnsureSuccessStatusCode();
+        }  
+        catch {
+            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!);
+        }
+        
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
-    
+
     public async Task DeleteAsync(string endpoint, object body)
     {
         var request = new HttpRequestMessage(

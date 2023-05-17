@@ -35,7 +35,9 @@
                                         <p class="logo">@company.Name (@company.Country)</p>
                                         @if (!string.IsNullOrEmpty(company.LogoPath))
                                         {
-                                            <img class="logo-img p-1" src="@company.LogoPath" alt="logo"/>
+                                            <img class="logo-img p-1" src="@company.LogoPath" 
+                                                 @onclick="@(() => Modal.Show<Image>(company.Name, new ModalParameters().Add("ImageUrl", company.LogoPath)))"
+                                                 alt="logo"/>
                                         }
                                     </li>
                                 }
