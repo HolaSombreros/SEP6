@@ -1,5 +1,5 @@
-
 namespace MovieManagement.Functions.Services;
+
 public class UserService : IUserService {
 
     private readonly IMapper _mapper;
@@ -14,13 +14,16 @@ public class UserService : IUserService {
     public async Task<UserDto> GetUser(LoginUserDto loginUserDto)
     {
         var user = await _repository.GetByEmail(loginUserDto.Email);
+        if (user is null) {
+            throw new Exception("User with this email doesn't exist");
+        }
         if (!user!.Password.Equals(loginUserDto.Password)) {
             throw new Exception("Password and email don't match");
         }
 
         return _mapper.Map<UserDto>(user);
     }
-
+    
     public async Task<UserDto> UpdateUser(UserDto userDto) {
         var existsWithEmail = await _repository.GetByEmail(userDto.Email);
         if (existsWithEmail != null && !existsWithEmail.UserId.Equals(userDto.UserId)) 
