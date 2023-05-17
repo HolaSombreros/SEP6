@@ -9,6 +9,7 @@ public class ApiConfig
     public string UpcomingPath { get; set; } = default!;
     public string CreditsPath { get; set; } = default!;
     public string PopularPath { get; set; } = default!;
+    public string SearchPath { get; set; } = default!;
     public string PagePath { get; set; } = default!;
     public string TopRatedPath { get; set; } = default!;
     public string InTheatrePath { get; set; } = default!;
