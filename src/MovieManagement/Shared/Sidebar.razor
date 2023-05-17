@@ -7,12 +7,7 @@
 <div class="@SidebarCssClass">
     <div class="sidebar-section">
         <h3>Search</h3>
-        <EditForm Model="@searchModel" OnValidSubmit="SearchAsync">
-            <DataAnnotationsValidator />
-            <InputText class="w-100 form-control" @bind-Value="searchModel.SearchInput" placeholder="Search" />
-            <button class="btn btn-primary mt-2 w-100">Search</button>
-            <ValidationMessage For="@(() => searchModel.SearchInput)" />
-        </EditForm>
+        <Search />
     </div>
     
     <hr />
@@ -60,14 +55,14 @@
                 else
                 {
                     <ul>
-                    @foreach (var list in customMovieLists)
-                    {
-                        <li>
-                        <a href=@($"/movies/custom/{list.Id}")>
-                            <span class="oi oi-list"></span> @list.Name
-                        </a>
-                        </li>
-                    }
+                        @foreach (var list in customMovieLists)
+                        {
+                            <li>
+                                <a href=@($"/movies/custom/{list.Id}")>
+                                    <span class="oi oi-list"></span> @list.Name
+                                </a>
+                            </li>
+                        }
                     </ul>
                 }
             </div>
