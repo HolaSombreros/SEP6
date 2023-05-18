@@ -43,15 +43,16 @@ public class AzureService : IAzureService
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
     
-    public async Task DeleteAsync(string endpoint, object body)
+    public async Task DeleteAsync(string endpoint, object id)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Delete,
             _settings.AzureFunctionUri + 
             endpoint +
-            _settings.QueryBuilder + 
+            _settings.QueryBuilder +
+            id +
+            _settings.AndQueryBuilder +
             _hostKey);
-        request.Content = JsonContent.Create(body);
         await _httpClient.SendAsync(request);
     }
 }

@@ -8,8 +8,8 @@ public class UserDtoValidator : AbstractValidator<UserDto> {
         RuleFor(x => x.Username).NotEmpty().WithMessage("Username must be provided")
             .MaximumLength(50).WithMessage("Your username length must must not exceed 50.")
             .MinimumLength(3).WithMessage("Your username length must be at least 3.");
-        RuleFor(x => x.Password).NotEmpty().WithMessage("Password must be provided")
-            .MinimumLength(6).WithMessage("Your password length must be at least 6.")
-            .MaximumLength(50).WithMessage("Your password length must not exceed 50.");
+        RuleFor(x => x.Password)
+            .MinimumLength(6).WithMessage("Your password length must be at least 6.").When(x => !string.IsNullOrEmpty(x.Password))
+            .MaximumLength(50).WithMessage("Your password length must not exceed 50.").When(x => !string.IsNullOrEmpty(x.Password));
     }
 }

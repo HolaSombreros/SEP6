@@ -12,11 +12,11 @@ public class EditUser {
     
     [FunctionName("EditUser")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log,
+        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Put), Route = null)] HttpRequest req, ILogger log,
         [Sql(commandText: "dbo.User", connectionStringSetting: "DbConnectionString")] IAsyncCollector<UserEntity> userTable) {
         try 
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation("C# HTTP trigger function processed a request");
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
             var userDto = JsonConvert.DeserializeObject<UserDto>(requestBody);
