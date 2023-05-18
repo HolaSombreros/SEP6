@@ -15,6 +15,7 @@ public class RatingService : IRatingService
     {
         var ratingEntity = _mapper.Map<RatingEntity>(rating);
         ratingEntity.MovieId = rating.MovieDto.MovieId;
+        ratingEntity.DateTime = DateTime.UtcNow;
         var existingRating = await _repository.GetMovieUserRating(rating.MovieDto.MovieId, rating.UserId);
         if (existingRating != null)
         {
