@@ -20,7 +20,6 @@ global using MovieManagement.Database.Repositories;
 global using MovieManagement.Database.Entities;
 global using FluentValidation;
 global using MovieManagement.Functions.Validators;
-global using MovieManagement.Database.Entities;
 global using MovieManagement.Functions.Mappers;
 global using System.Collections.Generic;
 global using System.Linq;
