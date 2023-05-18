@@ -10,11 +10,11 @@ public class UserRepository : IUserRepository{
     }
 
     public async Task<UserEntity?> GetByEmail(string email) {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email) && !u.IsDeleted);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
     }
 
     public async Task<UserEntity?> GetByUsername(string username) {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username) && !u.IsDeleted);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username));
     }
 
     public async Task<UserEntity?> GetAsync(Guid id) {
@@ -40,10 +40,6 @@ public class UserRepository : IUserRepository{
     }
 
     public async Task DeleteAsync(Guid id) {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId.Equals(id) && !u.IsDeleted);
-        if (user is not null) {
-            user.IsDeleted = true;
-            await _context.SaveChangesAsync();
-        }
+        await _repository.DeleteAsync(id);
     }
 }

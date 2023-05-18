@@ -56,8 +56,7 @@ public class UserService : IUserService {
         
         var user = _mapper.Map<UserEntity>(registerUserDto);
         user.UserId = new Guid();
-        user.IsDeleted = false;
-        
+
         await _repository.AddAsync(user);
         
         var userDto = _mapper.Map<UserDto>(user);
@@ -66,7 +65,7 @@ public class UserService : IUserService {
 
     public async Task DeleteUser(Guid userId) {
         var user = await _repository.GetAsync(userId);
-        if (user is null || user.IsDeleted) {
+        if (user is null) {
             throw new Exception("Account doesn't exist");
         }
         await _repository.DeleteAsync(userId);
