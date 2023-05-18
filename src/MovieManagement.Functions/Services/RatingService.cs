@@ -48,4 +48,9 @@ public class RatingService : IRatingService
             })
             .ToList();
     }
+
+    public Task DeleteRating(Guid ratingId)
+    {
+        throw new NotImplementedException();
+    }
 }
