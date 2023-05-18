@@ -27,12 +27,12 @@ public class MovieDetailsViewModel
     {
         Id = movie.Id;
         Title = movie.Title;
-        Revenue = $"{movie.Revenue:C}";
+        Revenue = movie.Revenue != 0 ? $"{movie.Revenue:C}" : string.Empty;
         ReleaseDate = movie.ReleaseDate.ToString("dd/MM/yyyy");
-        Budget = $"{movie.Budget:C}";
+        Budget = movie.Budget != 0 ? $"{movie.Budget:C}" : string.Empty;
         Description = movie.Description;
         IsAdult = movie.IsAdult;
-        ImageUrl = movie.ImageUrl;
+        ImageUrl = !string.IsNullOrEmpty(movie.ImageUrl) ? movie.ImageUrl : "Images/MovieMissingPicture.png";
         Genres = GetGenresToString(movie.Genres);
         VoteCount = $"{movie.VoteCount:n0}";
         VoteAverage = Math.Round(movie.VoteAverage, 2);
@@ -102,6 +102,10 @@ public class MovieDetailsViewModel
 
     private string GetMovieLength(int length)
     {
+        if (length == 0) 
+        {
+            return string.Empty;
+        }
         return $"{length / 60}:{(length % 60):D2} hours";
     }
 }

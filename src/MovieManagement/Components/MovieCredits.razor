@@ -20,7 +20,7 @@
                      alt="cast picture"
                      @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
                 <div class="person-box pt-3">
-                    <a class="actor-link" href="">@member.Name</a>
+                    <a class="actor-link" @onclick="(() => GoToPersonDetails(member.Id))">@member.Name</a>
                     <p class="pt-3">@member.Character</p>
                 </div>
             </div>
@@ -49,8 +49,8 @@
                      @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
                      alt="cast picture"/>
                 <div class="person-box pt-3">
-                    <a class="actor-link" href="">@member.Name</a>
-                    <p>@member.Department</p>
+                    <a class="actor-link" @onclick="(() => GoToPersonDetails(member.Id))">@member.Name</a>
+                    <p class="pt-3">@member.Department</p>
                 </div>
             </div>
         }

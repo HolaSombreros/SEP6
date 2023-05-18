@@ -1,5 +1,4 @@
 ﻿@page "/Movies/{id:int}"
-@using MovieManagement.Components
 @inject IModalService Modal  
 @inject IMovieService MovieService
 @inject IJSRuntime JSRuntime
@@ -24,7 +23,10 @@
                 <div class="col-md-6 offset-md-1 col-md-push-5 py-3">
                     <p>@_details.Description</p>
                     <p>Genres: @_details.Genres</p>
-                    <p>Length: @_details.Length</p>
+                    @if (!string.IsNullOrEmpty(_details.Budget)) 
+                    {
+                        <p>Length: @_details.Length</p>
+                    }
                     @if (_details.ProductionCompanies.Any())
                         {
                             <p>Production Companies:</p>
@@ -48,8 +50,15 @@
                     <p>Original Language: @_details.OriginalLanguage</p>
                     <p>Spoken Languages: @_details.SpokenLanguages</p>
                     <p>Production Countries: @_details.ProductionCountries</p>
-                    <p>Budget: @_details.Budget</p>
-                    <p>Revenue: @_details.Revenue</p>
+                    @if (!string.IsNullOrEmpty(_details.Budget)) 
+                    {
+                        <p>Budget: @_details.Budget</p>
+
+                    }
+                    @if (!string.IsNullOrEmpty(_details.Budget)) 
+                    {
+                        <p>Revenue: @_details.Revenue</p>
+                    }
                     @if (_details.IsAdult)
                     {
                         <p>Restricted age: &#128286;</p>
@@ -61,7 +70,10 @@
                          src="@_details.ImageUrl"
                          @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
                          alt="Movie image"/>
-                    <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
+                    @if (!string.IsNullOrEmpty(_details.Homepage)) 
+                    {
+                        <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
+                    }
                 </div>
             </div>
             

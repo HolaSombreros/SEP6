@@ -1,2 +1,27 @@
 ﻿@page "/people/{id:int}"
 @inject IPersonService PersonService
+@inject IModalService Modal  
+
+<div class="container-fluid p-5">
+	@if (_person == null)
+        {
+            <p>Loading...</p>
+        }
+    else
+        {
+            <div>
+                <h1>@_person.Name</h1>
+            </div>
+	        <div class="row details">
+                <div class="col-md-6 offset-md-1 col-md-push-5 py-3">
+                    <p>@_person.Biography</p>
+                </div>
+                <div class="col-md-4 order-first order-md-last py-3">
+                    <img
+                         src="@_person.ImageUrl"
+                         @onclick="@(() => Modal.Show<Image>(_person.Name, new ModalParameters().Add("ImageUrl", _person.ImageUrl)))"
+                         alt="Movie image"/>
+                </div>
+            </div>
+        }
+</div>
