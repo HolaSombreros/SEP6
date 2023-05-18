@@ -61,8 +61,8 @@ public class AzureService : IAzureService
             HttpMethod.Delete,
             _settings.AzureFunctionUri + 
             endpoint +
-            _settings.QueryBuilder +
             id +
+            _settings.QueryBuilder +
             _settings.AndQueryBuilder +
             _hostKey);
         await _httpClient.SendAsync(request);
