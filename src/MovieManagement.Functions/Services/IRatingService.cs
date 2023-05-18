@@ -6,4 +6,5 @@ public interface IRatingService
     Task<RatingDto> AddRating(RatingDto ratingDto);
     Task<IList<RatingQueryDto>> GetMovieRatings(IList<int> ratingList);
     Task DeleteRating(Guid ratingId);
+    Task<RatingDto> GetRatingById(Guid ratingId);
 }

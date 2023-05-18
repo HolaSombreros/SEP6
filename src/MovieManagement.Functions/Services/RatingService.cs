@@ -49,8 +49,19 @@ public class RatingService : IRatingService
             .ToList();
     }
 
-    public Task DeleteRating(Guid ratingId)
+    public async Task<RatingDto> GetRatingById(Guid ratingId)
     {
-        throw new NotImplementedException();
+        var ratingEntity =  await _repository.GetAsync(ratingId);
+        return _mapper.Map<RatingDto>(ratingEntity);
+    }
+
+    public async Task DeleteRating(Guid ratingId)
+    {
+        var existingRating = await GetRatingById(ratingId);
+        if (existingRating is null)
+        {
+            throw new Exception("The rating with the given id does not exist");
+        }
+        await _repository.DeleteAsync(ratingId);
     }
 }
