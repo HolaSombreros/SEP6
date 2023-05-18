@@ -1,5 +1,4 @@
-﻿@page "/Movies/{id:int}"
-@using MovieManagement.Components
+﻿@page "/Movies/{Id:int}"
 @inject IModalService Modal  
 @inject IMovieService MovieService
 @inject IJSRuntime JSRuntime
@@ -64,5 +63,11 @@
             </div>
             
             <MovieCredits Credits="_details.Credits"/>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-12">
+                    <RatingView MovieId="Id" />
+                </div>
+            </div>
         }
 </div>

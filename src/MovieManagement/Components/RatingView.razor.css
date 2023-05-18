@@ -1,0 +1,35 @@
+﻿.rating-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.ratings {
+    display: flex;
+    align-items: center;
+    transition: .2s ease;
+    margin-bottom: 1rem;
+}
+
+    .ratings:hover .rating {
+        color: goldenrod;
+    }
+
+    .ratings .rating:hover ~ .rating {
+        color: white;
+    }
+
+.rating {
+    cursor: pointer;
+    color: white;
+    font-size: 1.5em;
+    padding-right: .3rem;
+    transition: .2s ease;
+}
+
+    .rating.active { 
+        color: gold;
+    }
+
+button {
+    margin-top: 1rem;
+}

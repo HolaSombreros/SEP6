@@ -21,6 +21,7 @@ global using MovieManagement.TMDB.Api.Mappers;
 global using MovieManagement.TMDB.Api.Services;
 global using MovieManagement.ViewModels.Index;
 global using MovieManagement.ViewModels.MovieDetails;
+global using MovieManagement.ViewModels.Rating;
 global using MovieManagement.ViewModels.User;
 global using System.ComponentModel.DataAnnotations;
 global using System.Diagnostics;
