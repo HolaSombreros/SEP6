@@ -6,13 +6,3 @@
 {
     <p>Release date: @Movie.ReleaseDate</p>
 }
-
-@code {
-    [Parameter]
-    public SearchMovieViewModel Movie { get; set; } = default!;
-
-    private void ShowMovieDetails(long movieId)
-    {
-        NavigationManager.NavigateTo($"/movies/{movieId}");
-    }
-}
