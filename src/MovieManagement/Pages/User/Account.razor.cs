@@ -11,12 +11,13 @@ public partial class Account : ComponentBase
     {
         _userViewModel = new UserViewModel()
         {
+            UserId = Guid.Parse((await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id")),
             Username = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue(ClaimTypes.Name),
             Email = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue(ClaimTypes.Email),
             Password = "Placeholder",
             ConfirmPassword = "Placeholder"
         };
-        _userIdString = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
+        _userIdString = _userViewModel.UserId.ToString();
     }
 
     private async Task SaveDetailsAsync()
