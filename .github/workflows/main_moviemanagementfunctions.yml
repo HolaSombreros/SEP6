@@ -48,3 +48,4 @@ jobs:
           app-name: 'moviemanagementfunctions'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71158FF382614598A0CBE0B5D0C5D842 }}
+          additional-args: '--publish_host_key ${{ secrets.AZURE_FUNCTION_HOST_KEY }}'
