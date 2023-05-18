@@ -55,6 +55,12 @@ public class RatingService : IRatingService
         return _mapper.Map<RatingDto>(ratingEntity);
     }
 
+    public async Task<RatingDto> GetMovieRatingByUser(int movieId, Guid userId)
+    {
+        var ratingEntity = await _repository.GetMovieUserRating(movieId, userId);
+        return _mapper.Map<RatingDto>(ratingEntity);
+    }
+
     public async Task DeleteRating(Guid ratingId)
     {
         var existingRating = await GetRatingById(ratingId);

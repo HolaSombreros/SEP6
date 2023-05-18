@@ -1,12 +1,12 @@
 namespace MovieManagement.Functions.Ratings;
 
-public class RateFunction
+public class AddRating
 {
     private readonly IRatingService _ratingService;
     private readonly IMovieService _movieService;
     private readonly IValidator<RatingDto> _validator;
     
-    public RateFunction(IRatingService ratingService, IValidator<RatingDto> validator, IMovieService movieService)
+    public AddRating(IRatingService ratingService, IValidator<RatingDto> validator, IMovieService movieService)
     {
         _ratingService = ratingService;
         _validator = validator;
@@ -14,7 +14,7 @@ public class RateFunction
     }
     
     [FunctionName("AddRating")]
-    public async Task<IActionResult> AddRating(
+    public async Task<IActionResult> AddUserRating(
     [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Put), Route = null)] HttpRequest req,
     ILogger log)
     {

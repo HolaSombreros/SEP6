@@ -1,12 +1,29 @@
 ﻿namespace MovieManagement.Functions.Ratings;
 
-public class GetRatings
+public class GetMovieRating
 {
     private readonly IRatingService _ratingService;
     
-    public GetRatings(IRatingService ratingService)
+    public GetMovieRating(IRatingService ratingService)
     {
         _ratingService = ratingService;
+    }
+    
+    [FunctionName("GetMovieUserRating")]
+    public async Task<IActionResult> GetMovieUserRating(
+        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
+        ILogger log)
+    {
+        try
+        {
+            var result = await _ratingService.GetMovieRatingByUser(movieId, userId);
+            
+            return new OkObjectResult(result);
+        }
+        catch (Exception e)
+        {
+            return new BadRequestObjectResult(e.Message);
+        }
     }
     
     [FunctionName("GetMovieRatingsByIds")]
