@@ -37,7 +37,7 @@ public class SearchService : ISearchService
             MovieResults = new List<SearchMovieResult>(),
             PersonResults = new List<SearchPersonResult>()
         };
-        foreach (var movie in uniqueMovies.Select(result => _movieMapper.Map<SearchResultDto, SearchMovieResult>(result)))
+        foreach (var movie in uniqueMovies.Select(result => _movieMapper.Map<SearchResultDto, SearchMovieResult>(result!)))
         {
             searchAllResult.MovieResults.Add(movie);
         }

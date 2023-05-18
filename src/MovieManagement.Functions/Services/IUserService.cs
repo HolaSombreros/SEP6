@@ -3,4 +3,6 @@
 public interface IUserService {
     Task<UserDto> RegisterUser(RegisterUserDto registerUserDto);
     Task<UserDto> GetUser(LoginUserDto loginUserDto);
+    Task<UserDto> UpdateUser(UserDto userDto);
+    Task DeleteUser(Guid userId);
 }

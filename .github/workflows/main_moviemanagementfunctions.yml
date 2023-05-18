@@ -41,3 +41,11 @@ jobs:
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71158FF382614598A0CBE0B5D0C5D842 }}
+          
+      - name: 'Deploy Azure Functions'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'moviemanagementfunctions'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71158FF382614598A0CBE0B5D0C5D842 }}
+          additional-args: '--publish_host_key ${{ secrets.AZURE_FUNCTION_HOST_KEY }}'

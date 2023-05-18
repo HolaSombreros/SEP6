@@ -14,4 +14,9 @@ public partial class NavMenu : ComponentBase
     {
         await ((MovieManagementASP) AuthenticationStateProvider).LogoutAsync();
     }
+
+    private void GoHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
 }
