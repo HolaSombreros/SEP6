@@ -100,7 +100,7 @@ public partial class MovieManagementDbContext : DbContext
                 .HasColumnName("rating");
             entity.Property(e => e.Review).HasColumnName("review");
             entity.Property(e => e.UserId)
-                .HasMaxLength(50)
+                .HasMaxLength(36)
                 .HasColumnName("user_id")
                 .HasColumnType("UNIQUEIDENTIFIER")
                 .IsRequired();

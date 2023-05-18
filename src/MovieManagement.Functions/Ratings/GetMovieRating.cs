@@ -26,6 +26,26 @@ public class GetMovieRating
         }
     }
     
+    [FunctionName("GetMovieRatings")]
+    public async Task<IActionResult> GetMovieRatings(
+        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
+         ILogger log)
+    {
+        try
+        {
+            var page = int.Parse(req.Query["page"]);
+            var pageSize = int.Parse(req.Query["pageSize"]);
+            var result = await _ratingService.GetMovieRatings(movieId, userId, page, pageSize);
+            
+            return new OkObjectResult(result);
+        }
+        catch (Exception e)
+        {
+            return new BadRequestObjectResult(e.Message);
+        }
+    }
+    
+    
     [FunctionName("GetMovieRatingsByIds")]
     public async Task<IActionResult> GetMovieRatingsByIds(
         [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
