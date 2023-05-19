@@ -2,5 +2,5 @@
 
 public interface IRatingService
 {
-    public Task<RatingViewModel> RateMovie(RatingViewModel ratingViewModel, MovieDetailsViewModel movieViewModel, Guid userId);
+    public Task<RatingViewModel> RateMovie(RatingViewModel ratingViewModel, MovieDetailsViewModel movieDetailsViewModel, Guid userId);
 }

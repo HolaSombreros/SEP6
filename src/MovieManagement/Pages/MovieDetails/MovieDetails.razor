@@ -41,7 +41,7 @@
                         </ul>
                     }
                 <p>Status: @_details.Status</p>
-                <p>Release Date: @_details.ReleaseDate</p>
+                <p>Release Date: @_details.ReleaseDate.ToString("dd/MM/yyyy")</p>
                 <p>Original Language: @_details.OriginalLanguage</p>
                 <p>Spoken Languages: @_details.SpokenLanguages</p>
                 <p>Production Countries: @_details.ProductionCountries</p>
@@ -65,8 +65,8 @@
         <MovieCredits Credits="_details.Credits"/>
 
         <div class="row">
-            <div class="col-xl-6 col-lg-12">
-                <RatingView MovieDetails="_details" />
+            <div class="col-xl-6 col-lg-12 offset-md-1">
+                <RatingView MovieDetailsViewModel="_details" />
             </div>
         </div>
     }

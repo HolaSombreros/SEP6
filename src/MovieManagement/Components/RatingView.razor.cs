@@ -3,7 +3,7 @@
 public partial class RatingView : ComponentBase
 {
     [Parameter]
-    public MovieDetailsViewModel MovieDetails { get; set; } = default!;
+    public MovieDetailsViewModel MovieDetailsViewModel { get; set; } = default!;
 
     private RatingViewModel ratingViewModel = new();
     private Guid userId = default!;
@@ -29,7 +29,7 @@ public partial class RatingView : ComponentBase
         resultMessage = "";
         try
         {
-            var rating = await RatingService.RateMovie(ratingViewModel, MovieDetails, userId);
+            var rating = await RatingService.RateMovie(ratingViewModel, MovieDetailsViewModel, userId);
             ratingViewModel = new();
             resultMessage = "Review successfully added!";
             resultCssClass = "success-message";
