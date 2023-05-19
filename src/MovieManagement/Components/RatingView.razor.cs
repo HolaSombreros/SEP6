@@ -12,10 +12,10 @@ public partial class RatingView : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        var tempUserId = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
-        if (tempUserId != null)
+        var loggedInUserId = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
+        if (loggedInUserId != null)
         {
-            userId = Guid.Parse(tempUserId);
+            userId = Guid.Parse(loggedInUserId);
         }
     }
 
