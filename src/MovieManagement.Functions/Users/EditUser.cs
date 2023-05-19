@@ -16,20 +16,22 @@ public class EditUser {
         [Sql(commandText: "dbo.User", connectionStringSetting: "DbConnectionString")] IAsyncCollector<UserEntity> userTable) {
         try 
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-
             var userDto = JsonConvert.DeserializeObject<UserDto>(requestBody);
+            
             var result = await _validator.ValidateAsync(userDto);
             if (!result.IsValid)
             {
+                log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors);
             }
             var user = await _userService.UpdateUser(userDto);
-            
+            log.LogInformation("User with id: {id} has been updated ", user.UserId);
             return new OkObjectResult(user);
         }
-        catch (Exception e) {
+        catch (Exception e) 
+        {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
         

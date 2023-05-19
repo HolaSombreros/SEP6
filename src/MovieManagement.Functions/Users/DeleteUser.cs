@@ -18,7 +18,9 @@ public class DeleteUser {
             log.LogInformation("Deleted user with id " + userId);
             return new OkResult();
         }
-        catch (Exception e) {
+        catch (Exception e) 
+        {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
         
