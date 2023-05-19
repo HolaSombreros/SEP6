@@ -49,9 +49,9 @@
                     {
                         <p>Status: @_details.Status</p>
                     }
-                    @if (!string.IsNullOrEmpty(_details.ReleaseDate))
+                    @if (!_details.ReleaseDate.Equals(new DateTime(1,1,1)))
                     {
-                        <p>Release Date: @_details.ReleaseDate</p>
+                        <p>Release Date: @_details.ReleaseDate.ToString("dd/MM/yyyy")</p>
                     }
                     @if (!string.IsNullOrEmpty(_details.OriginalLanguage))
                     {
