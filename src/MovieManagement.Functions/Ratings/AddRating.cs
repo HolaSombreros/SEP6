@@ -31,10 +31,10 @@ public class AddRating
             }
 
             var updatedMovie = await _movieService.AddMovie(ratingDto.MovieDto);
-            log.LogInformation("Add movie for movie id: " + updatedMovie.MovieId);
+            log.LogInformation("Added movie for movie id: " + updatedMovie.MovieId);
 
             var updatedRating = await _ratingService.PutRating(ratingDto);
-            log.LogInformation("Add rating for rating id: " + updatedRating.RatingId + " and user id: " + updatedRating.UserId);
+            log.LogInformation("Added rating for rating id: " + updatedRating.RatingId + " and user id: " + updatedRating.UserId);
 
 
             updatedRating.MovieDto = updatedMovie;
