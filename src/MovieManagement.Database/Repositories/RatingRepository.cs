@@ -28,6 +28,17 @@ public class RatingRepository : IRatingRepository
             })
             .ToListAsync();
     }
+    public async Task<IList<RatingEntity>> GetMovieRatings(int movieId, Guid userId, int pageNumber, int pageSize)
+    {
+        var list = await _context.Ratings
+            .Where(r => movieId.Equals(r.MovieId))
+            .ToListAsync();
+        
+         return list
+             .OrderBy(r => r.UserId == userId ? 0 : 1)
+             .Skip((pageNumber - 1) * pageSize)
+             .Take(pageSize).ToList();
+    }
 
     public async Task<RatingEntity?> GetAsync(Guid id)
     {
