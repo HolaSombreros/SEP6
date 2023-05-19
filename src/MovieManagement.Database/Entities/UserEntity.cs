@@ -11,8 +11,6 @@ public class UserEntity
 
     public string Password { get; set; } = default!;
 
-    public bool IsDeleted { get; set; }
-
     public virtual ICollection<MovieListEntity> MovieLists { get; set; } = new List<MovieListEntity>();
 
     public virtual ICollection<RatingEntity> Ratings { get; set; } = new List<RatingEntity>();

@@ -20,6 +20,7 @@ a {
   outline: none !important;
   box-shadow: none !important;
   border: none;
+  padding: .5rem .8rem !important;
 }
 
 .btn-primary {
@@ -51,4 +52,8 @@ li {
 .blazored-modal {
   background-color: #333333 !important;
   border: none !important;
+}
+
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #653780;
 }

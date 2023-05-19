@@ -1,0 +1,5 @@
+﻿@inject NavigationManager NavigationManager
+
+<img src="@Person.ImageUrl" alt="Image not found" @onclick="(() => ShowPersonDetails(Person.Id))" />
+<h4>@Person.Name</h4>
+<p>Known for: @Person.KnownFor</p>

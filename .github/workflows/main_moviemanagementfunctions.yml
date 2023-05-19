@@ -41,3 +41,13 @@ jobs:
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71158FF382614598A0CBE0B5D0C5D842 }}
+          
+      - name: Azure Functions Action
+        uses: Azure/functions-action@v1.5.0
+        with:
+        # Name of the Azure Function App
+          app-name: 'moviemanagementfunctions'
+          # Path to package or folder. *.zip or a folder to deploy
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          # Function app slot to be deploy to
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71158FF382614598A0CBE0B5D0C5D842 }}
