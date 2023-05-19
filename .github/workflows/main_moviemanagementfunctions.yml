@@ -48,6 +48,6 @@ jobs:
         # Name of the Azure Function App
           app-name: 'moviemanagementfunctions'
           # Path to package or folder. *.zip or a folder to deploy
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           # Function app slot to be deploy to
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71158FF382614598A0CBE0B5D0C5D842 }}
