@@ -9,8 +9,9 @@ public partial class MovieListView : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         var startPageNumber = 1;
-        var data = await MovieService.GetMovieListAsync(ListType, startPageNumber);
-        movieList = new(data);
+        var list = await StatisticsService.GetMostRatedMoviesByReleaseYear(2022, startPageNumber);
+        //var data = await MovieService.GetMovieListAsync(ListType, startPageNumber);
+        movieList = new(list);
     }
 
     private async Task FetchData()
