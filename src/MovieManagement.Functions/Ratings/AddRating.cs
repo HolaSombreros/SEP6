@@ -26,18 +26,23 @@ public class AddRating
             var result = await _validator.ValidateAsync(ratingDto);
             if (!result.IsValid)
             {
+                log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
             var updatedMovie = await _movieService.AddMovie(ratingDto.MovieDto);
+            log.LogInformation("Added movie for movie id: " + updatedMovie.MovieId);
+
             var updatedRating = await _ratingService.PutRating(ratingDto);
+            log.LogInformation("Added rating for rating id: " + updatedRating.RatingId + " and user id: " + updatedRating.UserId);
+
 
             updatedRating.MovieDto = updatedMovie;
-            
             return new OkObjectResult(updatedRating);
         }
         catch (Exception e)
         {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
     }

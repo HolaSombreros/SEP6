@@ -5,7 +5,7 @@ public class MovieDetailsViewModel
     public int Id { get; }
     public string Title { get; }
     public string Revenue { get; }
-    public string ReleaseDate { get; }
+    public DateTime ReleaseDate { get; }
     public string Budget { get; }
     public string Description { get; }
     public bool IsAdult { get; }
@@ -22,13 +22,12 @@ public class MovieDetailsViewModel
     public string SpokenLanguages { get; }
     public MovieCreditsViewModel Credits { get; }
 
-
     public MovieDetailsViewModel(Movie movie, Credits credits)
     {
         Id = movie.Id;
         Title = movie.Title;
         Revenue = $"{movie.Revenue:C}";
-        ReleaseDate = movie.ReleaseDate.ToString("dd/MM/yyyy");
+        ReleaseDate = movie.ReleaseDate;
         Budget = $"{movie.Budget:C}";
         Description = movie.Description;
         IsAdult = movie.IsAdult;

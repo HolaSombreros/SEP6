@@ -1,68 +1,73 @@
-﻿@page "/Movies/{id:int}"
-@using MovieManagement.Components
+﻿@page "/Movies/{Id:int}"
 @inject IModalService Modal  
 @inject IMovieService MovieService
 @inject IJSRuntime JSRuntime
 
 <div class="container-fluid p-5">
-	@if (_details == null)
-        {
-            <p>Loading...</p>
-        }
+    @if (_details == null)
+    {
+        <p>Loading...</p>
+    }
     else
-        {
-            <div>
-                <h1>@_details.Title</h1>
+    {
+        <div>
+            <h1>@_details.Title</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-11">
+                <p class="rating">@_details.VoteAverage (@_details.VoteCount Votes)</p>
+                <img class="rating" src="Images/Star.png" alt="star"/>
             </div>
-            <div class="row">
-                <div class="col-md-11">
-                    <p class="rating">@_details.VoteAverage (@_details.VoteCount Votes)</p>
-                    <img class="rating" src="Images/Star.png" alt="star"/>
-                </div>
-            </div>
-            <div class="row details">
-                <div class="col-md-6 offset-md-1 col-md-push-5 py-3">
-                    <p>@_details.Description</p>
-                    <p>Genres: @_details.Genres</p>
-                    <p>Length: @_details.Length</p>
-                    @if (_details.ProductionCompanies.Any())
+        </div>
+        <div class="row details">
+            <div class="col-md-6 offset-md-1 col-md-push-5 py-3">
+                <p>@_details.Description</p>
+                <p>Genres: @_details.Genres</p>
+                <p>Length: @_details.Length</p>
+                @if (_details.ProductionCompanies.Any())
+                {
+                    <p>Production Companies:</p>
+                    <ul>
+                        @foreach (var company in _details.ProductionCompanies)
                         {
-                            <p>Production Companies:</p>
-                            <ul>
-                                @foreach (var company in _details.ProductionCompanies)
+                            <li class="py-2">
+                                <p class="logo">@company.Name (@company.Country)</p>
+                                @if (!string.IsNullOrEmpty(company.LogoPath))
                                 {
-                                    <li class="py-2">
-                                        <p class="logo">@company.Name (@company.Country)</p>
-                                        @if (!string.IsNullOrEmpty(company.LogoPath))
-                                        {
-                                            <img class="logo-img p-1" src="@company.LogoPath" alt="logo"/>
-                                        }
-                                    </li>
+                                    <img class="logo-img p-1" src="@company.LogoPath" alt="logo"/>
                                 }
-                            </ul>
+                            </li>
                         }
-                    <p>Status: @_details.Status</p>
-                    <p>Release Date: @_details.ReleaseDate</p>
-                    <p>Original Language: @_details.OriginalLanguage</p>
-                    <p>Spoken Languages: @_details.SpokenLanguages</p>
-                    <p>Production Countries: @_details.ProductionCountries</p>
-                    <p>Budget: @_details.Budget</p>
-                    <p>Revenue: @_details.Revenue</p>
-                    @if (_details.IsAdult)
-                    {
-                        <p>Restricted age: &#128286;</p>
-                    }
+                    </ul>
+                }
+                <p>Status: @_details.Status</p>
+                <p>Release Date: @_details.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                <p>Original Language: @_details.OriginalLanguage</p>
+                <p>Spoken Languages: @_details.SpokenLanguages</p>
+                <p>Production Countries: @_details.ProductionCountries</p>
+                <p>Budget: @_details.Budget</p>
+                <p>Revenue: @_details.Revenue</p>
+                @if (_details.IsAdult)
+                {
+                    <p>Restricted age: &#128286;</p>
+                }
                     
-                </div>
-                <div class="col-md-4 order-first order-md-last py-3">
-                    <img class="homepage"
-                         src="@_details.ImageUrl"
-                         @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
-                         alt="Movie image"/>
-                    <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
-                </div>
             </div>
+            <div class="col-md-4 order-first order-md-last py-3">
+                <img class="homepage"
+                src="@_details.ImageUrl"
+                @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
+                alt="Movie image"/>
+                <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
+            </div>
+        </div>
             
-            <MovieCredits Credits="_details.Credits"/>
-        }
+        <MovieCredits Credits="_details.Credits"/>
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-12 offset-md-1">
+                <RatingView MovieDetailsViewModel="_details" />
+            </div>
+        </div>
+    }
 </div>

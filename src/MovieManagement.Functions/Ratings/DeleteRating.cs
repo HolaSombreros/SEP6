@@ -17,11 +17,13 @@ public class DeleteRating
         try
         {
             await _ratingService.DeleteRating(ratingId);
+            log.LogInformation("Rating with the id {ratingId} has been deleted", ratingId);
 
             return new OkResult();
         }
         catch (Exception e)
         {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
     }
