@@ -60,7 +60,7 @@ li {
 
 .error-message,
 .validation-message {
-    color: orangered;
+    color: orangered !important;
 }
 
 .success-message {

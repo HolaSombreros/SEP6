@@ -33,6 +33,7 @@ public partial class RatingView : ComponentBase
             ratingViewModel = new();
             resultMessage = "Review successfully added!";
             resultCssClass = "success-message";
+            // TODO - Do something with this rating to have it added to list of reviews? Might be unnecessarily complicated...
         }
         catch (Exception ex)
         {
