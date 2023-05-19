@@ -7,61 +7,68 @@ public class AzureService : IAzureService
     private readonly AzureFunctionsConfig _settings;
     private readonly string? _hostKey;
 
-    public AzureService(IOptions<AzureFunctionsConfig> settings, IHttpClientFactory clientFactory, JsonSerializerOptions jsonSerializerOptions)
+    public AzureService(IOptions<AzureFunctionsConfig> settings, IHttpClientFactory clientFactory,
+        JsonSerializerOptions jsonSerializerOptions)
     {
         _httpClient = clientFactory.CreateClient();
         _settings = settings.Value;
         _jsonSerializerOptions = jsonSerializerOptions;
         _hostKey = settings.Value.HostKey;
     }
-    
+
     public async Task<T> PostAsync<T>(string endpoint, object body)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Post,
-            _settings.AzureFunctionUri + 
+            _settings.AzureFunctionUri +
             endpoint +
-            _settings.QueryBuilder + 
+            _settings.QueryBuilder +
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
-        try {
+        try
+        {
             response.EnsureSuccessStatusCode();
         }
-        catch {
-            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!);
+        catch
+        {
+            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(),
+                _jsonSerializerOptions)!);
         }
-        
+
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
-    
+
     public async Task<T> PutAsync<T>(string endpoint, object body)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Put,
-            _settings.AzureFunctionUri + 
+            _settings.AzureFunctionUri +
             endpoint +
-            _settings.QueryBuilder + 
+            _settings.QueryBuilder +
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
-        try {
+        try
+        {
             response.EnsureSuccessStatusCode();
-        }  
-        catch {
-            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!);
         }
-        
+        catch
+        {
+            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(),
+                _jsonSerializerOptions)!);
+        }
+
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
-    
+
     public async Task DeleteAsync(string endpoint, object id)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Delete,
-            _settings.AzureFunctionUri + 
+            _settings.AzureFunctionUri +
             endpoint +
-            id +
+            $"/{id}" +
             _settings.QueryBuilder +
             _settings.AndQueryBuilder +
             _hostKey);

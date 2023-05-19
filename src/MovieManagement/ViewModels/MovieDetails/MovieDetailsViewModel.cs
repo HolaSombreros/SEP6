@@ -12,7 +12,7 @@ public class MovieDetailsViewModel
     public string ImageUrl { get; }
     public string Genres { get; }
     public string VoteCount { get; }
-    public double VoteAverage { get; }
+    public string VoteAverage { get; }
     public string Length { get; }
     public string OriginalLanguage { get; }
     public string Status { get; }
@@ -28,19 +28,24 @@ public class MovieDetailsViewModel
         Id = movie.Id;
         Title = movie.Title;
         Revenue = movie.Revenue != 0 ? $"{movie.Revenue:C}" : string.Empty;
-        ReleaseDate = movie.ReleaseDate.ToString("dd/MM/yyyy");
+        ReleaseDate = !movie.ReleaseDate.Equals(new DateTime(1, 1, 1))
+            ? movie.ReleaseDate.ToString("dd/MM/yyyy")
+            : string.Empty;
         Budget = movie.Budget != 0 ? $"{movie.Budget:C}" : string.Empty;
         Description = movie.Description;
         IsAdult = movie.IsAdult;
         ImageUrl = !string.IsNullOrEmpty(movie.ImageUrl) ? movie.ImageUrl : "Images/MovieMissingPicture.png";
         Genres = GetGenresToString(movie.Genres);
         VoteCount = $"{movie.VoteCount:n0}";
-        VoteAverage = Math.Round(movie.VoteAverage, 2);
+        VoteAverage = Math.Round(movie.VoteAverage, 2).ToString(CultureInfo.CurrentCulture);
         Length = GetMovieLength(movie.Length);
-        OriginalLanguage = movie.OriginalLanguage.ToUpper();
+        OriginalLanguage = !string.IsNullOrEmpty(movie.OriginalLanguage)
+            ? movie.OriginalLanguage.ToUpper()
+            : string.Empty;
         Homepage = movie.Homepage;
         Status = movie.Status;
-        ProductionCompanies = movie.ProductionCompanies.Select(company => new ProductionCompanyViewModel(company)).ToList();
+        ProductionCompanies = movie.ProductionCompanies.Select(company => new ProductionCompanyViewModel(company))
+            .ToList();
         ProductionCountries = GetProductionCountriesToString(movie.ProductionCountries);
         SpokenLanguages = GetSpokenLanguagesToString(movie.SpokenLanguages);
         Credits = new MovieCreditsViewModel(credits);
@@ -102,10 +107,11 @@ public class MovieDetailsViewModel
 
     private string GetMovieLength(int length)
     {
-        if (length == 0) 
+        if (length == 0)
         {
             return string.Empty;
         }
+
         return $"{length / 60}:{(length % 60):D2} hours";
     }
 }

@@ -2,9 +2,8 @@
 
 public partial class MovieCredits : ComponentBase
 {
-    [Parameter] 
-    public MovieCreditsViewModel Credits { get; set; } = default!;
-    
+    [Parameter] public MovieCreditsViewModel Credits { get; set; } = default!;
+
     private async Task ScrollRight(string id)
     {
         await JsRuntime.InvokeVoidAsync("ScrollRight", id, 200);
@@ -14,9 +13,9 @@ public partial class MovieCredits : ComponentBase
     {
         await JsRuntime.InvokeVoidAsync("ScrollLeft", id, 200);
     }
-    
-    private void GoToPersonDetails(long movieId)
+
+    private void GoToPersonDetails(long id)
     {
-        NavigationManager.NavigateTo($"/people/{movieId}");
+        NavigationManager.NavigateTo($"/people/{id}");
     }
 }
