@@ -1,7 +1,7 @@
 ﻿namespace MovieManagement.Database.Entities;
 
 [Table("MovieListMovie")]
-public class MovieListMovie
+public class MovieListMovieEntity
 {
     public Guid MovieListId { get; set; }
 

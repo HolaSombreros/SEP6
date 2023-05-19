@@ -15,7 +15,7 @@ public partial class MovieManagementDbContext : DbContext
 
     public  DbSet<MovieListEntity> MovieLists { get; set; } = default!;
 
-    public  DbSet<MovieListMovie> MovieListMovies { get; set; } = default!;
+    public  DbSet<MovieListMovieEntity?> MovieListMovies { get; set; } = default!;
     public  DbSet<RatingEntity> Ratings { get; set; } = default!;
     public  DbSet<UserEntity> Users { get; set; } = default!;
     
@@ -61,7 +61,7 @@ public partial class MovieManagementDbContext : DbContext
                 .HasConstraintName("FK_user_id_movielist");
         });
 
-        modelBuilder.Entity<MovieListMovie>(entity =>
+        modelBuilder.Entity<MovieListMovieEntity>(entity =>
         {
             entity
                 .HasNoKey()
