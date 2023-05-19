@@ -1,73 +1,77 @@
 ﻿@page "/Account"
-@using MovieManagement.Components
 @inject IUserService UserService
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IModalService Modal 
+@inject IModalService Modal
+@attribute [Authorize]
 
-<div class="container-fluid">
-    <div class="text-center mt-3">
-        <h1>Your Account</h1>
-    </div>
-    @if (_userViewModel != null)
-    {
-        <div class="row align-items-center">
-            <EditForm Model="@_userViewModel" OnValidSubmit="@SaveDetailsAsync">
-                <DataAnnotationsValidator/>
-                <div class="col-md-6 offset-md-3 py-4">
-                    <fieldset>
-                        <p>User Id:</p>
-                        <div class="input-group">
-                            <InputText @bind-Value="@_userIdString" placeholder="Id" class="form-control" disabled="true"/>
+<AuthorizeView Context="authContext">
+    <Authorized>
+        <div class="container-fluid">
+            <div class="text-center mt-3">
+                <h1>Your Account</h1>
+            </div>
+            @if (_userViewModel != null)
+            {
+                <div class="row align-items-center">
+                    <EditForm Model="@_userViewModel" Context="editContext" OnValidSubmit="@SaveDetailsAsync">
+                        <DataAnnotationsValidator/>
+                        <div class="col-md-6 offset-md-3 py-4">
+                            <fieldset>
+                                <p>User Id:</p>
+                                <div class="input-group">
+                                    <InputText @bind-Value="@_userIdString" placeholder="Id" class="form-control" disabled="true"/>
+                                </div>
+                            </fieldset>
                         </div>
-                    </fieldset>
-                </div>
-                <div class="col-md-6 offset-md-3 py-4">
-                    <fieldset>
-                        <p>Username:</p>
-                        <div class="input-group">
-                            <InputText @bind-Value="_userViewModel.Username" placeholder="Username" class="form-control"/>
+                        <div class="col-md-6 offset-md-3 py-4">
+                            <fieldset>
+                                <p>Username:</p>
+                                <div class="input-group">
+                                    <InputText @bind-Value="_userViewModel.Username" placeholder="Username" class="form-control"/>
+                                </div>
+                                <ValidationMessage For="@(() => _userViewModel.Username)"/>
+                            </fieldset>
                         </div>
-                        <ValidationMessage For="@(() => _userViewModel.Username)"/>
-                    </fieldset>
-                </div>
-                <div class="col-md-6 offset-md-3 py-4">
-                    <fieldset>
-                        <p>Email:</p>
-                        <div class="input-group">
-                            <InputText @bind-Value="_userViewModel.Email" placeholder="Email" class="form-control"/>
+                        <div class="col-md-6 offset-md-3 py-4">
+                            <fieldset>
+                                <p>Email:</p>
+                                <div class="input-group">
+                                    <InputText @bind-Value="_userViewModel.Email" placeholder="Email" class="form-control"/>
+                                </div>
+                                <ValidationMessage For="@(() => _userViewModel.Email)"/>
+                            </fieldset>
                         </div>
-                        <ValidationMessage For="@(() => _userViewModel.Email)"/>
-                    </fieldset>
-                </div>
-                <div class="col-md-6 offset-md-3 py-4">
-                    <fieldset>
-                        <p>Password:</p>
-                        <div class="input-group">
-                            <InputText @bind-Value="_userViewModel.EditPassword" placeholder="Fill only if you wish to change your password" class="form-control" type="password"/>
+                        <div class="col-md-6 offset-md-3 py-4">
+                            <fieldset>
+                                <p>Password:</p>
+                                <div class="input-group">
+                                    <InputText @bind-Value="_userViewModel.EditPassword" placeholder="Fill only if you wish to change your password" class="form-control" type="password"/>
+                                </div>
+                                <ValidationMessage For="@(() => _userViewModel.EditPassword)"/>
+                            </fieldset>
                         </div>
-                        <ValidationMessage For="@(() => _userViewModel.EditPassword)"/>
-                    </fieldset>
-                </div>
-                <div class="col-md-6 offset-md-3 py-4">
-                    <fieldset>
-                        <p>Confirm Password:</p>
-                        <div class="input-group">
-                            <InputText @bind-Value="_userViewModel.EditConfirmPassword" placeholder="Fill only if you wish to change your password" class="form-control" type="password"/>
+                        <div class="col-md-6 offset-md-3 py-4">
+                            <fieldset>
+                                <p>Confirm Password:</p>
+                                <div class="input-group">
+                                    <InputText @bind-Value="_userViewModel.EditConfirmPassword" placeholder="Fill only if you wish to change your password" class="form-control" type="password"/>
+                                </div>
+                                <ValidationMessage For="@(() => _userViewModel.EditConfirmPassword)"/>
+                            </fieldset>
                         </div>
-                        <ValidationMessage For="@(() => _userViewModel.EditConfirmPassword)"/>
-                    </fieldset>
+                        <div class="col-md-6 offset-md-3 py-4">
+                            <p class="success-message">@_successMessage</p>
+                            <p class="error-message">@_errorMessage</p>
+                        </div>
+                        <div class="col-md-6 offset-md-3 py-4 d-flex justify-content-between">
+                            <button type=submit class="btn btn-primary">Save Details</button>
+                            <button type=button class="btn btn-secondary" @onclick="@(() => Modal.Show<DeleteAccount>("Delete Account", new ModalParameters()))">
+                                Delete Account
+                            </button>
+                        </div>
+                    </EditForm>
                 </div>
-                <div class="col-md-6 offset-md-3 py-4">
-                    <p class="success-message">@_successMessage</p>
-                    <p class="error-message">@_errorMessage</p>
-                </div>
-                <div class="col-md-6 offset-md-3 py-4 d-flex justify-content-between">
-                    <button type=submit class="btn btn-primary">Save Details</button>
-                    <button type=button class="btn btn-secondary" @onclick="@(() => Modal.Show<DeleteAccount>("Delete Account", new ModalParameters()))">
-                        Delete Account
-                    </button>
-                </div>
-            </EditForm>
+            }
         </div>
-    }
-</div>
+    </Authorized>
+</AuthorizeView>
