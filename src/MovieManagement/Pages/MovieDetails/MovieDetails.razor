@@ -4,7 +4,7 @@
 @inject IJSRuntime JSRuntime
 
 <div class="container-fluid p-5">
-	@if (_details == null)
+    @if (_details == null)
     {
         <p>Loading...</p>
     }
@@ -25,21 +25,21 @@
                 <p>Genres: @_details.Genres</p>
                 <p>Length: @_details.Length</p>
                 @if (_details.ProductionCompanies.Any())
-                    {
-                        <p>Production Companies:</p>
-                        <ul>
-                            @foreach (var company in _details.ProductionCompanies)
-                            {
-                                <li class="py-2">
-                                    <p class="logo">@company.Name (@company.Country)</p>
-                                    @if (!string.IsNullOrEmpty(company.LogoPath))
-                                    {
-                                        <img class="logo-img p-1" src="@company.LogoPath" alt="logo"/>
-                                    }
-                                </li>
-                            }
-                        </ul>
-                    }
+                {
+                    <p>Production Companies:</p>
+                    <ul>
+                        @foreach (var company in _details.ProductionCompanies)
+                        {
+                            <li class="py-2">
+                                <p class="logo">@company.Name (@company.Country)</p>
+                                @if (!string.IsNullOrEmpty(company.LogoPath))
+                                {
+                                    <img class="logo-img p-1" src="@company.LogoPath" alt="logo"/>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
                 <p>Status: @_details.Status</p>
                 <p>Release Date: @_details.ReleaseDate.ToString("dd/MM/yyyy")</p>
                 <p>Original Language: @_details.OriginalLanguage</p>
@@ -55,9 +55,9 @@
             </div>
             <div class="col-md-4 order-first order-md-last py-3">
                 <img class="homepage"
-                        src="@_details.ImageUrl"
-                        @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
-                        alt="Movie image"/>
+                src="@_details.ImageUrl"
+                @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
+                alt="Movie image"/>
                 <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
             </div>
         </div>

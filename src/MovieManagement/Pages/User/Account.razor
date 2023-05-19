@@ -1,7 +1,8 @@
 ﻿@page "/Account"
 @inject IUserService UserService
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IModalService Modal 
+@inject IModalService Modal
+@attribute [Authorize]
 
 <AuthorizeView Context="authContext">
     <Authorized>
