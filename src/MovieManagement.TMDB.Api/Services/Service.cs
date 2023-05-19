@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace MovieManagement.TMDB.Api.Services;
+﻿namespace MovieManagement.TMDB.Api.Services;
 public class Service : IService
 {
     private readonly HttpClient _httpClient;
@@ -20,7 +18,6 @@ public class Service : IService
     {
         var request = new HttpRequestMessage(HttpMethod.Get,
             _settings.Value.MovieDatabaseUri + endpoint + _settings.Value.ApiQueryString + _apiKey);
-
         var response = await _httpClient.SendAsync(request);
         response.EnsureSuccessStatusCode();
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;

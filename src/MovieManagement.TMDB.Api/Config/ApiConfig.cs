@@ -13,6 +13,7 @@ public class ApiConfig
     public string PagePath { get; set; } = default!;
     public string TopRatedPath { get; set; } = default!;
     public string InTheatrePath { get; set; } = default!;
+    public string DiscoverPath { get; set; } = default!;
     public string QueryBuilder { get; set; } = default!;
     public string AndQueryBuilder { get; set; } = default!;
     public string PersonPath { get; set; } = default!;
