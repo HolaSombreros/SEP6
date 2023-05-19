@@ -4,7 +4,7 @@ namespace MovieManagement.ViewModels.Rating;
 
 public class RatingViewModel
 {
-    public Guid RatingId { get; set; }
+    public Guid? RatingId { get; set; }
 
     [Required(ErrorMessage = "A rating is required")]
     [Range(1, 10, ErrorMessage = "A rating must be between {1} and {2}")]

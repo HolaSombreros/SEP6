@@ -13,9 +13,9 @@ public class RatingService : IRatingService
 
     public async Task<RatingViewModel> RateMovie(RatingViewModel ratingViewModel, MovieDetailsViewModel movieViewModel, Guid userId)
     {
-        var ratingDto = new RatingDto(ratingViewModel, movieViewModel, userId);
+        var ratingDto = new AddRatingDto(ratingViewModel, movieViewModel, userId);
         var newRating = await service.PutAsync<RatingDto>(settings.RateMoviePath, ratingDto);
+        ratingViewModel.RatingId = newRating.RatingId;
         return ratingViewModel;
-        //ratingViewModel.RatingId = newRating.
     }
 }
