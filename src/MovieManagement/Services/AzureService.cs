@@ -32,8 +32,7 @@ public class AzureService : IAzureService
         }
         catch
         {
-            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(),
-                _jsonSerializerOptions)!);
+            throw new Exception(response.Content.ReadAsStringAsync().Result);
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -55,8 +54,7 @@ public class AzureService : IAzureService
         }
         catch
         {
-            throw new Exception(JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync(),
-                _jsonSerializerOptions)!);
+            throw new Exception(response.Content.ReadAsStringAsync().Result);
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -70,7 +68,6 @@ public class AzureService : IAzureService
             endpoint +
             $"/{id}" +
             _settings.QueryBuilder +
-            _settings.AndQueryBuilder +
             _hostKey);
         await _httpClient.SendAsync(request);
     }

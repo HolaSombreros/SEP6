@@ -28,4 +28,5 @@ public class UserViewModel
     public string EditPassword { get; set; } = default!;
 
     [Compare("EditPassword", ErrorMessage = "Passwords must match")]
-    public string EditConfirmPassword { get; set; } = default!;}
+    public string EditConfirmPassword { get; set; } = default!;
+}
