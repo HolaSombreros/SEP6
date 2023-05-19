@@ -28,7 +28,7 @@ public class GetMovieRating
     
     [FunctionName("GetMovieRatings")]
     public async Task<IActionResult> GetMovieRatings(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
+        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRatings/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
          ILogger log)
     {
         try

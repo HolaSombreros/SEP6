@@ -32,13 +32,7 @@ public class RatingRepository : IRatingRepository
     {
         var list = await _context.Ratings
             .Where(r => movieId.Equals(r.MovieId))
-             .Select(g => new RatingEntity
-             {
-                 MovieId = g.MovieId,
-                 Rating = g.Rating,
-                 Review = g.Review,
-                 UserId = g.UserId
-             }).ToListAsync();
+            .ToListAsync();
         
          return list
              .OrderBy(r => r.UserId == userId ? 0 : 1)
