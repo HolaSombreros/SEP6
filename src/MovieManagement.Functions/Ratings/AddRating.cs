@@ -1,12 +1,12 @@
-namespace MovieManagement.Functions.Movie;
+namespace MovieManagement.Functions.Ratings;
 
-public class RateFunction
+public class AddRating
 {
     private readonly IRatingService _ratingService;
     private readonly IMovieService _movieService;
     private readonly IValidator<RatingDto> _validator;
     
-    public RateFunction(IRatingService ratingService, IValidator<RatingDto> validator, IMovieService movieService)
+    public AddRating(IRatingService ratingService, IValidator<RatingDto> validator, IMovieService movieService)
     {
         _ratingService = ratingService;
         _validator = validator;
@@ -14,7 +14,7 @@ public class RateFunction
     }
     
     [FunctionName("AddRating")]
-    public async Task<IActionResult> AddRating(
+    public async Task<IActionResult> AddUserRating(
     [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Put), Route = null)] HttpRequest req,
     ILogger log)
     {
@@ -35,25 +35,6 @@ public class RateFunction
             updatedRating.MovieDto = updatedMovie;
             
             return new OkObjectResult(updatedRating);
-        }
-        catch (Exception e)
-        {
-            return new BadRequestObjectResult(e.Message);
-        }
-    }
-    
-    [FunctionName("GetMovieRatingsByIds")]
-    public async Task<IActionResult> GetMovieRatingsByIds(
-    [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
-    ILogger log)
-    {
-        try
-        {
-            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var ratingList = JsonConvert.DeserializeObject<IList<int>>(requestBody);
-            var result = await _ratingService.GetMovieRatings(ratingList);
-            
-            return new OkObjectResult(result);
         }
         catch (Exception e)
         {

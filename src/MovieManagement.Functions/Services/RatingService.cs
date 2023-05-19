@@ -48,4 +48,32 @@ public class RatingService : IRatingService
             })
             .ToList();
     }
+
+    public async Task<RatingDto> GetRatingById(Guid ratingId)
+    {
+        var ratingEntity =  await _repository.GetAsync(ratingId);
+        return _mapper.Map<RatingDto>(ratingEntity);
+    }
+
+    public async Task<RatingDto> GetMovieRatingByUser(int movieId, Guid userId)
+    {
+        var ratingEntity = await _repository.GetMovieUserRating(movieId, userId);
+        return _mapper.Map<RatingDto>(ratingEntity);
+    }
+
+    public async Task<IList<RatingDto>> GetMovieRatings(int movieId, Guid userId, int pageNumber, int pageSize)
+    {
+        var list = await _repository.GetMovieRatings(movieId, userId, pageNumber, pageSize);
+        return _mapper.Map<List<RatingDto>>(list);
+    }
+
+    public async Task DeleteRating(Guid ratingId)
+    {
+        var existingRating = await GetRatingById(ratingId);
+        if (existingRating is null)
+        {
+            throw new Exception("The rating with the given id does not exist");
+        }
+        await _repository.DeleteAsync(ratingId);
+    }
 }
