@@ -14,6 +14,7 @@ public partial class RatingView : ComponentBase
 
     private async Task RateMovie()
     {
+        var userId = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
         // TODO - Call service that maps VM to DTO. Also prevent rating the same movie twice.
         ratingViewModel = new();
     }
