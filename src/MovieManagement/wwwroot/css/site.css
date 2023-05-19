@@ -13,6 +13,7 @@ a {
 
   a:hover {
     color: white;
+    cursor: pointer;
   }
 
 .btn {

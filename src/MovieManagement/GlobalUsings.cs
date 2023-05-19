@@ -26,6 +26,7 @@ global using MovieManagement.ViewModels.User;
 global using System.ComponentModel.DataAnnotations;
 global using System;
 global using System.Diagnostics;
+global using System.Globalization;
 global using System.Security.Claims;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
