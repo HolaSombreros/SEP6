@@ -13,13 +13,28 @@ public class StatisticsService : IStatisticsService
         _settings = settings.Value;
     }
 
-    public async Task<MovieList> GetMostRatedMoviesByReleaseYear(int year, int page)
+    public async Task<MovieList> GetMostRatedMoviesByReleaseYearAsync(int year, int page)
     {
         try
         {
-            var movieListDto = await _service.GetAsync<MovieListDto>(_settings.DiscoverPath + "movie?include_adult=false&include_video=false&primary_release_year=" +
-                year + "&language=en-US&page=" + page + "&sort_by=vote_count.desc" +
-            _settings.AndQueryBuilder);
+            string queriedYear = year <= 0 ? "" : $"&primary_release_year={year}";
+            string endpoint = $"{_settings.DiscoverPath}movie?include_adult=false&include_video=false{queriedYear}&language=en-US&page={page}&sort_by=vote_count.desc{_settings.AndQueryBuilder}";
+            var movieListDto = await _service.GetAsync<MovieListDto>(endpoint);
+            return _movieMapper.Map<MovieListDto, MovieList>(movieListDto);
+        }
+        catch
+        {
+            return new MovieList();
+        }
+    }
+
+    public async Task<MovieList> GetMoviesWithHighestRevenueByYearAsync(int year, int page)
+    {
+        try
+        {
+            string queriedYear = year <= 0 ? "" : $"&primary_release_year={year}";
+            string endpoint = $"{_settings.DiscoverPath}movie?include_adult=false&include_video=false{queriedYear}&language=en-US&page={page}&sort_by=revenue.desc{_settings.AndQueryBuilder}";
+            var movieListDto = await _service.GetAsync<MovieListDto>(endpoint);
             return _movieMapper.Map<MovieListDto, MovieList>(movieListDto);
         }
         catch

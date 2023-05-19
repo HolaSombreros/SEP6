@@ -2,5 +2,6 @@
 
 public interface IStatisticsService
 {
-    Task<MovieList> GetMostRatedMoviesByReleaseYear(int year, int page);
+    Task<MovieList> GetMostRatedMoviesByReleaseYearAsync(int year, int page);
+    Task<MovieList> GetMoviesWithHighestRevenueByYearAsync(int year, int page);
 }
