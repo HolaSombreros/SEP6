@@ -22,13 +22,16 @@ public class RegisterUser
             var result = await _validator.ValidateAsync(registerUserDto);
             if (!result.IsValid)
             {
+                log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors);
             }
             var user = await _userService.RegisterUser(registerUserDto);
             
             return new OkObjectResult(user);
         }
-        catch (Exception e) {
+        catch (Exception e) 
+        {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
     }

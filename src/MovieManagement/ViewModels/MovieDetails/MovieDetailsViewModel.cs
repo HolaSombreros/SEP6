@@ -5,7 +5,7 @@ public class MovieDetailsViewModel
     public int Id { get; }
     public string Title { get; }
     public string Revenue { get; }
-    public string ReleaseDate { get; }
+    public DateTime ReleaseDate { get; }
     public string Budget { get; }
     public string Description { get; }
     public bool IsAdult { get; }
@@ -22,16 +22,13 @@ public class MovieDetailsViewModel
     public string SpokenLanguages { get; }
     public MovieCreditsViewModel Credits { get; }
 
-
     public MovieDetailsViewModel(Movie movie, Credits credits)
     {
         Id = movie.Id;
         Title = movie.Title;
-        Revenue = movie.Revenue != 0 ? $"{movie.Revenue:C}" : string.Empty;
-        ReleaseDate = !movie.ReleaseDate.Equals(new DateTime(1, 1, 1))
-            ? movie.ReleaseDate.ToString("dd/MM/yyyy")
-            : string.Empty;
-        Budget = movie.Budget != 0 ? $"{movie.Budget:C}" : string.Empty;
+        Revenue = movie.Revenue != 0 ? $"${movie.Revenue}" : string.Empty;
+        ReleaseDate = movie.ReleaseDate;
+        Budget = movie.Budget != 0 ? $"${movie.Budget}" : string.Empty;
         Description = movie.Description;
         IsAdult = movie.IsAdult;
         ImageUrl = !string.IsNullOrEmpty(movie.ImageUrl) ? movie.ImageUrl : "Images/MovieMissingPicture.png";

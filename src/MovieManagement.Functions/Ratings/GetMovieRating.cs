@@ -17,11 +17,11 @@ public class GetMovieRating
         try
         {
             var result = await _ratingService.GetMovieRatingByUser(movieId, userId);
-            
             return new OkObjectResult(result);
         }
         catch (Exception e)
         {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
     }
@@ -41,6 +41,7 @@ public class GetMovieRating
         }
         catch (Exception e)
         {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
     }
@@ -61,6 +62,7 @@ public class GetMovieRating
         }
         catch (Exception e)
         {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
     }
