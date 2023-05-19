@@ -22,7 +22,6 @@ public class MovieDetailsViewModel
     public string SpokenLanguages { get; }
     public MovieCreditsViewModel Credits { get; }
 
-
     public MovieDetailsViewModel(Movie movie, Credits credits)
     {
         Id = movie.Id;

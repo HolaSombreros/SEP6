@@ -10,6 +10,7 @@ builder.Services.AddScoped<IAzureService, AzureService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));

@@ -3,9 +3,21 @@
 public partial class RatingView : ComponentBase
 {
     [Parameter]
-    public int MovieId { get; set; }
+    public MovieDetailsViewModel MovieDetails { get; set; } = default!;
 
     private RatingViewModel ratingViewModel = new();
+    private Guid userId = default!;
+    private string resultMessage = string.Empty;
+    private string resultCssClass = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var tempUserId = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
+        if (tempUserId != null)
+        {
+            userId = Guid.Parse(tempUserId);
+        }
+    }
 
     private void SetRating(int rating)
     {
@@ -14,9 +26,19 @@ public partial class RatingView : ComponentBase
 
     private async Task RateMovie()
     {
-        var userId = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
-        // TODO - Call service that maps VM to DTO. Also prevent rating the same movie twice.
-        ratingViewModel = new();
+        resultMessage = "";
+        try
+        {
+            var rating = await RatingService.RateMovie(ratingViewModel, MovieDetails, userId);
+            ratingViewModel = new();
+            resultMessage = "Review successfully added!";
+            resultCssClass = "success-message";
+        }
+        catch (Exception ex)
+        {
+            resultMessage = ex.Message;
+            resultCssClass = "error-message";
+        }
     }
 
     private string IsActive(int rating)

@@ -1,4 +1,6 @@
 ﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IRatingService RatingService
+@inject IMovieService MovieService
 
 <AuthorizeView Context="authContext">
     <Authorized>
@@ -17,6 +19,7 @@
                 <button class="btn btn-primary">Rate movie</button>
                 <ValidationSummary />
             </EditForm>
+            <p class="mt-2 @resultCssClass">@resultMessage</p>
         </div>
     </Authorized>
 </AuthorizeView>
