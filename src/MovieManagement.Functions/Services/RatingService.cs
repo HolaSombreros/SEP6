@@ -15,6 +15,7 @@ public class RatingService : IRatingService
     {
         var ratingEntity = _mapper.Map<RatingEntity>(rating);
         ratingEntity.MovieId = rating.MovieDto.MovieId;
+        ratingEntity.DateTime = DateTime.UtcNow;
         var existingRating = await _repository.GetMovieUserRating(rating.MovieDto.MovieId, rating.UserId);
         if (existingRating != null)
         {
@@ -31,5 +32,20 @@ public class RatingService : IRatingService
         var ratingEntity = _mapper.Map<RatingEntity>(ratingDto);
         var addedRating = await _repository.AddAsync(ratingEntity);
         return _mapper.Map<RatingDto>(addedRating);
+    }
+
+    public async Task<IList<RatingQueryDto>> GetMovieRatings(IList<int> ratingList)
+    {
+        var results = await _repository.GetAllMovieRatings(ratingList);
+        var mappedRating = _mapper.Map<List<RatingSubsetDto>>(results);
+        return mappedRating
+            .GroupBy(r => r.MovieId)
+            .Select(g => new RatingQueryDto
+            {
+                MovieId = g.Key,
+                Average = Math.Round(g.Average(r => r.Rating),2),
+                VoteCount = g.Count()
+            })
+            .ToList();
     }
 }

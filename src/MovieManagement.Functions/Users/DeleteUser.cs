@@ -9,18 +9,16 @@ public class DeleteUser {
 
     [FunctionName("DeleteUser")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Delete), Route = "DeleteUser/{userId}")] HttpRequest req, [FromRoute]string userId, ILogger log) {
+        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Delete), Route = "DeleteUser/{userId}")] HttpRequest req, [FromRoute]Guid userId, ILogger log) {
         try 
         {
             log.LogInformation("C# HTTP trigger function processed a request");
-            var guid = Guid.Parse(userId);
-            await _userService.DeleteUser(guid);
+            await _userService.DeleteUser(userId);
             log.LogInformation("Deleted user with id " + userId);
             return new OkResult();
         }
         catch (Exception e) {
             return new BadRequestObjectResult(e.Message);
         }
-        
     }
 }

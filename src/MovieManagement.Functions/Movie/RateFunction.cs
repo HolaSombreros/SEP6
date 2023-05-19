@@ -14,7 +14,7 @@ public class RateFunction
     }
     
     [FunctionName("AddRating")]
-    public async Task<IActionResult> RunAsync(
+    public async Task<IActionResult> AddRating(
     [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Put), Route = null)] HttpRequest req,
     ILogger log)
     {
@@ -35,6 +35,25 @@ public class RateFunction
             updatedRating.MovieDto = updatedMovie;
             
             return new OkObjectResult(updatedRating);
+        }
+        catch (Exception e)
+        {
+            return new BadRequestObjectResult(e.Message);
+        }
+    }
+    
+    [FunctionName("GetMovieRatingsByIds")]
+    public async Task<IActionResult> GetMovieRatingsByIds(
+    [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
+    ILogger log)
+    {
+        try
+        {
+            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var ratingList = JsonConvert.DeserializeObject<IList<int>>(requestBody);
+            var result = await _ratingService.GetMovieRatings(ratingList);
+            
+            return new OkObjectResult(result);
         }
         catch (Exception e)
         {

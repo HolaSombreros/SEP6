@@ -9,9 +9,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Components\SearchResults\SearchMovieCard.razor.css" />
+      <None Remove="Pages\SearchResults\SearchResults.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Content Include="..\..\.dockerignore">
             <Link>.dockerignore</Link>
         </Content>
+        <Content Include="Components\SearchResults\SearchMovieCard.razor.css" />
+        <Content Include="Pages\SearchResults\SearchResults.razor.css" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,10 +27,6 @@
         <ProjectReference Include="..\MovieManagement.TMDB.Api\MovieManagement.TMDB.Api.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Data" />
-    </ItemGroup>
-    
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
             <PrivateAssets>all</PrivateAssets>
