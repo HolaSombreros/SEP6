@@ -18,7 +18,7 @@ public class StatisticsService : IStatisticsService
         try
         {
             var movieListDto = await _service.GetAsync<MovieListDto>(_settings.DiscoverPath + "movie?include_adult=false&include_video=false&primary_release_year=" +
-            year + "&language=en-US&page=" + page + "&sort_by=vote_count.desc" +
+                year + "&language=en-US&page=" + page + "&sort_by=vote_count.desc" +
             _settings.AndQueryBuilder);
             return _movieMapper.Map<MovieListDto, MovieList>(movieListDto);
         }
