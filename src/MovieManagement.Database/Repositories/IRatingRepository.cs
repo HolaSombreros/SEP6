@@ -2,7 +2,7 @@
 
 public interface IRatingRepository
 {
-    Task<RatingEntity?> GetMovieUserRating(int movieId, Guid userId);
+    Task<RatingEntity?> GetMovieUserRating(int movieId, Guid? userId);
     Task<List<RatingEntity>> GetAllMovieRatings(IList<int> ids);
     Task<RatingEntity?> UpdateAsync(RatingEntity entity, Guid id);
     Task DeleteAsync(Guid id);

@@ -4,10 +4,12 @@ public class RegisterUser
 {
     private readonly IUserService _userService;
     private readonly IValidator<RegisterUserDto> _validator;
+    private readonly IMovieListService _movieListService;
 
-    public RegisterUser(IUserService userService, IValidator<RegisterUserDto> validator) {
+    public RegisterUser(IUserService userService, IValidator<RegisterUserDto> validator, IMovieListService movieListService) {
         _userService = userService;
         _validator = validator;
+        _movieListService = movieListService;
     }
 
     [FunctionName("RegisterUser")]
@@ -26,6 +28,12 @@ public class RegisterUser
                 return new BadRequestObjectResult(result.Errors);
             }
             var user = await _userService.RegisterUser(registerUserDto);
+            await _movieListService.AddMovieListAsync(new AddMovieListDto() {
+                UserId = user.UserId, Title = "Favourites"
+            });
+            await _movieListService.AddMovieListAsync(new AddMovieListDto() {
+                UserId = user.UserId, Title = "ToWatch"
+            });
             
             return new OkObjectResult(user);
         }
