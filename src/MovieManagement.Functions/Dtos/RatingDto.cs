@@ -6,4 +6,5 @@ public class RatingDto
     public int Rating { get; set; }
     public string Review { get; set; } = default!;
     public Guid UserId { get; set; }
+    public Guid RatingId { get; set; }
 }
