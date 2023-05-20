@@ -4,13 +4,13 @@ public partial class MovieCredits : ComponentBase
 {
     [Parameter] 
     public MovieCreditsViewModel Credits { get; set; } = default!;
-    
-    async Task ScrollRight(string id)
+
+    private async Task ScrollRightAsync(string id)
     {
         await JsRuntime.InvokeVoidAsync("ScrollRight", id, 200);
     }
 
-    async Task ScrollLeft(string id)
+    private async Task ScrollLeftAsync(string id)
     {
         await JsRuntime.InvokeVoidAsync("ScrollLeft", id, 200);
     }

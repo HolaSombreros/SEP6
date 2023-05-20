@@ -22,7 +22,7 @@ public partial class InfiniteScroll : ComponentBase
     }
 
     [JSInvokable]
-    public async Task OnIntersection()
+    public async Task OnIntersectionAsync()
     {
         await ObservableTargetReached.InvokeAsync(true);
     }

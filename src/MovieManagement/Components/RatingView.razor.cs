@@ -24,12 +24,12 @@ public partial class RatingView : ComponentBase
         ratingViewModel.StarRating = rating;
     }
 
-    private async Task RateMovie()
+    private async Task RateMovieAsync()
     {
         resultMessage = "";
         try
         {
-            var rating = await RatingService.RateMovie(ratingViewModel, MovieDetailsViewModel, userId);
+            var rating = await RatingService.RateMovieAsync(ratingViewModel, MovieDetailsViewModel, userId);
             ratingViewModel = new();
             resultMessage = "Review successfully added!";
             resultCssClass = "success-message";

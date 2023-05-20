@@ -13,7 +13,7 @@ public partial class MovieListView : ComponentBase
         movieList = new(data);
     }
 
-    private async Task FetchData()
+    private async Task FetchDataAsync()
     {
         var nextPageNumber = movieList!.Page + 1;
         var data = await MovieService.GetMovieListAsync(ListType, nextPageNumber);

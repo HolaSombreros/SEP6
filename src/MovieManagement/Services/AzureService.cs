@@ -14,7 +14,21 @@ public class AzureService : IAzureService
         _jsonSerializerOptions = jsonSerializerOptions;
         _hostKey = settings.Value.HostKey;
     }
-    
+
+    public async Task<T> GetAsync<T>(string endpoint, object body)
+    {
+        var request = new HttpRequestMessage(
+            HttpMethod.Get,
+            _settings.AzureFunctionUri +
+            endpoint +
+            _settings.QueryBuilder +
+            _hostKey);
+        request.Content = JsonContent.Create(body);
+        var response = await _httpClient.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
+    }
+
     public async Task<T> PostAsync<T>(string endpoint, object body)
     {
         var request = new HttpRequestMessage(
@@ -53,6 +67,7 @@ public class AzureService : IAzureService
             _settings.QueryBuilder +
             _settings.AndQueryBuilder +
             _hostKey);
-        await _httpClient.SendAsync(request);
+        var response = await _httpClient.SendAsync(request);
+        response.EnsureSuccessStatusCode();
     }
 }

@@ -4,14 +4,7 @@
 {
   <div class="movie-card">
     <div class="rating-container">
-      @if (Movie.Ratings.Any())
-      {
-        @Movie.Ratings.Select(rating => rating.StarRating).Average()
-      }
-      else
-      {
-        <span>0</span>
-      }
+      @Movie.Rating
     </div>
     <img class="image" src="@Movie.PosterPath" alt="Image not found" @onclick="(() => ShowMovieDetails(Movie.Id))" />
     <div class="movie-details">
