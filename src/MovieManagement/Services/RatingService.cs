@@ -11,11 +11,18 @@ public class RatingService : IRatingService
         this.settings = settings.Value;
     }
 
-    public async Task<List<ReviewModel>> GetMovieReviewsAsync(int movieId, Guid? userGuid)
+    public Task CreateMovieReview(CreateReviewModel reviewModel, MovieModel movieModel, Guid userGuid)
+    {
+        var dto = new CreateReviewDto(reviewModel, movieModel, userGuid);
+        return service.PutAsync<RatingDto>(settings.RateMoviePath, dto);
+    }
+
+    public async Task<IEnumerable<ReviewModel>> GetMovieReviewsAsync(int movieId, Guid? userGuid)
     {
         // TODO - change endpoint and put ids in body
         var endpoint = $"{settings.GetMovieRatings}/{movieId}/{userGuid}";
-        var dtos = await service.GetAsync<IEnumerable<ReviewResponseDto>>(endpoint, new object());
+        //var dtos = await service.GetAsync<IEnumerable<ReviewResponseDto>>(endpoint, new object());
+        var dtos = await DummyData.GetDummyReviews();
 
         if (dtos.Any())
         {
@@ -32,13 +39,5 @@ public class RatingService : IRatingService
         {
             return new List<ReviewModel>();
         }
-    }
-
-    public async Task<RatingViewModel> RateMovieAsync(RatingViewModel ratingViewModel, MovieDetailsViewModel movieDetailsViewModel, Guid userId)
-    {
-        var ratingDto = new AddRatingDto(ratingViewModel, movieDetailsViewModel, userId);
-        var newRating = await service.PutAsync<RatingDto>(settings.RateMoviePath, ratingDto);
-        ratingViewModel.RatingId = newRating.RatingId;
-        return ratingViewModel;
     }
 }

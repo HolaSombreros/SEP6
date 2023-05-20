@@ -17,6 +17,6 @@ public class ReviewsViewModel
 
     public async Task GetMovieReviewsAsync()
     {
-        Reviews = await ratingService.GetMovieReviewsAsync(movieId, userGuid);
+        Reviews = (await ratingService.GetMovieReviewsAsync(movieId, userGuid)).ToList();
     }
 }

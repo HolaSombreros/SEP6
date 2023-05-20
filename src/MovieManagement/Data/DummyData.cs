@@ -31,7 +31,7 @@ public class DummyData
         return data;
     }
 
-    public static async Task<List<ReviewResponseDto>> GetDummyReviews()
+    public static async Task<IEnumerable<ReviewResponseDto>> GetDummyReviews()
     {
         return new List<ReviewResponseDto>
         {

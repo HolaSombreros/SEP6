@@ -1,4 +1,7 @@
-﻿<h3 class="mb-4">Reviews</h3>
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IRatingService RatingService
+
+<h3 class="mb-4">Reviews</h3>
 @if (viewModel?.Reviews == null)
 {
     <p>Loading movie reviews...</p>

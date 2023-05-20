@@ -2,12 +2,6 @@
 
 public partial class ReviewsView : ComponentBase
 {
-    [Inject]
-    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
-
-    [Inject]
-    public IRatingService RatingService { get; set; } = default!;
-
     [Parameter]
     public int MovieId { get; set; }
 

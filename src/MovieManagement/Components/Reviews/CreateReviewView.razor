@@ -1,0 +1,17 @@
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IRatingService RatingService
+@inject IMovieService MovieService
+
+<AuthorizeView Context="authContext">
+    <Authorized>
+        <h3 class="mb-4">Add Movie Review</h3>
+        <EditForm Context="editContext" Model="viewModel.CreateReviewModel" OnValidSubmit="CreateMovieReviewAsync">
+            <DataAnnotationsValidator />
+            <InteractiveRatingsView Rating="viewModel.CreateReviewModel.Rating" RatingChangedCallback="RatingChanged" />
+            <InputTextArea class="form-control" @bind-Value="viewModel.CreateReviewModel.Review" />
+            <button class="btn btn-primary mb-3">Rate Movie</button>
+            <ValidationSummary />
+        </EditForm>
+        <p class="@resultCssClass">@viewModel?.ResultMessage</p>
+    </Authorized>
+</AuthorizeView>
