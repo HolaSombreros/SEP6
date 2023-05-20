@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Components\Reviews\StarRating.razor.css" />
       <None Remove="Components\SearchResults\SearchMovieCard.razor.css" />
       <None Remove="Pages\SearchResults\SearchResults.razor.css" />
     </ItemGroup>

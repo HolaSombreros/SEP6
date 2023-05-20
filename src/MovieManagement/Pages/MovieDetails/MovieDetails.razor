@@ -83,12 +83,18 @@
                 }
             </div>
         </div>
-
-        <MovieCredits Credits="_details.Credits"/>
-
+        <MovieCredits Credits="_details.Credits" />
+        <div class="row mb-3">
+            <hr class="col-lg-10 offset-md-1" />
+        </div>
         <div class="row">
             <div class="col-xl-6 col-lg-12 offset-md-1">
-                <RatingView MovieDetailsViewModel="_details"/>
+                <AddRatingView MovieDetailsViewModel="_details"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 offset-md-1">
+                <ReviewsView MovieId="_details.Id" />
             </div>
         </div>
     }

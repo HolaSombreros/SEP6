@@ -1,9 +1,12 @@
 ﻿namespace MovieManagement.Components;
 
-public partial class RatingView : ComponentBase
+public partial class AddRatingView : ComponentBase
 {
     [Parameter]
     public MovieDetailsViewModel MovieDetailsViewModel { get; set; } = default!;
+
+    [Parameter]
+    public int MovieId { get; set; }
 
     private RatingViewModel ratingViewModel = new();
     private Guid userId = default!;

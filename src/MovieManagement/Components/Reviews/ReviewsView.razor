@@ -1,0 +1,23 @@
+﻿<h3 class="mb-4">Reviews</h3>
+@if (viewModel?.Reviews == null)
+{
+    <p>Loading movie reviews...</p>
+}
+else
+{
+    @if (!viewModel.Reviews.Any())
+    {
+        <span>There are no reviews for this movie yet...</span>
+        <AuthorizeView>
+            <Authorized>
+                <span>Be the first!</span>
+            </Authorized>
+        </AuthorizeView>
+    }
+    else
+    {
+        <Virtualize Items="viewModel.Reviews" Context="review">
+            <ReviewView Review="review" />
+        </Virtualize>
+    }
+}

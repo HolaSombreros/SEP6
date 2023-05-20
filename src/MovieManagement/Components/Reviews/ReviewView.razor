@@ -1,0 +1,9 @@
+﻿<div class="review-wrapper">
+    <RatingsView Rating="Review.Rating" />
+    @if (Review.Text != null)
+    {
+        <p class="form-control">@Review.Text</p>
+    }
+    <p>@Review.CreatedBy - @Review.CreatedDate</p>
+</div>
+

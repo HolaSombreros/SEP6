@@ -31,6 +31,12 @@ public class GetMovieRating
         [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRatings/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
          ILogger log)
     {
+        // TODO - Put movieId + userId in body of request - especially considering the userId can be null. Applies to method above too which I'm also not sure we will even use...?
+
+        // Why take "pageSize" as a query parameter - shouldn't the function decide how many to return?
+        // Also, we don't actually *need* pagination on this one. That could be project future for example. Not sure it makes sense to implement it with pagination on the UI side at least,
+        // so maybe allow no pagination too, if f.x. the page query parameter is not present.
+
         try
         {
             var page = int.Parse(req.Query["page"]);
