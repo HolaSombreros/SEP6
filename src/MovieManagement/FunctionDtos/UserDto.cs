@@ -1,7 +1,7 @@
-﻿namespace MovieManagement.FunctionDtos; 
+﻿namespace MovieManagement.FunctionDtos;
 
-public class UserDto {
-    
+public class UserDto
+{
     public Guid UserId { get; set; } = default!;
 
     public string Username { get; set; } = default!;
@@ -13,11 +13,14 @@ public class UserDto {
     public UserDto(UserViewModel userViewModel)
     {
         UserId = userViewModel.UserId;
+
         Username = userViewModel.Username;
         Email = userViewModel.Email;
         Password = userViewModel.Password;
     }
-    
+
     [JsonConstructor]
-    public UserDto(){}
+    public UserDto()
+    {
+    }
 }

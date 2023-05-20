@@ -2,14 +2,19 @@
 
 public class RegisterUserDto
 {
-    public string Username { get; }
-    public string Email { get; }
-    public string Password { get; }
+    public string Username { get; } = default!;
+    public string Email { get; } = default!;
+    public string Password { get; } = default!;
 
     public RegisterUserDto(UserViewModel user)
     {
         Username = user.Username;
         Email = user.Email;
         Password = user.Password;
+    }
+
+    [JsonConstructor]
+    public RegisterUserDto()
+    {
     }
 }
