@@ -26,9 +26,9 @@ public class MovieDetailsViewModel
     {
         Id = movie.Id;
         Title = movie.Title;
-        Revenue = movie.Revenue != 0 ? $"${movie.Revenue}" : string.Empty;
+        Revenue = movie.Revenue != 0 ? $"${movie.Revenue:n0}" : string.Empty;
         ReleaseDate = movie.ReleaseDate;
-        Budget = movie.Budget != 0 ? $"${movie.Budget}" : string.Empty;
+        Budget = movie.Budget != 0 ? $"${movie.Budget:n0}" : string.Empty;
         Description = movie.Description;
         IsAdult = movie.IsAdult;
         ImageUrl = !string.IsNullOrEmpty(movie.ImageUrl) ? movie.ImageUrl : "Images/MovieMissingPicture.png";

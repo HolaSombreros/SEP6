@@ -30,6 +30,10 @@ p {
     height: auto;
 }
 
+.button-col {
+    padding: 0 !important;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }

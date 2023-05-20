@@ -2,7 +2,7 @@
 
 public class AddRatingDto
 {
-    public MovieDto MovieDto { get; }
+    public MovieDto MovieDto { get; } = default!;
     public int Rating { get; }
     public string? Review { get; }
     public Guid UserId { get; }

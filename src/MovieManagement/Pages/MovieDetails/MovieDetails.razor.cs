@@ -2,7 +2,8 @@
 
 public partial class MovieDetails : ComponentBase
 {
-    [Parameter] public int Id { get; set; }
+    [Parameter] 
+    public int Id { get; set; }
     private MovieDetailsViewModel _details = default!;
     private string _message = "Loading...";
 

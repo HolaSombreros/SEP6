@@ -2,7 +2,8 @@
 
 public partial class MovieCredits : ComponentBase
 {
-    [Parameter] public MovieCreditsViewModel Credits { get; set; } = default!;
+    [Parameter] 
+    public MovieCreditsViewModel Credits { get; set; } = default!;
 
     private async Task ScrollRight(string id)
     {

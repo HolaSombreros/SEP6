@@ -24,7 +24,7 @@ public class UserViewModel
     [Compare("Password", ErrorMessage = "Passwords must match")]
     public string ConfirmPassword { get; set; } = default!;
     
-    [StringLength(50, MinimumLength = 6, ErrorMessage = "The password must have between {2} and {1} characters")]
+    [OptionalStringLength(50, MinimumLength = 6, ErrorMessage = "The password must have between {2} and {1} characters")]
     public string EditPassword { get; set; } = default!;
 
     [Compare("EditPassword", ErrorMessage = "Passwords must match")]

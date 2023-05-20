@@ -35,22 +35,10 @@ main {
 @media (max-width: 641px) {
     .sidebar {
         display: block;
+        max-height: 75vh;
     }
     .page-content{
         display: flex;
         flex-direction: column;
     }
-}
-
-::-webkit-scrollbar {
-    width: .8rem;
-}
-
-::-webkit-scrollbar-track {
-    background: #333333;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #653780;
-    border-radius: .4rem;
 }

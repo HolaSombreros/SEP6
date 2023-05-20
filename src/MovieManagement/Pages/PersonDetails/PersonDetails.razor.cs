@@ -4,7 +4,8 @@ namespace MovieManagement.Pages.PersonDetails;
 
 public partial class PersonDetails : ComponentBase
 {
-    [Parameter] public int Id { get; set; }
+    [Parameter] 
+    public int Id { get; set; }
     private PersonViewModel _person = default!;
     private string _message = "Loading...";
 

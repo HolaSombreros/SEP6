@@ -2,23 +2,52 @@
 
 public partial class Sidebar : ComponentBase
 {
-    private bool hideSidebar = true;
-    private string? SidebarCssClass => hideSidebar ? "hide-sidebar" : null;
-    private List<MovieListViewModel>? customMovieLists;
+    private bool _hideSidebar = true;
+    private string? SidebarCssClass => _hideSidebar ? "hide-sidebar" : null;
+    private List<MovieListViewModel> _customMovieLists = new();
 
     protected override void OnInitialized()
     {
-        customMovieLists = DummyData.GetCustomMovieLists();
-        // TODO - Implement me.
+        AuthenticationStateProvider.AuthenticationStateChanged += UpdateMovieListsOnAuthAsync;
+        MovieListService.OnChanged += UpdateMovieListsOnNotify;
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FetchMovieListsAsync();
+        }
+    }
+
+    private async void UpdateMovieListsOnAuthAsync(Task<AuthenticationState> authState)
+    {
+        await FetchMovieListsAsync();
+    }
+
+    private async Task FetchMovieListsAsync()
+    {
+        var userIdentity = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
+        if (userIdentity != null && userIdentity.IsAuthenticated)
+        {
+            var userId =
+                Guid.Parse((await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id"));
+            await MovieListService.GetUserListsAsync(userId);
+        }
+        else
+        {
+            _customMovieLists = new();
+        }
+    }
+    
+    private void UpdateMovieListsOnNotify(object? obj, EventArgs args)
+    {
+        _customMovieLists = MovieListService.GetCurrentUserLists();
+        StateHasChanged();
+    }
+    
     private void ToggleSidebar()
     {
-        hideSidebar = !hideSidebar;
-    }
-
-    private void CreateNewMovieList()
-    {
-        // TODO - Implement me.
+        _hideSidebar = !_hideSidebar;
     }
 }
