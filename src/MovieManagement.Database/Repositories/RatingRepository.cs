@@ -28,7 +28,7 @@ public class RatingRepository : IRatingRepository
             })
             .ToListAsync();
     }
-    public async Task<IList<RatingEntity>> GetMovieRatings(int movieId, Guid userId, int pageNumber, int pageSize)
+    public async Task<IList<RatingEntity>> GetMovieRatings(int? movieId, Guid? userId, int pageNumber)
     {
         var list = await _context.Ratings
             .Where(r => movieId.Equals(r.MovieId))
@@ -36,8 +36,8 @@ public class RatingRepository : IRatingRepository
         
          return list
              .OrderBy(r => r.UserId == userId ? 0 : 1)
-             .Skip((pageNumber - 1) * pageSize)
-             .Take(pageSize).ToList();
+             .Skip((pageNumber - 1) * 20)
+             .Take(20).ToList();
     }
 
     public async Task<RatingEntity?> GetAsync(Guid id)
