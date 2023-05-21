@@ -5,4 +5,5 @@ public interface IMovieListService {
     Task<AddMovieToMovieListDto> AddMovieToMovieListAsync(AddMovieToMovieListDto addMovieToMovieListDto);
     Task<MovieListMovieEntity?> GetMovieFromMovieList(MovieListMovieEntity movieListMovieEntity);
     Task<List<MovieListDto>> GetMovieLists(Guid userId);
+    Task DeleteMovieList(Guid movieListId);
 }

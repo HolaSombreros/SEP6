@@ -4,12 +4,14 @@ public class MovieListService : IMovieListService
 {
     private readonly IMovieListRepository _repository;
     private readonly IMovieListMovieRepository _listMovieRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public MovieListService(IMovieListRepository repository, IMapper mapper, IMovieListMovieRepository listMovieRepository) {
+    public MovieListService(IMovieListRepository repository, IMapper mapper, IMovieListMovieRepository listMovieRepository, IUserRepository userRepository) {
         _repository = repository;
         _mapper = mapper;
         _listMovieRepository = listMovieRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<MovieListDto> AddMovieListAsync(AddMovieListDto addMovieListDto) {
@@ -43,6 +45,9 @@ public class MovieListService : IMovieListService
     }
 
     public async Task<List<MovieListDto>> GetMovieLists(Guid userId) {
+        if ((await _userRepository.GetAsync(userId)) is null) {
+            throw new Exception("User doesn't exist");
+        }
         var list = await _repository.GetMovieListsByUser(userId);
         var mappedList = _mapper.Map<List<MovieListDto>>(list);
         foreach (var movieList in mappedList) {
@@ -50,5 +55,18 @@ public class MovieListService : IMovieListService
             movieList.Movies = _mapper.Map<List<MovieDto>>(movies);
         }
         return mappedList;
+    }
+
+    public async Task DeleteMovieList(Guid movieListId) {
+        var movieList = await _repository.GetAsync(movieListId);
+        if (movieList is null) {
+            throw new Exception("Movie List doesn't exist");
+        }
+
+        if (movieList.Title.Equals("ToWatch") || movieList.Title.Equals("Favourites")) {
+            throw new Exception("Cannot delete movie list");
+        }
+
+        await _repository.DeleteAsync(movieListId);
     }
 }

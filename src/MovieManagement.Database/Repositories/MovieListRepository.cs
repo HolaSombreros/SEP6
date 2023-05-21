@@ -22,7 +22,7 @@ public class MovieListRepository : IMovieListRepository {
     }
 
     public async Task<MovieListEntity?> GetAsync(Guid id) {
-        throw new NotImplementedException();
+        return await _repository.GetAsync(id);
     }
 
     public async Task<MovieListEntity?> AddAsync(MovieListEntity entity) {
@@ -34,6 +34,6 @@ public class MovieListRepository : IMovieListRepository {
     }
 
     public async Task DeleteAsync(Guid id) {
-        throw new NotImplementedException();
+        await _repository.DeleteAsync(id);
     }
 }
