@@ -1,21 +1,16 @@
-﻿namespace MovieManagement.Functions.MovieList;
+﻿namespace MovieManagement.Functions.MovieList; 
 
-public class AddMovieToMovieList
-{
+public class DeleteMovieFromMovieList {
     private readonly IMovieListService _movieListService;
     private readonly IValidator<MovieToMovieListDto> _validator;
 
-    public AddMovieToMovieList(IMovieListService movieListService, IValidator<MovieToMovieListDto> validator)
-    {
+    public DeleteMovieFromMovieList(IMovieListService movieListService, IValidator<MovieToMovieListDto> validator) {
         _movieListService = movieListService;
         _validator = validator;
     }
-
-    [FunctionName("AddMovieToMovieList")]
+    [FunctionName("DeleteMovieFromMovieList")]
     public async Task<IActionResult> RunAsync(
-    [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Put),
-    Route = "AddMovieToMovieList/{movieListId}/{movieId:int}")] HttpRequest req, Guid movieListId, int movieId, ILogger log)
-    {
+        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Delete), Route = "DeleteMovieFromMovieList/{movieListId}/{movieId:int}")] HttpRequest req,  Guid movieListId, int movieId, ILogger log) {
         try
         {
             var request = new MovieToMovieListDto
@@ -31,9 +26,9 @@ public class AddMovieToMovieList
                 return new BadRequestObjectResult(result.Errors);
             }
 
-            var list = await _movieListService.AddMovieToMovieListAsync(request);
+            await _movieListService.DeleteMovieFromMovieList(request);
             
-            return new OkObjectResult(list);
+            return new OkResult();
         }
         catch (Exception e)
         {
@@ -41,4 +36,5 @@ public class AddMovieToMovieList
             return new BadRequestObjectResult(e.Message);
         }
     }
+    
 }

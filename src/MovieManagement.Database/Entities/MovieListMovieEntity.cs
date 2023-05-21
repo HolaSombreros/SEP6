@@ -8,6 +8,6 @@ public class MovieListMovieEntity
     public int MovieId { get; set; }
 
     public virtual MovieEntity MovieEntity { get; set; } = default!;
-
+    
     public virtual MovieListEntity MovieList { get; set; } = default!;
 }

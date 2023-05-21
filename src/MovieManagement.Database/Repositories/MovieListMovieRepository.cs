@@ -24,4 +24,10 @@ public class MovieListMovieRepository : IMovieListMovieRepository
             m.MovieListId.Equals(movieListMovieEntity.MovieListId) &&
             m.MovieId.Equals(movieListMovieEntity.MovieId));
     }
+
+    public async Task DeleteMovieFromMovieList(MovieListMovieEntity movieListMovieEntity) {
+        var entity = await _context.MovieListMovies.FindAsync(movieListMovieEntity.MovieListId, movieListMovieEntity.MovieId);
+        _context.MovieListMovies.Remove(entity!);
+       await _context.SaveChangesAsync();
+    }
 }

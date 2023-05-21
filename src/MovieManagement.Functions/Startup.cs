@@ -12,7 +12,7 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
         builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
         builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
-        builder.Services.AddScoped<IValidator<AddMovieToMovieListDto>, AddMovieToMovieListValidator>();
+        builder.Services.AddScoped<IValidator<MovieToMovieListDto>, AddMovieToMovieListValidator>();
         builder.Services.AddScoped<IRatingService, RatingService>();
         builder.Services.AddScoped<IMovieService, MovieService>();
         builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();
@@ -27,5 +27,7 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IMovieListRepository, MovieListRepository>();
         builder.Services.AddScoped<IMovieListService, MovieListService>();
         builder.Services.AddScoped<IMovieListMovieRepository, MovieListMovieRepository>();
+        var optionsBuilder = new DbContextOptionsBuilder<MovieManagementDbContext>();
+        optionsBuilder.EnableSensitiveDataLogging();
     }
 }

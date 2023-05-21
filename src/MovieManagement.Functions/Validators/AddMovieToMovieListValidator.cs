@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Functions.Validators;
 
-public class AddMovieToMovieListValidator : AbstractValidator<AddMovieToMovieListDto>
+public class AddMovieToMovieListValidator : AbstractValidator<MovieToMovieListDto>
 {
     public AddMovieToMovieListValidator()
     {

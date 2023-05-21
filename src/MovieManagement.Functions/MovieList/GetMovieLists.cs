@@ -18,6 +18,7 @@ public class GetMovieLists {
             return new OkObjectResult(movieList);
         }
         catch (Exception e) {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
     }

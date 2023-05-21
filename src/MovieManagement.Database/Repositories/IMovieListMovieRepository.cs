@@ -4,4 +4,5 @@ public interface IMovieListMovieRepository
 {
     Task<MovieListMovieEntity?> AddMovieToMovieList(MovieListMovieEntity movieListMovieEntity);
     Task<MovieListMovieEntity?> GetMovieFromMovieList(MovieListMovieEntity movieListMovieEntity);
+    Task DeleteMovieFromMovieList(MovieListMovieEntity movieListMovieEntity);
 }

@@ -25,9 +25,9 @@ public class MovieListService : IMovieListService
         return movieList;
     }
 
-    public async Task<AddMovieToMovieListDto> AddMovieToMovieListAsync(AddMovieToMovieListDto addMovieToMovieListDto)
+    public async Task<MovieToMovieListDto> AddMovieToMovieListAsync(MovieToMovieListDto movieToMovieListDto)
     {
-        var movieListMovieEntity = _mapper.Map<MovieListMovieEntity>(addMovieToMovieListDto);
+        var movieListMovieEntity = _mapper.Map<MovieListMovieEntity>(movieToMovieListDto);
         var existingMovieInList = await GetMovieFromMovieList(movieListMovieEntity);
         if (existingMovieInList != null)
         {
@@ -35,7 +35,7 @@ public class MovieListService : IMovieListService
         }
         var result =await _listMovieRepository.AddMovieToMovieList(movieListMovieEntity);
         
-        var movieList = _mapper.Map<AddMovieToMovieListDto>(movieListMovieEntity);
+        var movieList = _mapper.Map<MovieToMovieListDto>(movieListMovieEntity);
         return movieList;
     }
 
@@ -68,5 +68,14 @@ public class MovieListService : IMovieListService
         }
 
         await _repository.DeleteAsync(movieListId);
+    }
+
+    public async Task DeleteMovieFromMovieList(MovieToMovieListDto movieToMovieListDto) {
+        var entity = _mapper.Map<MovieListMovieEntity>(movieToMovieListDto);
+        if (await _listMovieRepository.GetMovieFromMovieList(entity) is null) {
+            throw new Exception("Movie not in list");
+        }
+
+        await _listMovieRepository.DeleteMovieFromMovieList(entity);
     }
 }

@@ -15,6 +15,7 @@ public class DeleteMovieList {
             return new OkResult();
         }
         catch (Exception e) {
+            log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
 
