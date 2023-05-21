@@ -15,7 +15,7 @@ public partial class MovieManagementDbContext : DbContext
 
     public  DbSet<MovieListEntity> MovieLists { get; set; } = default!;
 
-    public  DbSet<MovieListMovieEntity?> MovieListMovies { get; set; } = default!;
+    public  DbSet<MovieListMovieEntity> MovieListMovies { get; set; } = default!;
     public  DbSet<RatingEntity> Ratings { get; set; } = default!;
     public  DbSet<UserEntity> Users { get; set; } = default!;
     
@@ -58,14 +58,15 @@ public partial class MovieManagementDbContext : DbContext
 
             entity.HasOne(d => d.UserEntity).WithMany(p => p.MovieLists)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_user_id_movielist");
+                .HasConstraintName("FK_user_id_movielist").OnDelete(DeleteBehavior.ClientCascade);
         });
 
         modelBuilder.Entity<MovieListMovieEntity>(entity =>
         {
             entity
-                .HasNoKey()
-                .ToTable("MovieList_Movie");
+                .HasKey(m => new {m.MovieListId, m.MovieId});
+
+            entity.ToTable("MovieList_Movie");
 
             entity.Property(e => e.MovieId).HasColumnName("movie_id");
             entity.Property(e => e.MovieListId)
@@ -80,7 +81,7 @@ public partial class MovieManagementDbContext : DbContext
 
             entity.HasOne(d => d.MovieList).WithMany()
                 .HasForeignKey(d => d.MovieListId)
-                .HasConstraintName("FK_movielist_id_movie");
+                .HasConstraintName("FK_movielist_id_movie").OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<RatingEntity>(entity =>
@@ -111,7 +112,7 @@ public partial class MovieManagementDbContext : DbContext
             entity.HasKey(r => r.RatingId);
             entity.HasOne(d => d.UserEntity).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_user_id");
+                .HasConstraintName("FK_user_id").OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(d => d.MovieEntity).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.MovieId)
                 .HasConstraintName("FK_movie_id");
@@ -139,6 +140,7 @@ public partial class MovieManagementDbContext : DbContext
                 .HasColumnName("username");
             entity.HasKey(u => u.UserId);
         });
+        
 
         OnModelCreatingPartial(modelBuilder);
     }

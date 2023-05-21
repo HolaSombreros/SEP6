@@ -41,4 +41,14 @@ public class MovieListService : IMovieListService
     {
         return await _listMovieRepository.GetMovieFromMovieList(movieListMovieEntity);
     }
+
+    public async Task<List<MovieListDto>> GetMovieLists(Guid userId) {
+        var list = await _repository.GetMovieListsByUser(userId);
+        var mappedList = _mapper.Map<List<MovieListDto>>(list);
+        foreach (var movieList in mappedList) {
+            var movies = await _repository.GetMoviesByList(movieList.MovieListId);
+            movieList.Movies = _mapper.Map<List<MovieDto>>(movies);
+        }
+        return mappedList;
+    }
 }
