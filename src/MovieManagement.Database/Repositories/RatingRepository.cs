@@ -29,22 +29,35 @@ public class RatingRepository : IRatingRepository
             })
             .ToListAsync();
     }
-    public async Task<IList<RatingEntity>> GetMovieRatings(int? movieId, Guid? userId, int pageNumber)
+    public async Task<(IList<RatingEntity> ratingEntities, int totalPages)> GetMovieRatings(int? movieId, Guid? userId, int pageNumber)
     {
         var list = await _context.Ratings
             .Where(r => movieId.Equals(r.MovieId))
             .ToListAsync();
+
+        var totalResults = await TotalResultsByMovie(movieId);
         
-         return list
+         var orderedList = list
              .OrderBy(r => r.UserId == userId ? 0 : 1)
              .Skip((pageNumber - 1) * PageSize)
              .Take(PageSize).ToList();
+         
+         var totalPages = (int)Math.Ceiling((double)totalResults / PageSize);
+         return (orderedList, totalPages);
+    }
+
+    private async Task<int> TotalResultsByMovie(int? movieId)
+    {
+        return (await _context.Ratings
+            .Where(r => movieId.Equals(r.MovieId))
+            .ToListAsync()).Count;
     }
 
     public async Task<RatingEntity?> GetAsync(Guid id)
     {
         return await _repository.GetAsync(id);
     }
+
     public async Task<RatingEntity?> UpdateAsync(RatingEntity entity, Guid id)
     {
         var existingRating = await GetMovieUserRating(entity.MovieId, entity.UserId);

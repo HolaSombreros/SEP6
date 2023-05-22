@@ -66,24 +66,25 @@ public class RatingService : IRatingService
     public async Task<RatingResultDto> GetMovieRatings(GetRatingDto ratingDto, int pageNumber)
     {
         var resultDto = new RatingResultDto();
-        var movieRatingDtos = new List<MovieRatingDto>();
         var list = await _repository.GetMovieRatings(ratingDto.MovieId, ratingDto.UserId, pageNumber);
-        var userIds = list.Select(r => r.UserId).ToList();
+        var userIds = list.ratingEntities.Select(r => r.UserId).ToList();
         var users = await _userRepository.GetUsers(userIds);
 
-        movieRatingDtos.AddRange(from rating in list let user = users.FirstOrDefault(u => u.UserId == rating.UserId)
-            select new MovieRatingDto 
-                {   
-                    Rating = (int)rating.Rating, 
-                    Review = rating.Review, 
-                    CreatedDate = rating.DateTime, 
-                    CreatedBy = user?.Username 
-                });
-        
+        var movieRatingDtos = (from rating in list.ratingEntities let user = 
+                users.FirstOrDefault(u => u.UserId == rating.UserId) 
+            select new MovieRatingDto
+            {
+                Rating = (int)rating.Rating, 
+                Review = rating.Review, 
+                CreatedDate = rating.DateTime, 
+                CreatedBy = user?.Username
+            }).ToList();
+
         resultDto.MovieRatingDtos = movieRatingDtos;
-        resultDto.TotalResult = movieRatingDtos.Count;
+        resultDto.TotalResults = movieRatingDtos.Count;
         resultDto.Page = pageNumber;
-        
+        resultDto.TotalPages = list.totalPages;
+
         return resultDto;
     }
 
