@@ -9,9 +9,7 @@ p {
 
 .homepage {
     width: 100%;
-}
-
-.logo {
+    cursor: pointer;
 }
 
 .logo-img {
@@ -19,6 +17,7 @@ p {
     width: auto;
     margin-left: 1rem;
     background-color: white;
+    cursor: pointer;
 }
 
 .rating {
