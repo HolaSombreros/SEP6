@@ -1,6 +1,4 @@
-﻿using MovieManagement.Attributes;
-
-namespace MovieManagement.Models;
+﻿namespace MovieManagement.Models;
 
 public class CreateReviewModel
 {

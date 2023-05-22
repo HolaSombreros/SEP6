@@ -17,7 +17,29 @@ public class AzureService : IAzureService
         _jsonSerializerOptions = jsonSerializerOptions;
         _hostKey = settings.Value.HostKey;
     }
+    
+    public async Task<T> GetFromRouteAsync<T>(string endpoint, object id)
+    {
+        var request = new HttpRequestMessage(
+            HttpMethod.Get,
+            _settings.AzureFunctionUri +
+            endpoint +
+            $"/{id}" +
+            _settings.QueryBuilder +
+            _hostKey);
+        var response = await _httpClient.SendAsync(request);
+        try
+        {
+            response.EnsureSuccessStatusCode();
+        }
+        catch
+        {
+            throw new Exception(response.Content.ReadAsStringAsync().Result);
+        }
 
+        return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
+    }
+    
     public async Task<T> GetAsync<T>(string endpoint, object body, int? page = null)
     {
         var request = new HttpRequestMessage(
@@ -88,7 +110,7 @@ public class AzureService : IAzureService
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
 
-    public async Task DeleteAsync(string endpoint, object id)
+    public async Task DeleteFromRouteAsync(string endpoint, object id)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Delete,
