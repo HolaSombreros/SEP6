@@ -19,16 +19,15 @@ public class RatingService : IRatingService
 
     public async Task<IEnumerable<ReviewModel>> GetMovieReviewsAsync(int movieId, Guid? userGuid)
     {
-        // TODO - change endpoint and put ids in body
-        var endpoint = $"{settings.GetMovieRatings}/{movieId}/{userGuid}";
-        //var dtos = await service.GetAsync<IEnumerable<ReviewResponseDto>>(endpoint, new object());
-        var dtos = await DummyData.GetDummyReviews();
+        var requestDto = new GetReviewsDto(movieId, userGuid);
+        var responseDtos = await service.GetAsync<IEnumerable<ReviewResponseDto>>(settings.GetMovieRatings, requestDto);
+        //var dtos = await DummyData.GetDummyReviews();
 
-        if (dtos.Any())
+        if (responseDtos.Any())
         {
             var output = new List<ReviewModel>();
 
-            foreach (var dto in dtos)
+            foreach (var dto in responseDtos)
             {
                 output.Add(new ReviewModel(dto));
             }
