@@ -12,12 +12,12 @@ public partial class PersonDetails : ComponentBase
     {
         try
         {
-            var credits = await PersonService.GetPersonCredits(Id);
-            var person = await PersonService.GetPersonDetails(Id);
+            var credits = await PersonService.GetPersonCreditsAsync(Id);
+            var person = await PersonService.GetPersonDetailsAsync(Id);
             if (person.Id != 0)
             {
                 _person = new PersonViewModel(
-                    person: await PersonService.GetPersonDetails(Id),
+                    person: await PersonService.GetPersonDetailsAsync(Id),
                     credits: credits);
             }
             else
