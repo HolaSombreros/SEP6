@@ -18,12 +18,14 @@ public class AzureService : IAzureService
         _hostKey = settings.Value.HostKey;
     }
 
-    public async Task<T> GetAsync<T>(string endpoint, object body)
+    public async Task<T> GetAsync<T>(string endpoint, object body, int? page = null)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Get,
             _settings.AzureFunctionUri +
             endpoint +
+            _settings.QueryBuilder +
+            (page != null ? (_settings.PagePath + page + _settings.AndQueryBuilder) : "") +
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);

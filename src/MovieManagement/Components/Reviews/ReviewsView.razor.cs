@@ -14,7 +14,14 @@ public partial class ReviewsView : ComponentBase
             ? (new(RatingService, MovieId, userIdAsGuid))
             : (new(RatingService, MovieId, null));
 
-        await GetMovieReviews(1);
+        var startPage = 1;
+        await GetMovieReviews(startPage);
+    }
+
+    private Task FetchDataAsync()
+    {
+        var nextPage = viewModel.PaginatedReviews!.Page + 1;
+        return nextPage <= viewModel.PaginatedReviews.TotalPages ? GetMovieReviews(nextPage) : Task.CompletedTask;
     }
 
     private Task GetMovieReviews(int page)

@@ -6,7 +6,7 @@ public class ReviewsViewModel
     private readonly int movieId;
     private readonly Guid? userGuid;
 
-    public List<ReviewModel>? Reviews { get; private set; }
+    public PaginatedReviewsModel? PaginatedReviews { get; set; }
 
     public ReviewsViewModel(IRatingService ratingService, int movieId, Guid? userGuid)
     {
@@ -17,6 +17,16 @@ public class ReviewsViewModel
 
     public async Task GetMovieReviewsAsync(int page)
     {
-        Reviews = (await ratingService.GetMovieReviewsAsync(movieId, userGuid, page)).ToList();
+        var reviews = await ratingService.GetMovieReviewsAsync(movieId, userGuid, page);
+
+        if (PaginatedReviews == null)
+        {
+            PaginatedReviews = reviews;
+        }
+        else
+        {
+            PaginatedReviews.Page = reviews.Page;
+            PaginatedReviews.Reviews.AddRange(reviews.Reviews);
+        }
     }
 }

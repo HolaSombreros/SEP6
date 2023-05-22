@@ -16,11 +16,14 @@ public partial class MovieListView : ComponentBase
     private async Task FetchDataAsync()
     {
         var nextPageNumber = movieList!.Page + 1;
-        var data = await MovieService.GetMovieListAsync(ListType, nextPageNumber);
-        movieList.Page = data.Page;
-        foreach (var movie in data.Movies)
+        if (nextPageNumber <= movieList.TotalPages)
         {
-            movieList.Movies.Add(new MovieViewModel(movie));
+            var data = await MovieService.GetMovieListAsync(ListType, nextPageNumber);
+            movieList.Page = data.Page;
+            foreach (var movie in data.Movies)
+            {
+                movieList.Movies.Add(new MovieViewModel(movie));
+            }
         }
     }
 }
