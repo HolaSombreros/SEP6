@@ -11,7 +11,7 @@ public class ReviewModel
     {
         Rating = reviewDto.Rating;
         Text = reviewDto.Review;
-        CreatedDate = DateOnly.FromDateTime(reviewDto.Created);
-        CreatedBy = reviewDto.CreatedBy.Username;
+        CreatedDate = DateOnly.FromDateTime(reviewDto.CreatedDate);
+        CreatedBy = reviewDto.CreatedBy;
     }
 }

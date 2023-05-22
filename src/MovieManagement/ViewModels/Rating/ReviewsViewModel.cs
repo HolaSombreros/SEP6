@@ -15,8 +15,8 @@ public class ReviewsViewModel
         this.userGuid = userGuid;
     }
 
-    public async Task GetMovieReviewsAsync()
+    public async Task GetMovieReviewsAsync(int page)
     {
-        Reviews = (await ratingService.GetMovieReviewsAsync(movieId, userGuid)).ToList();
+        Reviews = (await ratingService.GetMovieReviewsAsync(movieId, userGuid, page)).ToList();
     }
 }

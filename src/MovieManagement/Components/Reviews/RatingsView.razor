@@ -1,6 +1,6 @@
 ﻿<div class="ratings-wrapper">
     @for (var i = 1; i <= Count; i++)
     {
-        <RatingView IsActive="@(i < Rating)" />
+        <RatingView IsActive="@(i <= Rating)" />
     }
 </div>

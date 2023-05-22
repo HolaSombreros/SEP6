@@ -24,7 +24,6 @@ public class AzureService : IAzureService
             HttpMethod.Get,
             _settings.AzureFunctionUri +
             endpoint +
-            _settings.QueryBuilder +
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);

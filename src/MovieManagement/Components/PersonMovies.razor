@@ -8,7 +8,7 @@
     @foreach (var cast in Credits.Cast)
     {
         <div class="col-md-4 offset-md-1 py-3">
-            <img
+            <img class="movie-image"
                 src="@cast.PosterUrl"
                 alt="@cast.Title"
                 @onclick="@(() => Modal.Show<Image>(cast.Title, new ModalParameters().Add("ImageUrl", cast.PosterUrl)))"/>
@@ -33,7 +33,7 @@
     @foreach (var crew in Credits.Crew)
     {
         <div class="col-md-4 offset-md-1 py-3">
-            <img
+            <img class="movie-image"
                 src="@crew.PosterUrl"
                 alt="@crew.Title"
                 @onclick="@(() => Modal.Show<Image>(crew.Title, new ModalParameters().Add("ImageUrl", crew.PosterUrl)))"/>

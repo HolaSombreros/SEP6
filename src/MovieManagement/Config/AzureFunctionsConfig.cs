@@ -14,4 +14,5 @@ public class AzureFunctionsConfig
     public string GetMovieRatingsByIdsPath { get; set; } = default!;
     public string QueryBuilder { get; set; } = default!;
     public string AndQueryBuilder { get; set; } = default!;
+    public string PagePath { get; set; } = default!;
 }

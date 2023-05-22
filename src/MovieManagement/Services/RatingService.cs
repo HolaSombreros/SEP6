@@ -17,10 +17,10 @@ public class RatingService : IRatingService
         return service.PutAsync<RatingDto>(settings.RateMoviePath, dto);
     }
 
-    public async Task<IEnumerable<ReviewModel>> GetMovieReviewsAsync(int movieId, Guid? userGuid)
+    public async Task<IEnumerable<ReviewModel>> GetMovieReviewsAsync(int movieId, Guid? userGuid, int page)
     {
         var requestDto = new GetReviewsDto(movieId, userGuid);
-        var responseDtos = await service.GetAsync<IEnumerable<ReviewResponseDto>>(settings.GetMovieRatings, requestDto);
+        var responseDtos = await service.GetAsync<IEnumerable<ReviewResponseDto>>($"{settings.GetMovieRatings}{settings.QueryBuilder}{settings.PagePath}{page}{settings.AndQueryBuilder}", requestDto);
         //var dtos = await DummyData.GetDummyReviews();
 
         if (responseDtos.Any())
