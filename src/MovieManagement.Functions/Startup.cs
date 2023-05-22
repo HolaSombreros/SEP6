@@ -10,6 +10,7 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IValidator<MovieDto>, MovieDtoValidator>();
         builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();
         builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
+        builder.Services.AddScoped<IValidator<GetRatingDto>, GetRatingDtoValidator>();
         builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
         builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
         builder.Services.AddScoped<IRatingService, RatingService>();
