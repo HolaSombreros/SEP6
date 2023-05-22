@@ -36,7 +36,7 @@ public class AzureService : IAzureService
         }
         catch
         {
-            throw new Exception(response.Content.ReadAsStringAsync().Result);
+            throw new Exception(await response.Content.ReadAsStringAsync());
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -59,7 +59,7 @@ public class AzureService : IAzureService
         }
         catch
         {
-            throw new Exception(response.Content.ReadAsStringAsync().Result);
+            throw new Exception(await response.Content.ReadAsStringAsync());
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -82,7 +82,7 @@ public class AzureService : IAzureService
         }
         catch
         {
-            throw new Exception(response.Content.ReadAsStringAsync().Result);
+            throw new Exception(await response.Content.ReadAsStringAsync());
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -98,6 +98,14 @@ public class AzureService : IAzureService
             _settings.QueryBuilder +
             _hostKey);
         var response = await _httpClient.SendAsync(request);
-        response.EnsureSuccessStatusCode();
+
+        try
+        {
+            response.EnsureSuccessStatusCode();
+        }
+        catch
+        {
+            throw new Exception(await response.Content.ReadAsStringAsync());
+        }
     }
 }
