@@ -40,6 +40,6 @@ public class UserService : IUserService
     
     public async Task DeleteUserAsync(Guid userId)
     {
-        await _service.DeleteAsync(_settings.DeleteUserPath, userId.ToString());
+        await _service.DeleteFromRouteAsync(_settings.DeleteUserPath, userId.ToString());
     }
 }

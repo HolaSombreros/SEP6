@@ -1,6 +1,4 @@
-﻿using MovieManagement.Attributes;
-
-namespace MovieManagement.ViewModels.Rating;
+﻿namespace MovieManagement.ViewModels.Rating;
 
 public class RatingViewModel
 {

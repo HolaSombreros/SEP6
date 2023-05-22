@@ -67,3 +67,16 @@ li {
 .success-message {
     color: lime;
 }
+
+::-webkit-scrollbar {
+  width: .8rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #653780;
+  border-radius: .4rem;
+}
