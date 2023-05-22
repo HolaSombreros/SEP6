@@ -2,6 +2,6 @@
 
 public interface IPersonService
 {
-    public Task<Credits> GetPersonCredits(int id);
-    public Task<Person> GetPersonDetails(int id);
+    public Task<Credits> GetPersonCreditsAsync(int id);
+    public Task<Person> GetPersonDetailsAsync(int id);
 }

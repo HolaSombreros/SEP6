@@ -11,14 +11,14 @@ public partial class SearchResults : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         var page = 1;
-        var data = await SearchService.SearchAll(SearchInput, page);
+        var data = await SearchService.SearchAllAsync(SearchInput, page);
         searchResults = new(data);
 
         if (data.TotalPages >= serviceMaxCallCount)
         {
             while (page++ < serviceMaxCallCount)
             {
-                data = await SearchService.SearchAll(SearchInput, page);
+                data = await SearchService.SearchAllAsync(SearchInput, page);
 
                 foreach (var movie in data.MovieResults)
                 {

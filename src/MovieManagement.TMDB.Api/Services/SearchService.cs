@@ -13,7 +13,7 @@ public class SearchService : ISearchService
         _settings = settings.Value;
     }
     
-    public async Task<SearchAll> SearchAll(string query, int page)
+    public async Task<SearchAll> SearchAllAsync(string query, int page)
     {
         try
         {

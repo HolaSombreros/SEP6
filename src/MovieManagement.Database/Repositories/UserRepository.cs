@@ -17,6 +17,13 @@ public class UserRepository : IUserRepository{
         return await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username));
     }
 
+    public async Task<IList<UserEntity?>> GetUsers(IList<Guid> ids)
+    {
+        return (await _context.Users
+            .Where(u => ids.Contains(u.UserId))
+            .ToListAsync())!;
+    }
+
     public async Task<UserEntity?> GetAsync(Guid id) {
        return await _repository.GetAsync(id);
     }

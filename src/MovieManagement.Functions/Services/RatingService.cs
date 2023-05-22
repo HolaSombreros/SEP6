@@ -4,11 +4,13 @@ public class RatingService : IRatingService
 {
     private readonly IMapper _mapper;
     private readonly IRatingRepository _repository;
+    private readonly IUserRepository _userRepository;
 
-    public RatingService(IRatingRepository repository, IMapper mapper)
+    public RatingService(IRatingRepository repository, IMapper mapper, IUserRepository userRepository)
     {
         _repository = repository;
         _mapper = mapper;
+        _userRepository = userRepository;
     }
 
     public async Task<RatingDto> PutRating(RatingDto rating)
@@ -61,10 +63,23 @@ public class RatingService : IRatingService
         return _mapper.Map<RatingDto>(ratingEntity);
     }
 
-    public async Task<IList<RatingDto>> GetMovieRatings(int movieId, Guid userId, int pageNumber, int pageSize)
+    public async Task<IList<MovieRatingDto>> GetMovieRatings(GetRatingDto ratingDto, int pageNumber)
     {
-        var list = await _repository.GetMovieRatings(movieId, userId, pageNumber, pageSize);
-        return _mapper.Map<List<RatingDto>>(list);
+        var movieRatingDtos = new List<MovieRatingDto>();
+        var list = await _repository.GetMovieRatings(ratingDto.MovieId, ratingDto.UserId, pageNumber);
+        var userIds = list.Select(r => r.UserId).ToList();
+        var users = await _userRepository.GetUsers(userIds);
+
+        movieRatingDtos.AddRange(from rating in list let user = users.FirstOrDefault(u => u.UserId == rating.UserId)
+            select new MovieRatingDto 
+                {   
+                    Rating = (int)rating.Rating, 
+                    Review = rating.Review, 
+                    CreatedDate = rating.DateTime, 
+                    CreatedBy = user?.Username 
+                });
+        
+        return movieRatingDtos;
     }
 
     public async Task DeleteRating(Guid ratingId)
