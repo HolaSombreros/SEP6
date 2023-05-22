@@ -66,7 +66,6 @@ public class RatingService : IRatingService
     public async Task<IList<MovieRatingDto>> GetMovieRatings(GetRatingDto ratingDto, int pageNumber)
     {
         var movieRatingDtos = new List<MovieRatingDto>();
-        if (ratingDto.MovieId == null) return movieRatingDtos;
         var list = await _repository.GetMovieRatings(ratingDto.MovieId, ratingDto.UserId, pageNumber);
         var userIds = list.Select(r => r.UserId).ToList();
         var users = await _userRepository.GetUsers(userIds);
