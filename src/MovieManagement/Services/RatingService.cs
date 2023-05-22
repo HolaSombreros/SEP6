@@ -11,11 +11,16 @@ public class RatingService : IRatingService
         this.settings = settings.Value;
     }
 
-    public async Task<RatingViewModel> RateMovie(RatingViewModel ratingViewModel, MovieDetailsViewModel movieDetailsViewModel, Guid userId)
+    public Task CreateMovieReview(CreateReviewModel reviewModel, MovieModel movieModel, Guid userGuid)
     {
-        var ratingDto = new AddRatingDto(ratingViewModel, movieDetailsViewModel, userId);
-        var newRating = await service.PutAsync<RatingDto>(settings.RateMoviePath, ratingDto);
-        ratingViewModel.RatingId = newRating.RatingId;
-        return ratingViewModel;
+        var dto = new CreateReviewDto(reviewModel, movieModel, userGuid);
+        return service.PutAsync<RatingDto>(settings.RateMoviePath, dto);
+    }
+
+    public async Task<PaginatedReviewsModel> GetMovieReviewsAsync(int movieId, Guid? userGuid, int page)
+    {
+        var requestDto = new GetReviewsDto(movieId, userGuid);
+        var responseDto = await service.GetAsync<ReviewsResponseDto>(settings.GetMovieRatings, requestDto, page);
+        return new PaginatedReviewsModel(responseDto);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MovieManagement.Services;
+﻿using System;
+
+namespace MovieManagement.Services;
 
 public class AzureService : IAzureService
 {
@@ -38,23 +40,25 @@ public class AzureService : IAzureService
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
     
-    public async Task<T> GetAsync<T>(string endpoint, object body)
+    public async Task<T> GetAsync<T>(string endpoint, object body, int? page = null)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Get,
             _settings.AzureFunctionUri +
             endpoint +
             _settings.QueryBuilder +
+            (page != null ? (_settings.PagePath + page + _settings.AndQueryBuilder) : "") +
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
+
         try
         {
             response.EnsureSuccessStatusCode();
         }
         catch
         {
-            throw new Exception(response.Content.ReadAsStringAsync().Result);
+            throw new Exception(await response.Content.ReadAsStringAsync());
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -70,13 +74,14 @@ public class AzureService : IAzureService
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
+
         try
         {
             response.EnsureSuccessStatusCode();
         }
         catch
         {
-            throw new Exception(response.Content.ReadAsStringAsync().Result);
+            throw new Exception(await response.Content.ReadAsStringAsync());
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -92,13 +97,14 @@ public class AzureService : IAzureService
             _hostKey);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
+
         try
         {
             response.EnsureSuccessStatusCode();
         }
         catch
         {
-            throw new Exception(response.Content.ReadAsStringAsync().Result);
+            throw new Exception(await response.Content.ReadAsStringAsync());
         }
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
@@ -113,6 +119,15 @@ public class AzureService : IAzureService
             $"/{id}" +
             _settings.QueryBuilder +
             _hostKey);
-        await _httpClient.SendAsync(request);
+        var response = await _httpClient.SendAsync(request);
+
+        try
+        {
+            response.EnsureSuccessStatusCode();
+        }
+        catch
+        {
+            throw new Exception(await response.Content.ReadAsStringAsync());
+        }
     }
 }

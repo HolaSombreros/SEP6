@@ -12,7 +12,9 @@ public class AzureFunctionsConfig
     public string RateMoviePath { get; set; } = default!;
     public string CreateCustomList { get; set; } = default!;
     public string DeleteCustomList { get; set; } = default!;
+    public string GetMovieRatings { get; set; } = default!;
     public string GetMovieRatingsByIdsPath { get; set; } = default!;
     public string QueryBuilder { get; set; } = default!;
     public string AndQueryBuilder { get; set; } = default!;
+    public string PagePath { get; set; } = default!;
 }

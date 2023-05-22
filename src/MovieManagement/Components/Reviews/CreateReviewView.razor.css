@@ -27,7 +27,7 @@
     transition: .2s ease;
 }
 
-    .rating.active { 
+    .rating.active {
         color: gold;
     }
 

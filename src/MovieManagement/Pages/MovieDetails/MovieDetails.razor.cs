@@ -6,6 +6,7 @@ public partial class MovieDetails : ComponentBase
     public int Id { get; set; }
     private MovieDetailsViewModel _details = default!;
     private string _message = "Loading...";
+    private MovieModel movieModel = default!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -18,6 +19,7 @@ public partial class MovieDetails : ComponentBase
                 _details = new MovieDetailsViewModel(
                     movie: movie,
                     credits: credits);
+                movieModel = new MovieModel(movie);
             }
             else
             {

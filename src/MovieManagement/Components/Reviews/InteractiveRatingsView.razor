@@ -1,0 +1,6 @@
+﻿<div class="ratings-wrapper">
+    @for (var i = 1; i <= Count; i++)
+    {
+        <InteractiveRatingView IsActive="@(i <= Rating)" RatingNumber="i" RatingChangedCallback="SetRating" />
+    }
+</div>

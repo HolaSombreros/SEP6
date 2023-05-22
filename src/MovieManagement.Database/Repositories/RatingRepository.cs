@@ -12,13 +12,13 @@ public class RatingRepository : IRatingRepository
         _repository = repository;
     }
 
-    public async Task<RatingEntity?> GetMovieUserRating(int movieId, Guid userId)
+    public async Task<RatingEntity?> GetMovieUserRatingAsync(int movieId, Guid userId)
     {
         return await _context.Ratings.FirstOrDefaultAsync(r =>
             r.UserEntity.UserId.Equals(userId) && r.MovieEntity.MovieId.Equals(movieId));
     }
 
-    public async Task<List<RatingEntity>> GetAllMovieRatings(IList<int> ids)
+    public async Task<List<RatingEntity>> GetAllMovieRatingsAsync(IList<int> ids)
     {
         return await _context.Ratings
             .Where(r => ids.Contains(r.MovieId))
@@ -29,25 +29,38 @@ public class RatingRepository : IRatingRepository
             })
             .ToListAsync();
     }
-    public async Task<IList<RatingEntity>> GetMovieRatings(int? movieId, Guid? userId, int pageNumber)
+    public async Task<(IList<RatingEntity> ratingEntities, int totalPages)> GetMovieRatingsAsync(int? movieId, Guid? userId, int pageNumber)
     {
         var list = await _context.Ratings
             .Where(r => movieId.Equals(r.MovieId))
             .ToListAsync();
+
+        var totalResults = await TotalResultsByMovie(movieId);
         
-         return list
+         var orderedList = list
              .OrderBy(r => r.UserId == userId ? 0 : 1)
              .Skip((pageNumber - 1) * PageSize)
              .Take(PageSize).ToList();
+         
+         var totalPages = (int)Math.Ceiling((double)totalResults / PageSize);
+         return (orderedList, totalPages);
+    }
+
+    private async Task<int> TotalResultsByMovie(int? movieId)
+    {
+        return (await _context.Ratings
+            .Where(r => movieId.Equals(r.MovieId))
+            .ToListAsync()).Count;
     }
 
     public async Task<RatingEntity?> GetAsync(Guid id)
     {
         return await _repository.GetAsync(id);
     }
+
     public async Task<RatingEntity?> UpdateAsync(RatingEntity entity, Guid id)
     {
-        var existingRating = await GetMovieUserRating(entity.MovieId, entity.UserId);
+        var existingRating = await GetMovieUserRatingAsync(entity.MovieId, entity.UserId);
         
         if (existingRating is not null)
         {

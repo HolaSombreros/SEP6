@@ -45,9 +45,9 @@ public class GetMovieRating
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
-            var movieRatingDtos = await _ratingService.GetMovieRatings(getRatingDto, page);
+            var ratingResultDto = await _ratingService.GetMovieRatings(getRatingDto, page);
             
-            return new OkObjectResult(movieRatingDtos);
+            return new OkObjectResult(ratingResultDto);
         }
         catch (Exception e)
         {

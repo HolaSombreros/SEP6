@@ -1,0 +1,29 @@
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IRatingService RatingService
+
+<h3 class="mb-4">Reviews</h3>
+@if (viewModel?.PaginatedReviews?.Reviews == null)
+{
+    <p>Loading movie reviews...</p>
+}
+else
+{
+    @if (!viewModel.PaginatedReviews.Reviews.Any())
+    {
+        <span>There are no reviews for this movie yet...</span>
+        <AuthorizeView>
+            <Authorized>
+                <span>Be the first!</span>
+            </Authorized>
+        </AuthorizeView>
+    }
+    else
+    {
+        <InfiniteScroll ObservableTargetId="observableTarget" ObservableTargetReached="(e) => FetchDataAsync()">
+            <Virtualize Items="viewModel.PaginatedReviews.Reviews" Context="review">
+                <ReviewView Review="review" />
+            </Virtualize>
+            <div id="observableTarget"></div>
+        </InfiniteScroll>
+    }
+}

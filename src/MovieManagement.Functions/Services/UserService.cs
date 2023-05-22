@@ -13,7 +13,7 @@ public class UserService : IUserService {
 
     public async Task<UserDto> GetUser(LoginUserDto loginUserDto)
     {
-        var user = await _repository.GetByEmail(loginUserDto.Email);
+        var user = await _repository.GetByEmailAsync(loginUserDto.Email);
         if (user is null) {
             throw new Exception("User with this email doesn't exist");
         }
@@ -25,13 +25,13 @@ public class UserService : IUserService {
     }
     
     public async Task<UserDto> UpdateUser(UserDto userDto) {
-        var existsWithEmail = await _repository.GetByEmail(userDto.Email);
+        var existsWithEmail = await _repository.GetByEmailAsync(userDto.Email);
         if (existsWithEmail is not null && !existsWithEmail.UserId.Equals(userDto.UserId)) 
         {
             throw new Exception("An account with this email already exists");
         }
 
-        var existsWithUsername = await _repository.GetByUsername(userDto.Username);
+        var existsWithUsername = await _repository.GetByUsernameAsync(userDto.Username);
         if (existsWithUsername is not null && !existsWithUsername.UserId.Equals(userDto.UserId)) 
         {
             throw new Exception("An account with this username already exists");
@@ -44,12 +44,12 @@ public class UserService : IUserService {
 
     public async Task<UserDto> RegisterUser(RegisterUserDto registerUserDto)
     {
-        if (await _repository.GetByEmail(registerUserDto.Email) is not null) 
+        if (await _repository.GetByEmailAsync(registerUserDto.Email) is not null) 
         {
             throw new Exception("An account with this email already exists");
         }
 
-        if (await _repository.GetByUsername(registerUserDto.Username) is not null) 
+        if (await _repository.GetByUsernameAsync(registerUserDto.Username) is not null) 
         {
             throw new Exception("An account with this username already exists");
         }
@@ -72,7 +72,7 @@ public class UserService : IUserService {
     }
     public async Task<IList<UserDto>> GetUsers(IList<Guid> ids)
     {
-        var users = await _repository.GetUsers(ids);
+        var users = await _repository.GetUsersAsync(ids);
         return  _mapper.Map<IList<UserDto>>(users);
     }
 }

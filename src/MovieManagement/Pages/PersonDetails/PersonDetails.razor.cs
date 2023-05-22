@@ -4,8 +4,9 @@ namespace MovieManagement.Pages.PersonDetails;
 
 public partial class PersonDetails : ComponentBase
 {
-    [Parameter] 
+    [Parameter]
     public int Id { get; set; }
+
     private PersonViewModel _person = default!;
     private string _message = "Loading...";
 
@@ -23,7 +24,7 @@ public partial class PersonDetails : ComponentBase
             }
             else
             {
-                _message = "No person found with this id";
+                _message = "No data found on this person";
             }
         }
         catch (Exception)
