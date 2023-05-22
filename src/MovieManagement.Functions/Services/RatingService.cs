@@ -63,8 +63,9 @@ public class RatingService : IRatingService
         return _mapper.Map<RatingDto>(ratingEntity);
     }
 
-    public async Task<IList<MovieRatingDto>> GetMovieRatings(GetRatingDto ratingDto, int pageNumber)
+    public async Task<RatingResultDto> GetMovieRatings(GetRatingDto ratingDto, int pageNumber)
     {
+        var resultDto = new RatingResultDto();
         var movieRatingDtos = new List<MovieRatingDto>();
         var list = await _repository.GetMovieRatings(ratingDto.MovieId, ratingDto.UserId, pageNumber);
         var userIds = list.Select(r => r.UserId).ToList();
@@ -79,7 +80,11 @@ public class RatingService : IRatingService
                     CreatedBy = user?.Username 
                 });
         
-        return movieRatingDtos;
+        resultDto.MovieRatingDtos = movieRatingDtos;
+        resultDto.TotalResult = movieRatingDtos.Count;
+        resultDto.Page = pageNumber;
+        
+        return resultDto;
     }
 
     public async Task DeleteRating(Guid ratingId)
