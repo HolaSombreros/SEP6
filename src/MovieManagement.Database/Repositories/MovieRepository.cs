@@ -11,12 +11,12 @@ public class MovieRepository : IMovieRepository
         _repository = repository;
     }
 
-    public async Task<MovieEntity?> AddMovie(MovieEntity movie)
+    public async Task<MovieEntity?> AddMovieAsync(MovieEntity movie)
     {
         return await _repository.AddAsync(movie);
     }
 
-    public async Task<MovieEntity?> GetMovieById(int id)
+    public async Task<MovieEntity?> GetMovieByIdAsync(int id)
     {
         return await _context.Movies.FirstOrDefaultAsync(x => x.MovieId == id);
     }

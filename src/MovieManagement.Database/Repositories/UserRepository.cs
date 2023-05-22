@@ -9,15 +9,15 @@ public class UserRepository : IUserRepository{
         _repository = repository;
     }
 
-    public async Task<UserEntity?> GetByEmail(string email) {
+    public async Task<UserEntity?> GetByEmailAsync(string email) {
         return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
     }
 
-    public async Task<UserEntity?> GetByUsername(string username) {
+    public async Task<UserEntity?> GetByUsernameAsync(string username) {
         return await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username));
     }
 
-    public async Task<IList<UserEntity?>> GetUsers(IList<Guid> ids)
+    public async Task<IList<UserEntity?>> GetUsersAsync(IList<Guid> ids)
     {
         return (await _context.Users
             .Where(u => ids.Contains(u.UserId))

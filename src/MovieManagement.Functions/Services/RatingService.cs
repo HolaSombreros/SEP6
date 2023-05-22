@@ -18,7 +18,7 @@ public class RatingService : IRatingService
         var ratingEntity = _mapper.Map<RatingEntity>(rating);
         ratingEntity.MovieId = rating.MovieDto.MovieId;
         ratingEntity.DateTime = DateTime.UtcNow;
-        var existingRating = await _repository.GetMovieUserRating(rating.MovieDto.MovieId, rating.UserId);
+        var existingRating = await _repository.GetMovieUserRatingAsync(rating.MovieDto.MovieId, rating.UserId);
         if (existingRating != null)
         {
             var updatedRating = await _repository.UpdateAsync(ratingEntity, existingRating.RatingId);
@@ -38,7 +38,7 @@ public class RatingService : IRatingService
 
     public async Task<IList<RatingQueryDto>> GetMovieRatings(IList<int> ratingList)
     {
-        var results = await _repository.GetAllMovieRatings(ratingList);
+        var results = await _repository.GetAllMovieRatingsAsync(ratingList);
         var mappedRating = _mapper.Map<List<RatingSubsetDto>>(results);
         return mappedRating
             .GroupBy(r => r.MovieId)
@@ -59,16 +59,16 @@ public class RatingService : IRatingService
 
     public async Task<RatingDto> GetMovieRatingByUser(int movieId, Guid userId)
     {
-        var ratingEntity = await _repository.GetMovieUserRating(movieId, userId);
+        var ratingEntity = await _repository.GetMovieUserRatingAsync(movieId, userId);
         return _mapper.Map<RatingDto>(ratingEntity);
     }
 
     public async Task<RatingResultDto> GetMovieRatings(GetRatingDto ratingDto, int pageNumber)
     {
         var resultDto = new RatingResultDto();
-        var list = await _repository.GetMovieRatings(ratingDto.MovieId, ratingDto.UserId, pageNumber);
+        var list = await _repository.GetMovieRatingsAsync(ratingDto.MovieId, ratingDto.UserId, pageNumber);
         var userIds = list.ratingEntities.Select(r => r.UserId).ToList();
-        var users = await _userRepository.GetUsers(userIds);
+        var users = await _userRepository.GetUsersAsync(userIds);
 
         var movieRatingDtos = (from rating in list.ratingEntities let user = 
                 users.FirstOrDefault(u => u.UserId == rating.UserId) 

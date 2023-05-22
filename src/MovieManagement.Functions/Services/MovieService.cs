@@ -19,13 +19,13 @@ public class MovieService : IMovieService
         {
             return existingMovie;
         }
-        var entity = await _repository.AddMovie(movieEntity);
+        var entity = await _repository.AddMovieAsync(movieEntity);
         return _mapper.Map<MovieDto>(entity);
     }
 
     public async Task<MovieDto> GetMovieById(int id)
     {
-        var entity = await _repository.GetMovieById(id);
+        var entity = await _repository.GetMovieByIdAsync(id);
         return _mapper.Map<MovieDto>(entity);
     }
 }
