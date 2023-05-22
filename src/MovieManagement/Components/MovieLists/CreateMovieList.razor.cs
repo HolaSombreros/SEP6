@@ -16,6 +16,7 @@ public partial class CreateMovieList : ComponentBase
 
     private async Task CreateNewListAsync()
     {
+        _successMessage = _errorMessage = String.Empty;
         try
         {
             await MovieListService.CreateCustomListAsync(_list);

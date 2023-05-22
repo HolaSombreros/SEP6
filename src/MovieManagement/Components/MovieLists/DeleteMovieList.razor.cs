@@ -4,7 +4,7 @@ public partial class DeleteMovieList : ComponentBase
 {
     [Parameter] 
     public Guid ListId { get; set; }
-    private string _successMessage = default!;
+    private string _successMessage = string.Empty;
 
     private async Task DeleteListAsync()
     {

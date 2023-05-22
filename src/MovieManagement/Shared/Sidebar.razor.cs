@@ -27,11 +27,10 @@ public partial class Sidebar : ComponentBase
 
     private async Task FetchMovieListsAsync()
     {
-        var userIdentity = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
-        if (userIdentity != null && userIdentity.IsAuthenticated)
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        if (user.Identity != null && (user.Identity.IsAuthenticated))
         {
-            var userId =
-                Guid.Parse((await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id"));
+            var userId = Guid.Parse(user.FindFirstValue("Id"));
             await MovieListService.GetUserListsAsync(userId);
         }
         else
