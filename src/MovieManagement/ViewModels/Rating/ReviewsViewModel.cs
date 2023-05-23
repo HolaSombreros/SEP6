@@ -15,6 +15,11 @@ public class ReviewsViewModel
         this.userGuid = userGuid;
     }
 
+    public Task<ReviewModel?> GetLoggedInUserReview()
+    {
+        return ratingService.GetUserMovieRating(movieId, (Guid) userGuid!);
+    }
+
     public async Task GetMovieReviewsAsync(int page)
     {
         var reviews = await ratingService.GetMovieReviewsAsync(movieId, userGuid, page);
@@ -28,5 +33,11 @@ public class ReviewsViewModel
             PaginatedReviews.Page = reviews.Page;
             PaginatedReviews.Reviews.AddRange(reviews.Reviews);
         }
+    }
+
+    public void RemoveReview(Guid reviewId)
+    {
+        var review = PaginatedReviews!.Reviews.First(r => r.Id == reviewId);
+        PaginatedReviews.Reviews.Remove(review);
     }
 }

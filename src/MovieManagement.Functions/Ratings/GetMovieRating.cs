@@ -11,7 +11,7 @@ public class GetMovieRating
         _validator = validator;
     }
     
-    [FunctionName("GetMovieUserRating")]
+    [FunctionName("GetMovieRating")]
     public async Task<IActionResult> GetMovieUserRating(
         [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
         ILogger log)

@@ -11,7 +11,7 @@ public class PaginatedReviewsModel
         TotalPages = dto.TotalPages;
         Page = dto.Page;
 
-        foreach (var reviewDto in dto.ReviewReponseDtos)
+        foreach (var reviewDto in dto.MovieRatingDtos)
         {
             Reviews.Add(new ReviewModel(reviewDto));
         }

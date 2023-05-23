@@ -16,7 +16,7 @@
             @foreach (var member in Credits.Cast)
             {
                 <div class="credit-member">
-                    <img
+                    <img class="clickable-image"
                         src=@member.ImageUrl
                         alt="cast picture"
                         @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
@@ -48,7 +48,7 @@
             @foreach (var member in Credits.Crew)
             {
                 <div class="credit-member">
-                    <img
+                    <img class="clickable-image"
                         src=@member.ImageUrl   
                         @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
                         alt="cast picture"/>
