@@ -25,7 +25,7 @@ public class EditUser {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors);
             }
-            var user = await _userService.UpdateUser(userDto);
+            var user = await _userService.UpdateUserAsync(userDto);
             log.LogInformation("User with id: {id} has been updated ", user.UserId);
             return new OkObjectResult(user);
         }

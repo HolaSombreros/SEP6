@@ -16,7 +16,7 @@ public class DeleteRating
     {
         try
         {
-            await _ratingService.DeleteRating(ratingId);
+            await _ratingService.DeleteRatingAsync(ratingId);
             log.LogInformation("Rating with the id {ratingId} has been deleted", ratingId);
 
             return new OkResult();

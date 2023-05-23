@@ -11,7 +11,7 @@ public class UserService : IUserService {
         _repository = repository;
     }
 
-    public async Task<UserDto> GetUser(LoginUserDto loginUserDto)
+    public async Task<UserDto> GetUserAsync(LoginUserDto loginUserDto)
     {
         var user = await _repository.GetByEmail(loginUserDto.Email);
         if (user is null) {
@@ -24,7 +24,7 @@ public class UserService : IUserService {
         return _mapper.Map<UserDto>(user);
     }
     
-    public async Task<UserDto> UpdateUser(UserDto userDto) {
+    public async Task<UserDto> UpdateUserAsync(UserDto userDto) {
         var existsWithEmail = await _repository.GetByEmail(userDto.Email);
         if (existsWithEmail is not null && !existsWithEmail.UserId.Equals(userDto.UserId)) 
         {
@@ -42,7 +42,7 @@ public class UserService : IUserService {
         return _mapper.Map<UserDto>(userUpdated);
     }
 
-    public async Task<UserDto> RegisterUser(RegisterUserDto registerUserDto)
+    public async Task<UserDto> RegisterUserAsync(RegisterUserDto registerUserDto)
     {
         if (await _repository.GetByEmail(registerUserDto.Email) is not null) 
         {
@@ -63,7 +63,7 @@ public class UserService : IUserService {
         return userDto;
     }
 
-    public async Task DeleteUser(Guid userId) {
+    public async Task DeleteUserAsync(Guid userId) {
         var user = await _repository.GetAsync(userId);
         if (user is null) {
             throw new Exception("Account doesn't exist");

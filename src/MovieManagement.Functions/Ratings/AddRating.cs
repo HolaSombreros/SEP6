@@ -30,10 +30,10 @@ public class AddRating
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
-            var updatedMovie = await _movieService.AddMovie(ratingDto.MovieDto);
+            var updatedMovie = await _movieService.AddMovieAsync(ratingDto.MovieDto);
             log.LogInformation("Added movie for movie id: " + updatedMovie.MovieId);
 
-            var updatedRating = await _ratingService.PutRating(ratingDto);
+            var updatedRating = await _ratingService.PutRatingAsync(ratingDto);
             log.LogInformation("Added rating for rating id: " + updatedRating.RatingId + " and user id: " + updatedRating.UserId);
 
 

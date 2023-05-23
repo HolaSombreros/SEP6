@@ -10,7 +10,7 @@ public class DeleteMovieList {
     public  async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Delete), Route = "DeleteMovieList/{listId}")] HttpRequest req, [FromRoute]Guid listId, ILogger log) {
         try {
-            await _movieListService.DeleteMovieList(listId);
+            await _movieListService.DeleteMovieListAsync(listId);
 
             return new OkResult();
         }

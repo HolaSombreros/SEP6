@@ -35,7 +35,7 @@ public class AddMovieToMovieList
                 return new BadRequestObjectResult(movieResult.Errors);
             }
 
-            await _movieService.AddMovie(movie);
+            await _movieService.AddMovieAsync(movie);
             log.LogInformation("Added movie for movie id: " + movie.MovieId);
             
             

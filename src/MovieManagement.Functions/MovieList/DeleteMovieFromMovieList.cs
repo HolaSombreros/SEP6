@@ -26,7 +26,7 @@ public class DeleteMovieFromMovieList {
                 return new BadRequestObjectResult(result.Errors);
             }
 
-            await _movieListService.DeleteMovieFromMovieList(request);
+            await _movieListService.DeleteMovieFromMovieListAsync(request);
             
             return new OkResult();
         }

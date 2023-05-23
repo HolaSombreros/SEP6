@@ -13,7 +13,7 @@ public class DeleteUser {
         try 
         {
             log.LogInformation("C# HTTP trigger function processed a request");
-            await _userService.DeleteUser(userId);
+            await _userService.DeleteUserAsync(userId);
             log.LogInformation("Deleted user with id " + userId);
             return new OkResult();
         }

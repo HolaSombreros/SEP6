@@ -11,20 +11,20 @@ public class MovieListMovieRepository : IMovieListMovieRepository
         _repository = repository;
     }
     
-    public async Task<MovieListMovieEntity?> AddMovieToMovieList(MovieListMovieEntity movieListMovieEntity)
+    public async Task<MovieListMovieEntity?> AddMovieToMovieListAsync(MovieListMovieEntity movieListMovieEntity)
     {
         return await _repository.AddAsync(movieListMovieEntity);
 
     }
 
-    public async Task<MovieListMovieEntity?> GetMovieFromMovieList(MovieListMovieEntity movieListMovieEntity)
+    public async Task<MovieListMovieEntity?> GetMovieFromMovieListAsync(MovieListMovieEntity movieListMovieEntity)
     {
         return await _context.MovieListMovies.AsNoTracking().SingleOrDefaultAsync(m =>
             m.MovieListId.Equals(movieListMovieEntity.MovieListId) &&
             m.MovieId.Equals(movieListMovieEntity.MovieId));
     }
 
-    public async Task DeleteMovieFromMovieList(MovieListMovieEntity movieListMovieEntity)
+    public async Task DeleteMovieFromMovieListAsync(MovieListMovieEntity movieListMovieEntity)
     {
         _context.MovieListMovies.Remove(movieListMovieEntity);
        await _context.SaveChangesAsync();

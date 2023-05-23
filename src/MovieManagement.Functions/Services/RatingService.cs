@@ -11,7 +11,7 @@ public class RatingService : IRatingService
         _mapper = mapper;
     }
 
-    public async Task<RatingDto> PutRating(RatingDto rating)
+    public async Task<RatingDto> PutRatingAsync(RatingDto rating)
     {
         var ratingEntity = _mapper.Map<RatingEntity>(rating);
         ratingEntity.MovieId = rating.MovieDto.MovieId;
@@ -27,14 +27,14 @@ public class RatingService : IRatingService
         return _mapper.Map<RatingDto>(addedRating);
     }
 
-    public async Task<RatingDto> AddRating(RatingDto ratingDto)
+    public async Task<RatingDto> AddRatingAsync(RatingDto ratingDto)
     {
         var ratingEntity = _mapper.Map<RatingEntity>(ratingDto);
         var addedRating = await _repository.AddAsync(ratingEntity);
         return _mapper.Map<RatingDto>(addedRating);
     }
 
-    public async Task<IList<RatingQueryDto>> GetMovieRatings(IList<int> ratingList)
+    public async Task<IList<RatingQueryDto>> GetMovieRatingsAsync(IList<int> ratingList)
     {
         var results = await _repository.GetAllMovieRatings(ratingList);
         var mappedRating = _mapper.Map<List<RatingSubsetDto>>(results);
@@ -49,27 +49,27 @@ public class RatingService : IRatingService
             .ToList();
     }
 
-    public async Task<RatingDto> GetRatingById(Guid ratingId)
+    public async Task<RatingDto> GetRatingByIdAsync(Guid ratingId)
     {
         var ratingEntity =  await _repository.GetAsync(ratingId);
         return _mapper.Map<RatingDto>(ratingEntity);
     }
 
-    public async Task<RatingDto> GetMovieRatingByUser(int movieId, Guid userId)
+    public async Task<RatingDto> GetMovieRatingByUserAsync(int movieId, Guid userId)
     {
         var ratingEntity = await _repository.GetMovieUserRating(movieId, userId);
         return _mapper.Map<RatingDto>(ratingEntity);
     }
 
-    public async Task<IList<RatingDto>> GetMovieRatings(int movieId, Guid userId, int pageNumber, int pageSize)
+    public async Task<IList<RatingDto>> GetMovieRatingsAsync(int movieId, Guid userId, int pageNumber, int pageSize)
     {
         var list = await _repository.GetMovieRatings(movieId, userId, pageNumber, pageSize);
         return _mapper.Map<List<RatingDto>>(list);
     }
 
-    public async Task DeleteRating(Guid ratingId)
+    public async Task DeleteRatingAsync(Guid ratingId)
     {
-        var existingRating = await GetRatingById(ratingId);
+        var existingRating = await GetRatingByIdAsync(ratingId);
         if (existingRating is null)
         {
             throw new Exception("The rating with the given id does not exist");

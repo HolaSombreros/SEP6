@@ -13,7 +13,7 @@ public class GetMovieLists {
         log.LogInformation("C# HTTP trigger function processed a request");
 
         try {
-            var movieList = await _movieListService.GetMovieLists(userId);
+            var movieList = await _movieListService.GetMovieListsAsync(userId);
 
             return new OkObjectResult(movieList);
         }

@@ -28,17 +28,17 @@ public class MovieListService : IMovieListService
     public async Task<MovieListDto> AddMovieToMovieListAsync(MovieToMovieListDto movieToMovieListDto)
     {
         var movieListMovieEntity = _mapper.Map<MovieListMovieEntity>(movieToMovieListDto);
-        var existingMovieInList = await _listMovieRepository.GetMovieFromMovieList(movieListMovieEntity);
+        var existingMovieInList = await _listMovieRepository.GetMovieFromMovieListAsync(movieListMovieEntity);
         
         if (existingMovieInList != null)
         {
             throw new Exception("The movie already exists in the list");
         }
         
-        await _listMovieRepository.AddMovieToMovieList(movieListMovieEntity);
+        await _listMovieRepository.AddMovieToMovieListAsync(movieListMovieEntity);
        
         var listEntity = await _repository.GetAsync(movieToMovieListDto.MovieListId);
-        var movies = await _repository.GetMoviesByList(movieToMovieListDto.MovieListId);
+        var movies = await _repository.GetMoviesByListAsync(movieToMovieListDto.MovieListId);
         
         var movieList = _mapper.Map<MovieListDto>(listEntity);
         movieList.Movies = _mapper.Map<List<MovieDto>>(movies);
@@ -46,20 +46,20 @@ public class MovieListService : IMovieListService
         return movieList;
     }
 
-    public async Task<List<MovieListDto>> GetMovieLists(Guid userId) {
+    public async Task<List<MovieListDto>> GetMovieListsAsync(Guid userId) {
         if ((await _userRepository.GetAsync(userId)) is null) {
             throw new Exception("User doesn't exist");
         }
-        var list = await _repository.GetMovieListsByUser(userId);
+        var list = await _repository.GetMovieListsByUserAsync(userId);
         var mappedList = _mapper.Map<List<MovieListDto>>(list);
         foreach (var movieList in mappedList) {
-            var movies = await _repository.GetMoviesByList(movieList.MovieListId);
+            var movies = await _repository.GetMoviesByListAsync(movieList.MovieListId);
             movieList.Movies = _mapper.Map<List<MovieDto>>(movies);
         }
         return mappedList;
     }
 
-    public async Task DeleteMovieList(Guid movieListId) {
+    public async Task DeleteMovieListAsync(Guid movieListId) {
         var movieList = await _repository.GetAsync(movieListId);
         if (movieList is null) {
             throw new Exception("Movie List doesn't exist");
@@ -72,12 +72,12 @@ public class MovieListService : IMovieListService
         await _repository.DeleteAsync(movieListId);
     }
 
-    public async Task DeleteMovieFromMovieList(MovieToMovieListDto movieToMovieListDto) {
+    public async Task DeleteMovieFromMovieListAsync(MovieToMovieListDto movieToMovieListDto) {
         var entity = _mapper.Map<MovieListMovieEntity>(movieToMovieListDto);
-        if (await _listMovieRepository.GetMovieFromMovieList(entity) is null) {
+        if (await _listMovieRepository.GetMovieFromMovieListAsync(entity) is null) {
             throw new Exception("Movie not in list");
         }
 
-        await _listMovieRepository.DeleteMovieFromMovieList(entity);
+        await _listMovieRepository.DeleteMovieFromMovieListAsync(entity);
     }
 }

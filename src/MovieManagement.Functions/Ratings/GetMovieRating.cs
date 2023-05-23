@@ -16,7 +16,7 @@ public class GetMovieRating
     {
         try
         {
-            var result = await _ratingService.GetMovieRatingByUser(movieId, userId);
+            var result = await _ratingService.GetMovieRatingByUserAsync(movieId, userId);
             return new OkObjectResult(result);
         }
         catch (Exception e)
@@ -35,7 +35,7 @@ public class GetMovieRating
         {
             var page = int.Parse(req.Query["page"]);
             var pageSize = int.Parse(req.Query["pageSize"]);
-            var result = await _ratingService.GetMovieRatings(movieId, userId, page, pageSize);
+            var result = await _ratingService.GetMovieRatingsAsync(movieId, userId, page, pageSize);
             
             return new OkObjectResult(result);
         }
@@ -56,7 +56,7 @@ public class GetMovieRating
         {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var ratingList = JsonConvert.DeserializeObject<IList<int>>(requestBody);
-            var result = await _ratingService.GetMovieRatings(ratingList);
+            var result = await _ratingService.GetMovieRatingsAsync(ratingList);
             
             return new OkObjectResult(result);
         }
