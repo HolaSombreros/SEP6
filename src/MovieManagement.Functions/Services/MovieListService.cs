@@ -65,10 +65,6 @@ public class MovieListService : IMovieListService
             throw new Exception("Movie List doesn't exist");
         }
 
-        if (movieList.Title.Equals("To Watch") || movieList.Title.Equals("Favourites")) {
-            throw new Exception("Cannot delete movie list");
-        }
-
         await _repository.DeleteAsync(movieListId);
     }
 
