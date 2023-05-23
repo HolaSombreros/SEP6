@@ -21,30 +21,7 @@ public class RatingService : IRatingService
     {
         var requestDto = new GetReviewsDto(movieId, userGuid);
         var responseDto = await service.GetAsync<ReviewsResponseDto>(settings.GetMovieRatings, requestDto, page);
-        //var responseDto = new ReviewsResponseDto
-        //{
-        //    Page = 1,
-        //    TotalPages = 1,
-        //    MovieRatingDtos = new List<ReviewResponseDto>
-        //    {
-        //        new ReviewResponseDto
-        //        {
-        //            Id = Guid.Parse("FF149548-AA8E-42F3-E633-08DB5954613D"),
-        //            Rating = 6,
-        //            Review = "No",
-        //            CreatedDate = DateTime.Now,
-        //            CreatedBy = "Fox"
-        //        },
-        //        new ReviewResponseDto
-        //        {
-        //            Id = Guid.Parse("E2FE25B0-8BFD-47C7-2DF9-08DB5AA5A568"),
-        //            Rating = 3,
-        //            CreatedDate = DateTime.Now,
-        //            CreatedBy = "I don't even know."
-        //        }
-        //    }
-        //};
-        return new PaginatedReviewsModel(responseDto);
+        return new PaginatedReviewsModel(responseDto!);
     }
 
     public Task DeleteMovieReviewAsync(Guid reviewId)

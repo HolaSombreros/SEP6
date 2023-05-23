@@ -78,7 +78,7 @@ public class RatingService : IRatingService
                 Rating = (int)rating.Rating, 
                 Review = rating.Review, 
                 CreatedDate = rating.DateTime, 
-                CreatedBy = user.Username
+                CreatedBy = user?.Username
             }).ToList();
 
         resultDto.MovieRatingDtos = movieRatingDtos;
