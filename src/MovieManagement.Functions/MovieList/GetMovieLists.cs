@@ -9,7 +9,7 @@ public class GetMovieLists {
 
     [FunctionName("GetMovieLists")]
     public  async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.System, nameof(HttpMethods.Get), Route = "GetMovieLists/{userId}")] HttpRequest req, [FromRoute]Guid userId, ILogger log) {
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "GetMovieLists/{userId}")] HttpRequest req, [FromRoute]Guid userId, ILogger log) {
         log.LogInformation("C# HTTP trigger function processed a request");
 
         try {

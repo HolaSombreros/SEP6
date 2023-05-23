@@ -12,7 +12,7 @@ public class EditUser {
     
     [FunctionName("EditUser")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Put), Route = null)] HttpRequest req, ILogger log,
+        [HttpTrigger(AuthorizationLevel.Anonymous,  nameof(HttpMethods.Put), Route = null)] HttpRequest req, ILogger log,
         [Sql(commandText: "dbo.User", connectionStringSetting: "DbConnectionString")] IAsyncCollector<UserEntity> userTable) {
         try 
         {

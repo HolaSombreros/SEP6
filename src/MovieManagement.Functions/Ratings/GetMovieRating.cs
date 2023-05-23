@@ -11,7 +11,7 @@ public class GetMovieRating
     
     [FunctionName("GetMovieUserRating")]
     public async Task<IActionResult> GetMovieUserRating(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
         ILogger log)
     {
         try
@@ -28,7 +28,7 @@ public class GetMovieRating
     
     [FunctionName("GetMovieRatings")]
     public async Task<IActionResult> GetMovieRatings(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRatings/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "GetMovieRatings/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
          ILogger log)
     {
         try
@@ -49,7 +49,7 @@ public class GetMovieRating
     
     [FunctionName("GetMovieRatingsByIds")]
     public async Task<IActionResult> GetMovieRatingsByIds(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
         ILogger log)
     {
         try

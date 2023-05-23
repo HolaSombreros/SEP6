@@ -15,7 +15,7 @@ public class AddRating
     
     [FunctionName("AddRating")]
     public async Task<IActionResult> AddUserRating(
-    [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Put), Route = null)] HttpRequest req,
+    [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Put), Route = null)] HttpRequest req,
     ILogger log)
     {
         try

@@ -11,7 +11,7 @@ public class AddMovieList {
 
     [FunctionName("AddMovieList")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]
         HttpRequest req, ILogger log) {
         try {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();

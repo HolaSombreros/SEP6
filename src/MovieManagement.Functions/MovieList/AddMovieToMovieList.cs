@@ -13,7 +13,7 @@ public class AddMovieToMovieList
 
     [FunctionName("AddMovieToMovieList")]
     public async Task<IActionResult> RunAsync(
-    [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Put),
+    [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Put),
     Route = "AddMovieToMovieList/{movieListId}/{movieId:int}")] HttpRequest req, Guid movieListId, int movieId, ILogger log)
     {
         try

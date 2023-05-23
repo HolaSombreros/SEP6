@@ -10,7 +10,7 @@ public class DeleteMovieFromMovieList {
     }
     [FunctionName("DeleteMovieFromMovieList")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Delete), Route = "DeleteMovieFromMovieList/{movieListId}/{movieId:int}")] HttpRequest req,  Guid movieListId, int movieId, ILogger log) {
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Delete), Route = "DeleteMovieFromMovieList/{movieListId}/{movieId:int}")] HttpRequest req,  Guid movieListId, int movieId, ILogger log) {
         try
         {
             var request = new MovieToMovieListDto

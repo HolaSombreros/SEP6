@@ -11,7 +11,7 @@ public class DeleteRating
     
     [FunctionName("DeleteRating")]
     public async Task<IActionResult> DeleteMovieRating(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Delete), Route = "DeleteRating/{ratingId}")] HttpRequest request, [FromRoute] Guid ratingId,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Delete), Route = "DeleteRating/{ratingId}")] HttpRequest request, [FromRoute] Guid ratingId,
         ILogger log)
     {
         try
