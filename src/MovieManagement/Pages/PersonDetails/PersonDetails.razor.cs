@@ -12,7 +12,7 @@ public partial class PersonDetails : ComponentBase
     {
         try
         {
-            var credits = await PersonService.GetPersonCreditsAsync(Id);
+            var credits = await CombinedRatingService.GetPersonCreditsAsync(Id);
             var person = await PersonService.GetPersonDetailsAsync(Id);
             if (person.Id != 0)
             {
