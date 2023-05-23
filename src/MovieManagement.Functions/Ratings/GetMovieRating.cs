@@ -30,15 +30,12 @@ public class GetMovieRating
     
     [FunctionName("GetMovieRatings")]
     public async Task<IActionResult> GetMovieRatings(
-        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "GetMovieRatings/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
          ILogger log)
     {
         try
         {
             var page = int.Parse(req.Query["page"]);
-            var pageSize = int.Parse(req.Query["pageSize"]);
-            var result = await _ratingService.GetMovieRatingsAsync(movieId, userId, page, pageSize);
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var getRatingDto = JsonConvert.DeserializeObject<GetRatingDto>(requestBody);
             var result = await _validator.ValidateAsync(getRatingDto);
@@ -48,7 +45,7 @@ public class GetMovieRating
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
-            var ratingResultDto = await _ratingService.GetMovieRatings(getRatingDto, page);
+            var ratingResultDto = await _ratingService.GetMovieRatingsAsync(getRatingDto, page);
             
             return new OkObjectResult(ratingResultDto);
         }

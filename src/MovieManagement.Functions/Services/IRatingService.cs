@@ -2,11 +2,11 @@
 
 public interface IRatingService
 {
-    Task<RatingDto> PutRating(RatingDto rating);
-    Task<RatingDto> AddRating(RatingDto ratingDto);
-    Task<IList<RatingQueryDto>> GetMovieRatings(IList<int> ratingList);
-    Task DeleteRating(Guid ratingId);
-    Task<RatingDto> GetRatingById(Guid ratingId);
-    Task<RatingDto> GetMovieRatingByUser(int movieId, Guid userId);
-    Task<RatingResultDto> GetMovieRatings(GetRatingDto ratingDto, int pageNumber);
+    Task<RatingDto> PutRatingAsync(RatingDto rating);
+    Task<RatingDto> AddRatingAsync(RatingDto ratingDto);
+    Task<IList<RatingQueryDto>> GetMovieRatingsAsync(IList<int> ratingList);
+    Task DeleteRatingAsync(Guid ratingId);
+    Task<RatingDto> GetRatingByIdAsync(Guid ratingId);
+    Task<RatingDto> GetMovieRatingByUserAsync(int movieId, Guid userId);
+    Task<RatingResultDto> GetMovieRatingsAsync(GetRatingDto ratingDto, int pageNumber);
 }
