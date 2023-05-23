@@ -9,6 +9,7 @@ global using Microsoft.Extensions.Options;
 global using Microsoft.JSInterop;
 global using MovieManagement.Attributes;
 global using MovieManagement.Authentication;
+global using MovieManagement.Components.MovieLists;
 global using MovieManagement.Config;
 global using MovieManagement.Database.Config;
 global using MovieManagement.Database.Repositories;

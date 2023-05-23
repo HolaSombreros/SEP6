@@ -16,17 +16,20 @@
         </div>
         <div class="row">
             <div class="col-md-11">
-                <p class="rating">@_details.VoteAverage (@_details.VoteCount Votes)</p>
+                <p class="rating">@_details.VoteAverage (@($"{_details.VoteCount:n0}") Votes)</p>
                 <img class="rating" src="Images/Star.png" alt="star"/>
             </div>
         </div>
         <div class="row details">
             <div class="col-md-6 offset-md-1 col-md-push-5 py-3">
                 <p>@_details.Description</p>
-                <p>Genres: @_details.Genres</p>
-                @if (!string.IsNullOrEmpty(_details.Budget))
+                @if (_details.Genres.Any())
                 {
-                    <p>Length: @_details.Length</p>
+                    <p>Genres: @GetGenresToString(_details.Genres)</p>
+                }
+                @if (_details.Length != 0)
+                {
+                    <p>Length: @GetMovieLength(_details.Length)</p>
                 }
                 @if (_details.ProductionCompanies.Any())
                 {
@@ -58,15 +61,21 @@
                 {
                     <p>Original Language: @_details.OriginalLanguage</p>
                 }
-                <p>Spoken Languages: @_details.SpokenLanguages</p>
-                <p>Production Countries: @_details.ProductionCountries</p>
-                @if (!string.IsNullOrEmpty(_details.Budget))
+                @if (_details.SpokenLanguages.Any())
                 {
-                    <p>Budget: @_details.Budget</p>
+                    <p>Spoken Languages: @GetSpokenLanguagesToString(_details.SpokenLanguages);</p>
                 }
-                @if (!string.IsNullOrEmpty(_details.Budget))
+                @if (_details.SpokenLanguages.Any())
                 {
-                    <p>Revenue: @_details.Revenue</p>
+                    <p>Production Countries: @GetProductionCountriesToString(_details.ProductionCountries)</p>
+                }
+                @if (_details.Budget != 0)
+                {
+                    <p>Budget: @($"${_details.Budget:n0}")</p>
+                }
+                @if (_details.Revenue != 0)
+                {
+                    <p>Revenue: @($"${_details.Revenue:n0}")</p>
                 }
                 @if (_details.IsAdult)
                 {
@@ -80,8 +89,17 @@
                      alt="Movie image"/>
                 @if (!string.IsNullOrEmpty(_details.Homepage))
                 {
-                    <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
+                    <button class="btn btn-primary mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
                 }
+                <AuthorizeView>
+                    <Authorized>
+                         <button
+                             class="btn btn-primary mt-3 py-3"
+                             @onclick="@(() => Modal.Show<AddMovieToList>(_details.Title, new ModalParameters().Add("Movie", new MovieViewModel(_details))))">
+                             Add Movie To List
+                         </button>
+                    </Authorized>
+                </AuthorizeView>
             </div>
         </div>
         <MovieCredits Credits="_details.Credits" />

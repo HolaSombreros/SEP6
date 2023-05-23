@@ -50,4 +50,12 @@ public partial class Sidebar : ComponentBase
     {
         _hideSidebar = !_hideSidebar;
     }
+
+    private async Task ShowDeleteListModal(MovieListViewModel list)
+    {
+        var modalParameters = new ModalParameters().Add(nameof(DeleteMovieList.ListId), list.Id);
+        var modal = Modal.Show<DeleteMovieList>($"Remove {list.Title}?", modalParameters);
+        var result = await modal.Result;
+        modal.Close();
+    }
 }

@@ -15,13 +15,13 @@
         <div class="row details">
             <div class="col-md-6 offset-md-1 col-md-push-5 py-3">
                 <p>@_person.Biography</p>
-                @if (!string.IsNullOrEmpty(_person.Birthday))
+                @if (!_person.Birthday.Equals(new DateTime(1, 1, 1)))
                 {
-                    <p>Birthday: @_person.Birthday</p>
+                    <p>Birthday: @_person.Birthday.ToString("dd/MM/yyyy")</p>
                 }
-                @if (!string.IsNullOrEmpty(_person.DeathDay))
+                @if (!_person.DeathDay.Equals(new DateTime(1, 1, 1)))
                 {
-                    <p>Death: @_person.DeathDay</p>
+                    <p>Death: @_person.DeathDay.ToString("dd/MM/yyyy")</p>
                 }
                 @if (!string.IsNullOrEmpty(_person.PlaceOfBirth))
                 {

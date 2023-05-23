@@ -1,0 +1,9 @@
+﻿.input-check, input, label {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+input {
+    transform: scale(1.5);
+    accent-color: #653780;
+}

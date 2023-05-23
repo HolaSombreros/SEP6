@@ -14,6 +14,14 @@ public class MovieDto
         PosterUrl = movieModel.PosterUrl;
         ReleaseDate = movieModel.ReleaseDate?.ToString("yyyy-MM-dd");
     }
+    
+    public MovieDto(MovieViewModel movieModel)
+    {
+        MovieId = movieModel.Id;
+        Title = movieModel.Title;
+        PosterUrl = movieModel.PosterPath;
+        ReleaseDate = movieModel.ReleaseDate.ToString("yyyy-MM-dd");
+    }
 
     [JsonConstructor]
     public MovieDto()

@@ -4,11 +4,13 @@ public partial class DeleteMovieList : ComponentBase
 {
     [Parameter] 
     public Guid ListId { get; set; }
-    private string _successMessage = string.Empty;
+    
+    [CascadingParameter]
+    public BlazoredModalInstance Modal { get; set; } = default!;
 
     private async Task DeleteListAsync()
     {
         await MovieListService.DeleteCustomListAsync(ListId);
-        _successMessage = "The list has been successfully removed";
+        await Modal.CloseAsync(ModalResult.Ok());
     }
 }

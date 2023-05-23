@@ -9,9 +9,9 @@ public class PersonCrewViewModel
     public string Title { get; }
     public string Description { get; }
     public string PosterUrl { get; }
-    public string ReleaseDate { get; }
-    public string VoteAverage { get; }
-    public string VoteCount { get; }
+    public DateTime ReleaseDate { get; }
+    public double VoteAverage { get; }
+    public int VoteCount { get; }
 
     public PersonCrewViewModel(Crew crew)
     {
@@ -22,10 +22,8 @@ public class PersonCrewViewModel
         Title = crew.Title;
         Description = crew.Description;
         PosterUrl = !string.IsNullOrEmpty(crew.PosterUrl) ? crew.PosterUrl : "Images/MovieMissingPicture.png";
-        ReleaseDate = !crew.ReleaseDate.Equals(new DateTime(1, 1, 1))
-            ? crew.ReleaseDate.ToString("dd/MM/yyyy")
-            : string.Empty;
-        VoteAverage = Math.Round(crew.VoteAverage, 2).ToString(CultureInfo.CurrentCulture);
-        VoteCount = $"{crew.VoteCount:n0}";
+        ReleaseDate =  crew.ReleaseDate;
+        VoteAverage = Math.Round(crew.VoteAverage, 2);
+        VoteCount = crew.VoteCount;
     }
 }

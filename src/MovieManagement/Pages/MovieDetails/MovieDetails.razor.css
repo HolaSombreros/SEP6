@@ -7,9 +7,13 @@ p {
     font-size: 20px;
 }
 
-.homepage {
+img {
     width: 100%;
     cursor: pointer;
+}
+
+.btn {
+    width: 100%;
 }
 
 .logo-img {
@@ -17,7 +21,6 @@ p {
     width: auto;
     margin-left: 1rem;
     background-color: white;
-    cursor: pointer;
 }
 
 .rating {
