@@ -18,6 +18,9 @@ public class MovieListService : IMovieListService
 
         var movieListEntity = _mapper.Map<MovieListEntity>(addMovieListDto);
         movieListEntity.MovieListId = new Guid();
+        if ((await _userRepository.GetAsync(addMovieListDto.UserId)) is null) {
+            throw new Exception("User doesn't exist");
+        }
 
         await _repository.AddAsync(movieListEntity);
 
@@ -28,6 +31,11 @@ public class MovieListService : IMovieListService
     public async Task<MovieListDto> AddMovieToMovieListAsync(MovieToMovieListDto movieToMovieListDto)
     {
         var movieListMovieEntity = _mapper.Map<MovieListMovieEntity>(movieToMovieListDto);
+        if (await _repository.GetAsync(movieListMovieEntity.MovieListId) is null)
+        {
+            throw new Exception("Movie list doesn't exist");
+        }
+        
         var existingMovieInList = await _listMovieRepository.GetMovieFromMovieListAsync(movieListMovieEntity);
         
         if (existingMovieInList != null)
