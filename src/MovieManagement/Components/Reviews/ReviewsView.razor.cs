@@ -7,12 +7,24 @@ public partial class ReviewsView : ComponentBase
 
     private ReviewsViewModel viewModel = default!;
 
+    private bool CanDeleteReview(Guid reviewId) => reviewId == userReviewId;
+    private Guid? userReviewId;
+
     protected override async Task OnInitializedAsync()
     {
         var userIdAsString = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
         viewModel = Guid.TryParse(userIdAsString, out var userIdAsGuid)
             ? (new(RatingService, MovieId, userIdAsGuid))
             : (new(RatingService, MovieId, null));
+
+        if (userIdAsGuid != Guid.Empty)
+        {
+            var usersMovieReview = await viewModel.GetLoggedInUserReview();
+            if (usersMovieReview != null)
+            {
+                userReviewId = usersMovieReview.Id;
+            }
+        }
 
         var startPage = 1;
         await GetMovieReviewsAsync(startPage);
@@ -27,5 +39,10 @@ public partial class ReviewsView : ComponentBase
     private Task GetMovieReviewsAsync(int page)
     {
         return viewModel.GetMovieReviewsAsync(page);
+    }
+
+    private void RemoveReviewHandler(Guid reviewId)
+    {
+        viewModel.RemoveReview(reviewId);
     }
 }

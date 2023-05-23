@@ -9,5 +9,4 @@ public partial class DeleteAccount : ComponentBase
         await ((MovieManagementASP) AuthenticationStateProvider).LogoutAsync();
         NavigationManager.NavigateTo("/");
     }
-    
 }

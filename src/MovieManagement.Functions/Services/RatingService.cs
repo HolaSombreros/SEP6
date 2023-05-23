@@ -74,6 +74,7 @@ public class RatingService : IRatingService
                 users.FirstOrDefault(u => u.UserId == rating.UserId) 
             select new MovieRatingDto
             {
+                Id = rating.RatingId,
                 Rating = (int)rating.Rating, 
                 Review = rating.Review, 
                 CreatedDate = rating.DateTime, 

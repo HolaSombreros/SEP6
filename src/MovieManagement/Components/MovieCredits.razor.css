@@ -37,3 +37,7 @@ p {
 ::-webkit-scrollbar {
     display: none;
 }
+
+.clickable-image {
+    cursor: pointer;
+}

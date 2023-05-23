@@ -1,0 +1,5 @@
+﻿@inject IRatingService RatingService
+
+<p>Are you sure you want to delete your review of this movie?</p>
+<button class="btn btn-secondary" @onclick="DeleteReviewAsync">Delete Review</button>
+<p class="error-message pt-2">@viewModel?.ErrorMessage</p>
