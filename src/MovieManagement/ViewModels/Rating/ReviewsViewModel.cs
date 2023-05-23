@@ -15,6 +15,11 @@ public class ReviewsViewModel
         this.userGuid = userGuid;
     }
 
+    public Task<ReviewModel?> GetLoggedInUserReview()
+    {
+        return ratingService.GetUserMovieRating(movieId, (Guid) userGuid!);
+    }
+
     public async Task GetMovieReviewsAsync(int page)
     {
         var reviews = await ratingService.GetMovieReviewsAsync(movieId, userGuid, page);

@@ -8,7 +8,7 @@ public class ReviewModel
     public int Rating { get; }
     public string? Text { get; }
     public DateOnly CreatedDate { get; }
-    public User CreatedBy { get; }
+    public string CreatedBy { get; } = null!;
 
     public ReviewModel(ReviewResponseDto reviewDto)
     {
@@ -16,10 +16,10 @@ public class ReviewModel
         Rating = reviewDto.Rating;
         Text = reviewDto.Review;
         CreatedDate = DateOnly.FromDateTime(reviewDto.CreatedDate);
-        CreatedBy = new User
-        {
-            UserId = reviewDto.CreatedBy.UserId,
-            Username = reviewDto.CreatedBy.Username
-        };
+        CreatedBy = reviewDto.CreatedBy;
+    }
+
+    public ReviewModel()
+    {
     }
 }

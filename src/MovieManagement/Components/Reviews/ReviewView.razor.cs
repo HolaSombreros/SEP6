@@ -11,17 +11,8 @@ public partial class ReviewView : ComponentBase
     [CascadingParameter]
     public IModalService Modal { get; set; } = default!;
 
-    private Guid? loggedInUserId;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var userIdString = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.FindFirstValue("Id");
-        
-        if (userIdString != null)
-        {
-            loggedInUserId = Guid.Parse(userIdString);
-        }
-    }
+    [Parameter]
+    public bool CanDeleteReview { get; set; }
 
     private async Task ShowDeleteModal()
     {

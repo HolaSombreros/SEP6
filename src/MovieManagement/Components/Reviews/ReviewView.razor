@@ -5,7 +5,7 @@
         <RatingsView Rating="Review.Rating" />
         <AuthorizeView>
             <Authorized>
-                @if (Review.CreatedBy.UserId == loggedInUserId)
+                @if (CanDeleteReview)
                 {
                     <span class="oi oi-trash delete-icon" @onclick="ShowDeleteModal"></span>
                 }
@@ -16,5 +16,5 @@
     {
         <p class="form-control">@Review.Text</p>
     }
-    <p>@Review.CreatedBy.Username, @Review.CreatedDate</p>
+    <p>@Review.CreatedBy, @Review.CreatedDate</p>
 </div>

@@ -18,4 +18,5 @@ public class AzureFunctionsConfig
     public string AndQueryBuilder { get; set; } = default!;
     public string PagePath { get; set; } = default!;
     public string DeleteReviewPath { get; set; } = default!;
+    public string GetMovieRating { get; set; } = default!;
 }

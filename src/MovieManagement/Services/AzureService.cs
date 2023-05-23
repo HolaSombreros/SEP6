@@ -40,7 +40,7 @@ public class AzureService : IAzureService
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
     
-    public async Task<T> GetAsync<T>(string endpoint, object body, int? page = null)
+    public async Task<T?> GetAsync<T>(string endpoint, object body, int? page = null)
     {
         var request = new HttpRequestMessage(
             HttpMethod.Get,
@@ -61,7 +61,15 @@ public class AzureService : IAzureService
             throw new Exception(await response.Content.ReadAsStringAsync());
         }
 
-        return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
+        var content = await response.Content.ReadAsStringAsync();
+        if (!string.IsNullOrEmpty(content))
+        {
+            return JsonSerializer.Deserialize<T>(content, _jsonSerializerOptions)!;
+        }
+        else
+        {
+            return default(T);
+        }
     }
 
     public async Task<T> PostAsync<T>(string endpoint, object body)
