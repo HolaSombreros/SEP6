@@ -72,7 +72,6 @@ public class MovieListService : IMovieListService
         {
             var lists = await _service.GetFromRouteAsync<List<MovieListDto>>(_settings.CreateCustomList, userId);
             _movieLists = lists.Select(listDto => new MovieListViewModel(listDto)).ToList();
-            _movieLists = new List<MovieListViewModel>();
             NotifyChanged();
         }
         catch (Exception)

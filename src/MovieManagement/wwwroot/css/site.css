@@ -1,67 +1,76 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #cccccc;
-  overflow: hidden;
-}
-
-a {
-  text-decoration: none;
-  color: #cccccc;
-}
-
-  a:hover {
-    color: white;
-    cursor: pointer;
-  }
-
-.btn {
-  color: #CCCCCC !important;
-  outline: none !important;
-  box-shadow: none !important;
-  border: none;
-  padding: .5rem .8rem !important;
-}
-
-.btn-primary {
-  background-color: #653780;
-}
-
-  .btn-primary:focus {
-    background-color: #653780;
-  }
-
-  .btn-primary:hover {
-    background-color: #5A3173;
-    color: #CCCCCC;
-  }
-
-.content {
-  padding-top: 1.1rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #cccccc;
+    overflow: hidden;
 }
 
 li {
-  list-style-type: none;
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #cccccc;
+}
+
+a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.btn {
+    color: #CCCCCC !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none;
+    padding: .5rem .8rem !important;
+}
+
+.btn-primary {
+    background-color: #653780;
+}
+
+.btn-primary:focus {
+    background-color: #653780;
+}
+
+.btn-primary:hover {
+    background-color: #5A3173;
+    color: #CCCCCC;
+}
+
+.content {
+    padding-top: 1.1rem;
 }
 
 .validation-message {
     padding-top: 1rem;
-    color: orangered;
 }
 
 .blazored-modal {
-  background-color: #333333 !important;
-  border: none !important;
+    background-color: #333333 !important;
+    border: none !important;
 }
 
 .form-control:focus {
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #653780;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #653780;
 }
 
-.error-message,
+.error-message {
+    color: orangered !important;
+}
+
 .validation-message {
     color: orangered !important;
+    padding-top: 1rem;
+}
+
+.delete-icon {
+    color: orangered;
+    cursor: pointer;
+    font-size: 1.3em;
 }
 
 .success-message {
@@ -69,14 +78,14 @@ li {
 }
 
 ::-webkit-scrollbar {
-  width: .8rem;
+    width: .8rem;
 }
 
 ::-webkit-scrollbar-track {
-  background: #333333;
+    background: #333333;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #653780;
-  border-radius: .4rem;
+    background: #653780;
+    border-radius: .4rem;
 }
