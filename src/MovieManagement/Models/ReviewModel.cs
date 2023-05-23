@@ -1,6 +1,4 @@
-﻿using MovieManagement.Domain.Models;
-
-namespace MovieManagement.Models;
+﻿namespace MovieManagement.Models;
 
 public class ReviewModel
 {

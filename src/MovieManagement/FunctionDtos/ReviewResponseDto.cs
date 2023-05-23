@@ -1,6 +1,4 @@
-﻿using MovieManagement.Domain.Models;
-
-namespace MovieManagement.FunctionDtos;
+﻿namespace MovieManagement.FunctionDtos;
 
 public class ReviewResponseDto
 {
