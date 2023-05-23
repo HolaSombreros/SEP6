@@ -39,4 +39,17 @@ public class RatingService : IRatingService
             }
             : null;
     }
+
+    public async Task<IList<MovieRatingModel>> GetMovieRatingsAsync(int[] movieIds)
+    {
+        var responseDto = await service.GetAsync<IList<MovieRatingDto>>(settings.GetMovieRatingsByIdsPath, movieIds);
+        var output = new List<MovieRatingModel>();
+
+        foreach (var dto in responseDto!)
+        {
+            output.Add(new MovieRatingModel(dto));
+        }
+
+        return output;
+    }
 }

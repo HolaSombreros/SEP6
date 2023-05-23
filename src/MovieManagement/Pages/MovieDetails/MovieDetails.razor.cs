@@ -13,7 +13,7 @@ public partial class MovieDetails : ComponentBase
         try
         {
             var credits = await MovieService.GetMovieCreditsAsync(Id);
-            var movie = await MovieService.GetMovieByIdAsync(Id);
+            var movie = await CombinedRatingService.GetMovieByIdAsync(Id);
             if (movie.Id != 0)
             {
                 _details = new MovieDetailsViewModel(
