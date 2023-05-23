@@ -1,4 +1,6 @@
-﻿namespace MovieManagement.Services;
+﻿using MovieManagement.Domain.Models.TMDB;
+
+namespace MovieManagement.Services;
 
 public class CombinedRatingService : ICombinedRatingService
 {
@@ -6,7 +8,7 @@ public class CombinedRatingService : ICombinedRatingService
     private readonly IMovieService movieService;
     private readonly IPersonService personService;
 
-    private const int ratingDecimalNumbers = 2;
+    private const int ratingDecimalNumbers = 1;
 
     public CombinedRatingService(IRatingService ratingService, IMovieService movieService, IPersonService personService)
     {
@@ -23,7 +25,7 @@ public class CombinedRatingService : ICombinedRatingService
         foreach (var movie in dbData)
         {
             var apiMovie = apiData.Movies.First(m => m.Id == movie.MovieId);
-            apiMovie.VoteAverage = Math.Round((apiMovie.VoteCount * apiMovie.VoteAverage + movie.VoteCount * movie.Average) / (apiMovie.VoteCount + movie.VoteCount), ratingDecimalNumbers);
+            apiMovie.VoteAverage = GetCombinedRating(apiMovie.VoteCount, apiMovie.VoteAverage, movie.VoteCount, movie.Average);
             apiMovie.VoteCount += movie.VoteCount;
         }
 
@@ -38,7 +40,7 @@ public class CombinedRatingService : ICombinedRatingService
         if (dbMovies.Any())
         {
             var movie = dbMovies.First(m => m.MovieId == id);
-            apiMovie.VoteAverage = Math.Round((apiMovie.VoteCount * apiMovie.VoteAverage + movie.VoteCount * movie.Average) / (apiMovie.VoteCount + movie.VoteCount), ratingDecimalNumbers);
+            apiMovie.VoteAverage = GetCombinedRating(apiMovie.VoteCount, apiMovie.VoteAverage, movie.VoteCount, movie.Average);
             apiMovie.VoteCount += movie.VoteCount;
         }
 
@@ -55,18 +57,23 @@ public class CombinedRatingService : ICombinedRatingService
             var apiCastMovie = apiData.Cast.FirstOrDefault(m => m.Id == movie.MovieId);
             if (apiCastMovie != null)
             {
-                apiCastMovie.VoteAverage = Math.Round((apiCastMovie.VoteCount * apiCastMovie.VoteAverage + movie.VoteCount * movie.Average) / (apiCastMovie.VoteCount + movie.VoteCount), ratingDecimalNumbers);
+                apiCastMovie.VoteAverage = GetCombinedRating(apiCastMovie.VoteCount, apiCastMovie.VoteAverage, movie.VoteCount, movie.Average);
                 apiCastMovie.VoteCount += movie.VoteCount;
             }
 
             var apiCrewMovie = apiData.Crew.FirstOrDefault(m => m.Id == movie.MovieId);
             if (apiCrewMovie != null)
             {
-                apiCrewMovie.VoteAverage = Math.Round((apiCrewMovie.VoteCount * apiCrewMovie.VoteAverage + movie.VoteCount * movie.Average) / (apiCrewMovie.VoteCount + movie.VoteCount), ratingDecimalNumbers);
+                apiCrewMovie.VoteAverage = GetCombinedRating(apiCrewMovie.VoteCount, apiCrewMovie.VoteAverage, movie.VoteCount, movie.Average);
                 apiCrewMovie.VoteCount += movie.VoteCount;
             }
         }
 
         return apiData;
+    }
+
+    private static double GetCombinedRating(int apiVoteCount, double apiVoteAverage, int dbVoteCount, double dbVoteAverage)
+    {
+        return Math.Round((apiVoteCount * apiVoteAverage + dbVoteCount * dbVoteAverage) / (apiVoteCount + dbVoteCount), ratingDecimalNumbers);
     }
 }
