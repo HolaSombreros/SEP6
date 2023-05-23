@@ -1,0 +1,58 @@
+﻿@inject IModalService Modal 
+@inject NavigationManager NavigationManager
+
+<div class="row">
+    <div class="col-md-11 offset-md-1">
+        <p>Movies:</p>
+    </div>
+    @foreach (var cast in Credits.Cast)
+    {
+        <div class="col-md-4 offset-md-1 py-3">
+            <img class="movie-image"
+                src="@cast.PosterUrl"
+                alt="@cast.Title"
+                @onclick="@(() => Modal.Show<Image>(cast.Title, new ModalParameters().Add("ImageUrl", cast.PosterUrl)))"/>
+        </div>
+        <div class="col-md-6 py-3">
+            <h1 @onclick="(() => GoToMovieDetails(cast.Id))">@cast.Title</h1>
+            <div class="rating-box">
+                <p class="rating">@cast.VoteAverage (@($"{cast.VoteCount:n0}") Votes)</p>
+                <img class="rating" src="Images/Star.png" alt="star"/>
+            </div>
+            <p>@cast.Description</p>
+            @if (!string.IsNullOrEmpty(cast.Character))
+            {
+                <p>Character: @cast.Character</p>
+            }
+            @if (!cast.ReleaseDate.Equals(new DateTime(1, 1, 1)))
+            {
+                <p>Release date: @cast.ReleaseDate.ToString("dd/MM/yyyy")</p>
+            }
+        </div>
+    }
+    @foreach (var crew in Credits.Crew)
+    {
+        <div class="col-md-4 offset-md-1 py-3">
+            <img class="movie-image"
+                src="@crew.PosterUrl"
+                alt="@crew.Title"
+                @onclick="@(() => Modal.Show<Image>(crew.Title, new ModalParameters().Add("ImageUrl", crew.PosterUrl)))"/>
+        </div>
+        <div class="col-md-6 py-3">
+            <h1 @onclick="(() => GoToMovieDetails(crew.Id))">@crew.Title</h1>
+            <div class="rating-box">
+                <p class="rating">@crew.VoteAverage (@($"{crew.VoteCount:n0}") Votes)</p>
+                <img class="rating" src="Images/Star.png" alt="star"/>
+            </div>
+            <p>@crew.Description</p>
+            @if (!string.IsNullOrEmpty(crew.Department))
+            {
+                <p>Department: @crew.Department</p>
+            }
+            @if (!crew.ReleaseDate.Equals(new DateTime(1, 1, 1)))
+            {
+                <p>Release date: @crew.ReleaseDate.ToString("dd/MM/yyyy")</p>
+            }
+        </div>
+    }
+</div>

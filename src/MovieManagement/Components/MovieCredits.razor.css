@@ -7,6 +7,7 @@
     height: 10rem;
     width: auto;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .credit-member {
@@ -30,6 +31,14 @@ p {
     height: auto;
 }
 
+.button-col {
+    padding: 0 !important;
+}
+
 ::-webkit-scrollbar {
     display: none;
+}
+
+.clickable-image {
+    cursor: pointer;
 }

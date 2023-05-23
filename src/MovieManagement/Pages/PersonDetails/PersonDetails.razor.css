@@ -1,0 +1,13 @@
+﻿h1 {
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+p {
+    font-size: 20px;
+}
+
+img {
+    width: 100%;
+    cursor: pointer;
+}

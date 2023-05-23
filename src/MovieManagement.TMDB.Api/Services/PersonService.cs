@@ -13,7 +13,7 @@ public class PersonService : IPersonService
         _settings = settings.Value;
     }
 
-    public async Task<Credits> GetPersonCredits(int id)
+    public async Task<Credits> GetPersonCreditsAsync(int id)
     {
         try
         {
@@ -26,7 +26,7 @@ public class PersonService : IPersonService
         }
     }
 
-    public async Task<Person> GetPersonDetails(int id)
+    public async Task<Person> GetPersonDetailsAsync(int id)
     {
         try
         {

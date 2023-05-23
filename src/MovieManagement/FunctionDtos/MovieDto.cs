@@ -3,16 +3,24 @@
 public class MovieDto
 {
     public int MovieId { get; set; }
-    public string Title { get; set; }
-    public string PosterUrl { get; set; }
-    public string ReleaseDate { get; set; }
+    public string Title { get; set; } = default!;
+    public string? PosterUrl { get; set; }
+    public string? ReleaseDate { get; set; }
 
-    public MovieDto(MovieDetailsViewModel movieDetailsViewModel)
+    public MovieDto(MovieModel movieModel)
     {
-        MovieId = movieDetailsViewModel.Id;
-        Title = movieDetailsViewModel.Title;
-        PosterUrl = movieDetailsViewModel.ImageUrl;
-        ReleaseDate = movieDetailsViewModel.ReleaseDate.ToString("yyyy-MM-dd");
+        MovieId = movieModel.Id;
+        Title = movieModel.Title;
+        PosterUrl = movieModel.PosterUrl;
+        ReleaseDate = movieModel.ReleaseDate?.ToString("yyyy-MM-dd");
+    }
+    
+    public MovieDto(MovieViewModel movieModel)
+    {
+        MovieId = movieModel.Id;
+        Title = movieModel.Title;
+        PosterUrl = movieModel.PosterPath;
+        ReleaseDate = movieModel.ReleaseDate.ToString("yyyy-MM-dd");
     }
 
     [JsonConstructor]

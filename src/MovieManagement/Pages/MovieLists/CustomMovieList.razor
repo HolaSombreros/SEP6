@@ -1,8 +1,28 @@
 ﻿@page "/movies/custom/{Id}"
+@inject IMovieListService MovieListService
+@attribute [Authorize]
 
-@code {
-    [Parameter]
-    public string Id { get; set; } = default!;
+<div class="container-fluid p-5">
+    @if (_list == null || !_list.Movies.Any() )
 
-  // TODO - Implement me.
-}
+    {
+        <p>This list seems to be empty. Try adding movies to it!</p>
+    }
+    else if (_list.Movies.Any())
+    {
+        <h1 class="text-center pb-5">@_list.Title</h1>
+        <div class="row g-5">
+            @foreach (var movie in _list.Movies)
+            {
+               
+                <div class="col-xxl-3 col-xl-4 col-lg-6">
+                    <div class="d-flex justify-content-end">
+                        <span class="oi oi-x py-3" @onclick="@(() => RemoveFromList(movie))">
+                        </span>
+                    </div>
+                    <MovieCard Movie="@movie"/>
+                </div>
+            }
+        </div>
+    }
+</div>

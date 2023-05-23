@@ -6,7 +6,7 @@ public class MovieViewModel
     public string Title { get;  }
     public string PosterPath { get; }
     public DateOnly ReleaseDate { get; }
-    public List<RatingViewModel> Ratings { get; }
+    public double Rating { get; }
 
     public MovieViewModel(Movie movie)
     {
@@ -14,7 +14,22 @@ public class MovieViewModel
         Title = movie.Title;
         PosterPath = movie.ImageUrl ?? "Images/MovieMissingPicture.png";
         ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate);
-        Ratings = new List<RatingViewModel>();
-        // TODO - Map ratings.
+        Rating = movie.VoteAverage;
+    }
+    
+    public MovieViewModel(MovieDto movie)
+    {
+        Id = movie.MovieId;
+        Title = movie.Title;
+        PosterPath = movie.PosterUrl ?? "Images/MovieMissingPicture.png";
+        ReleaseDate = !string.IsNullOrEmpty(movie.ReleaseDate) ? DateOnly.Parse(movie.ReleaseDate) : default!;
+    }
+    
+    public MovieViewModel(MovieDetailsViewModel movie)
+    {
+        Id = movie.Id;
+        Title = movie.Title;
+        PosterPath = movie.ImageUrl ?? "Images/MovieMissingPicture.png";
+        ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate);
     }
 }

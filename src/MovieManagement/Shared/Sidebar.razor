@@ -1,10 +1,13 @@
 ﻿@inject NavigationManager NavigationManager
+@inject IMovieListService MovieListService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IModalService Modal 
 
 <div class="sidebar-header">
     <span class="oi oi-list toggle-sidebar" @onclick="ToggleSidebar"></span>
 </div>
 
-<div class="@SidebarCssClass">
+<div class="sidebar-container @SidebarCssClass">
     <div class="sidebar-section">
         <h3>Search</h3>
         <Search />
@@ -44,27 +47,21 @@
 
             <div class="sidebar-section custom-movies-container">
                 <h3 class="custom-list">Your custom lists</h3>
-                @if (customMovieLists == null)
-                {
-                    <p>Loading...</p>
-                }
-                else if (!customMovieLists.Any())
-                {
-                    <button class="btn btn-primary" @onclick="CreateNewMovieList">Create movie list</button>
-                }
-                else
+                @if (_customMovieLists.Any())
                 {
                     <ul>
-                        @foreach (var list in customMovieLists)
+                        @foreach (var list in _customMovieLists)
                         {
-                            <li>
-                                <a href=@($"/movies/custom/{list.Id}")>
-                                    <span class="oi oi-list"></span> @list.Name
+                            <li class="row align-items-center">
+                                <a class="col-10" href=@($"/movies/custom/{list.Id.ToString()}")>
+                                    <span class="oi oi-list"></span> @list.Title
                                 </a>
+                                <span class="oi oi-trash col-1" @onclick="@(() => ShowDeleteListModal(list))"></span>
                             </li>
                         }
                     </ul>
                 }
+                <button class="btn btn-primary" @onclick="@(() => Modal.Show<CreateMovieList>("Create movie list"))">+</button>
             </div>
         </Authorized>
     </AuthorizeView>

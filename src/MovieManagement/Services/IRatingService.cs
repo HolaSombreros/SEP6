@@ -2,5 +2,8 @@
 
 public interface IRatingService
 {
-    public Task<RatingViewModel> RateMovie(RatingViewModel ratingViewModel, MovieDetailsViewModel movieDetailsViewModel, Guid userId);
+    Task CreateMovieReviewAsync(CreateReviewModel reviewModel, MovieModel movieModel, Guid userGuid);
+    Task<PaginatedReviewsModel> GetMovieReviewsAsync(int movieId, Guid? userGuid, int page);
+    Task<ReviewModel?> GetUserMovieRating(int movieId, Guid userGuid);
+    Task DeleteMovieReviewAsync(Guid reviewId);
 }

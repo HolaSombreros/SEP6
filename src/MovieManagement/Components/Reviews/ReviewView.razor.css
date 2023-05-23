@@ -1,0 +1,17 @@
+﻿.review-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.ratings-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-icon {
+    color: red;
+    cursor: pointer;
+    font-size: 1.3em;
+}

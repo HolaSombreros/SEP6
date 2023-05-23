@@ -3,13 +3,15 @@
 public class GetMovieRating
 {
     private readonly IRatingService _ratingService;
-    
-    public GetMovieRating(IRatingService ratingService)
+    private readonly IValidator<GetRatingDto> _validator;
+
+    public GetMovieRating(IRatingService ratingService, IValidator<GetRatingDto> validator)
     {
         _ratingService = ratingService;
+        _validator = validator;
     }
     
-    [FunctionName("GetMovieUserRating")]
+    [FunctionName("GetMovieRating")]
     public async Task<IActionResult> GetMovieUserRating(
         [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
         ILogger log)
@@ -29,6 +31,7 @@ public class GetMovieRating
     [FunctionName("GetMovieRatings")]
     public async Task<IActionResult> GetMovieRatings(
         [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "GetMovieRatings/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
+        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
          ILogger log)
     {
         try
@@ -36,8 +39,18 @@ public class GetMovieRating
             var page = int.Parse(req.Query["page"]);
             var pageSize = int.Parse(req.Query["pageSize"]);
             var result = await _ratingService.GetMovieRatingsAsync(movieId, userId, page, pageSize);
+            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var getRatingDto = JsonConvert.DeserializeObject<GetRatingDto>(requestBody);
+            var result = await _validator.ValidateAsync(getRatingDto);
             
-            return new OkObjectResult(result);
+            if (!result.IsValid)
+            {
+                log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
+                return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
+            }
+            var ratingResultDto = await _ratingService.GetMovieRatings(getRatingDto, page);
+            
+            return new OkObjectResult(ratingResultDto);
         }
         catch (Exception e)
         {

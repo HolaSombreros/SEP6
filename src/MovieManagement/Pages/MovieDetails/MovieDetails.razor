@@ -1,12 +1,12 @@
-﻿@page "/Movies/{Id:int}"
-@inject IModalService Modal  
+@page "/movies/{id:int}"
+@inject IModalService Modal 
 @inject IMovieService MovieService
 @inject IJSRuntime JSRuntime
 
 <div class="container-fluid p-5">
     @if (_details == null)
     {
-        <p>Loading...</p>
+        <p>@_message</p>
     }
     else
     {
@@ -15,15 +15,21 @@
         </div>
         <div class="row">
             <div class="col-md-11">
-                <p class="rating">@_details.VoteAverage (@_details.VoteCount Votes)</p>
+                <p class="rating">@_details.VoteAverage (@($"{_details.VoteCount:n0}") Votes)</p>
                 <img class="rating" src="Images/Star.png" alt="star"/>
             </div>
         </div>
         <div class="row details">
             <div class="col-md-6 offset-md-1 col-md-push-5 py-3">
                 <p>@_details.Description</p>
-                <p>Genres: @_details.Genres</p>
-                <p>Length: @_details.Length</p>
+                @if (_details.Genres.Any())
+                {
+                    <p>Genres: @GetGenresToString(_details.Genres)</p>
+                }
+                @if (_details.Length != 0)
+                {
+                    <p>Length: @GetMovieLength(_details.Length)</p>
+                }
                 @if (_details.ProductionCompanies.Any())
                 {
                     <p>Production Companies:</p>
@@ -31,42 +37,82 @@
                         @foreach (var company in _details.ProductionCompanies)
                         {
                             <li class="py-2">
-                                <p class="logo">@company.Name (@company.Country)</p>
+                                <p class="logo">@company.Name @(!string.IsNullOrEmpty(@company.Country) ? $"({@company.Country})" : string.Empty)</p>
                                 @if (!string.IsNullOrEmpty(company.LogoPath))
                                 {
-                                    <img class="logo-img p-1" src="@company.LogoPath" alt="logo"/>
+                                    <img class="logo-img p-1" src="@company.LogoPath"
+                                         @onclick="@(() => Modal.Show<Image>(company.Name, new ModalParameters().Add("ImageUrl", company.LogoPath)))"
+                                         alt="logo"/>
                                 }
                             </li>
                         }
                     </ul>
                 }
-                <p>Status: @_details.Status</p>
-                <p>Release Date: @_details.ReleaseDate.ToString("dd/MM/yyyy")</p>
-                <p>Original Language: @_details.OriginalLanguage</p>
-                <p>Spoken Languages: @_details.SpokenLanguages</p>
-                <p>Production Countries: @_details.ProductionCountries</p>
-                <p>Budget: @_details.Budget</p>
-                <p>Revenue: @_details.Revenue</p>
+                @if (!string.IsNullOrEmpty(_details.Status))
+                {
+                    <p>Status: @_details.Status</p>
+                }
+                @if (!_details.ReleaseDate.Equals(new DateTime(1, 1, 1)))
+                {
+                    <p>Release Date: @_details.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                }
+                @if (!string.IsNullOrEmpty(_details.OriginalLanguage))
+                {
+                    <p>Original Language: @_details.OriginalLanguage</p>
+                }
+                @if (_details.SpokenLanguages.Any())
+                {
+                    <p>Spoken Languages: @GetSpokenLanguagesToString(_details.SpokenLanguages);</p>
+                }
+                @if (_details.SpokenLanguages.Any())
+                {
+                    <p>Production Countries: @GetProductionCountriesToString(_details.ProductionCountries)</p>
+                }
+                @if (_details.Budget != 0)
+                {
+                    <p>Budget: @($"${_details.Budget:n0}")</p>
+                }
+                @if (_details.Revenue != 0)
+                {
+                    <p>Revenue: @($"${_details.Revenue:n0}")</p>
+                }
                 @if (_details.IsAdult)
                 {
                     <p>Restricted age: &#128286;</p>
                 }
-                    
             </div>
             <div class="col-md-4 order-first order-md-last py-3">
                 <img class="homepage"
-                src="@_details.ImageUrl"
-                @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
-                alt="Movie image"/>
-                <button class="btn btn-primary homepage mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
+                     src="@_details.ImageUrl"
+                     @onclick="@(() => Modal.Show<Image>(_details.Title, new ModalParameters().Add("ImageUrl", _details.ImageUrl)))"
+                     alt="Movie image"/>
+                @if (!string.IsNullOrEmpty(_details.Homepage))
+                {
+                    <button class="btn btn-primary mt-3 py-3" @onclick="OpenMovieHomePage">Home Page</button>
+                }
+                <AuthorizeView>
+                    <Authorized>
+                         <button
+                             class="btn btn-primary mt-3 py-3"
+                             @onclick="@(() => Modal.Show<AddMovieToList>(_details.Title, new ModalParameters().Add("Movie", new MovieViewModel(_details))))">
+                             Add Movie To List
+                         </button>
+                    </Authorized>
+                </AuthorizeView>
             </div>
         </div>
-            
-        <MovieCredits Credits="_details.Credits"/>
-
+        <MovieCredits Credits="_details.Credits" />
+        <div class="row mb-3">
+            <hr class="col-lg-10 offset-md-1" />
+        </div>
         <div class="row">
-            <div class="col-xl-6 col-lg-12 offset-md-1">
-                <RatingView MovieDetailsViewModel="_details" />
+            <div class="col-xl-5 col-lg-12 offset-md-1">
+                <CreateReviewView MovieId="_details.Id"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 offset-md-1">
+                <ReviewsView MovieId="_details.Id" />
             </div>
         </div>
     }

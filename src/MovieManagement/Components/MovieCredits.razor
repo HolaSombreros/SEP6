@@ -1,61 +1,66 @@
 ﻿@inject IJSRuntime JsRuntime
-@inject IModalService Modal 
+@inject IModalService Modal
 
-<div class="row">
-    <div class="col-md-11 offset-md-1">   
-        <p>Cast:</p>
+@if (Credits.Cast.Any())
+{
+    <div class="row">
+        <div class="col-md-11 offset-md-1">
+            <p>Cast:</p>
+        </div>
     </div>
-</div>
-<div class="row align-items-center">
-    <div class="col-1">
-        <button class="btn btn-primary float-end" @onclick="@(() => ScrollLeft("cast-row"))">&lt;</button>
-    </div>
-    <div id="cast-row" class="credit-row col-10">
-        @foreach (var member in Credits.Cast)
-        {
-            <div class="credit-member">
-                <img
-                     src=@member.ImageUrl
-                     alt="cast picture"
-                     @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
-                <div class="person-box pt-3">
-                    <!-- TODO add link to cast details on name -->
-                    <a class="actor-link" href="">@member.Name</a>
-                    <p class="pt-3">@member.Character</p>
+    <div class="row align-items-center">
+        <div class="col-1 button-col">
+            <button class="btn btn-primary float-end" @onclick="@(() => ScrollLeftAsync("cast-row"))">&lt;</button>
+        </div>
+        <div id="cast-row" class="credit-row col-10">
+            @foreach (var member in Credits.Cast)
+            {
+                <div class="credit-member">
+                    <img class="clickable-image"
+                        src=@member.ImageUrl
+                        alt="cast picture"
+                        @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"/>
+                    <div class="person-box pt-3">
+                        <a class="actor-link" href=@($"/people/{member.Id}")>@member.Name</a>
+                        <p class="pt-3">@member.Character</p>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        <div class="col-1 button-col">
+            <button class="btn btn-primary" @onclick="@(() => ScrollRightAsync("cast-row"))">&gt;</button>
+        </div>
     </div>
-    <div class="col-1">
-        <button class="btn btn-primary" @onclick="@(() => ScrollRight("cast-row"))">&gt;</button>
-    </div>
-</div>
+}
 
-<div class="row">
-    <div class="col-md-11 offset-md-1">   
-        <p>Crew:</p>
+@if (Credits.Crew.Any())
+{
+    <div class="row">
+        <div class="col-md-11 offset-md-1">
+            <p>Crew:</p>
+        </div>
     </div>
-</div>            
-<div class="row align-items-center">
-    <div class="col-1">
-        <button class="btn btn-primary float-end" @onclick="@(() => ScrollLeft("crew-row"))">&lt;</button>
-    </div>
-    <div id="crew-row" class="credit-row col-10">
-        @foreach (var member in Credits.Crew)
-        {
-            <div class="credit-member">
-                <img
-                     src=@member.ImageUrl   
-                     @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
-                     alt="cast picture"/>
-                <div class="person-box pt-3">
-                    <p>@member.Name</p>
-                    <p>@member.Department</p>
+    <div class="row align-items-center">
+        <div class="col-1 button-col">
+            <button class="btn btn-primary float-end" @onclick="@(() => ScrollLeftAsync("crew-row"))">&lt;</button>
+        </div>
+        <div id="crew-row" class="credit-row col-10">
+            @foreach (var member in Credits.Crew)
+            {
+                <div class="credit-member">
+                    <img class="clickable-image"
+                        src=@member.ImageUrl   
+                        @onclick="@(() => Modal.Show<Image>(@member.Name, new ModalParameters().Add("ImageUrl", @member.ImageUrl)))"
+                        alt="cast picture"/>
+                    <div class="person-box pt-3">
+                        <a class="actor-link" href=@($"/people/{member.Id}")>@member.Name</a>
+                        <p class="pt-3">@member.Department</p>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        <div class="col-1 button-col">
+            <button class="btn btn-primary" @onclick="@(() => ScrollRightAsync("crew-row"))">&gt;</button>
+        </div>
     </div>
-    <div class="col-1">
-        <button class="btn btn-primary" @onclick="@(() => ScrollRight("crew-row"))">&gt;</button>
-    </div>
-</div> 
+}

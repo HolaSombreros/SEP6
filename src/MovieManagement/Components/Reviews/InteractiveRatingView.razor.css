@@ -1,0 +1,14 @@
+﻿.rating {
+    color: white;
+    font-size: 1.5em;
+    padding-right: .3rem;
+    transition: .5s ease;
+}
+
+    .rating.active {
+        color: gold;
+    }
+
+.rating-hoverable {
+    cursor: pointer;
+}

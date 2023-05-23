@@ -3,7 +3,7 @@
   Initialize: function (component, observableTargetId) {
     this.observer = new IntersectionObserver(e => {
       if (e[0].isIntersecting) {
-        component.invokeMethodAsync('OnIntersection');
+        component.invokeMethodAsync('OnIntersectionAsync');
       }
     });
 
