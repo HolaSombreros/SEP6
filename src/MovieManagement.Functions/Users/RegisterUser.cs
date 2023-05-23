@@ -32,7 +32,7 @@ public class RegisterUser
                 UserId = user.UserId, Title = "Favourites"
             });
             await _movieListService.AddMovieListAsync(new AddMovieListDto() {
-                UserId = user.UserId, Title = "ToWatch"
+                UserId = user.UserId, Title = "To Watch"
             });
             
             return new OkObjectResult(user);

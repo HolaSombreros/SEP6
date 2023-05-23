@@ -19,15 +19,14 @@ public class MovieListMovieRepository : IMovieListMovieRepository
 
     public async Task<MovieListMovieEntity?> GetMovieFromMovieList(MovieListMovieEntity movieListMovieEntity)
     {
-        return await _context.MovieListMovies.FirstOrDefaultAsync(m =>
-            m != null &&
+        return await _context.MovieListMovies.AsNoTracking().SingleOrDefaultAsync(m =>
             m.MovieListId.Equals(movieListMovieEntity.MovieListId) &&
             m.MovieId.Equals(movieListMovieEntity.MovieId));
     }
 
-    public async Task DeleteMovieFromMovieList(MovieListMovieEntity movieListMovieEntity) {
-        var entity = await _context.MovieListMovies.FindAsync(movieListMovieEntity.MovieListId, movieListMovieEntity.MovieId);
-        _context.MovieListMovies.Remove(entity!);
+    public async Task DeleteMovieFromMovieList(MovieListMovieEntity movieListMovieEntity)
+    {
+        _context.MovieListMovies.Remove(movieListMovieEntity);
        await _context.SaveChangesAsync();
     }
 }
