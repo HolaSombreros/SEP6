@@ -30,7 +30,8 @@ public class MovieListService : IMovieListService
         if (list != new MovieListViewModel())
         {
             list.Movies.Add(movie);
-            await _service.PostAsync<MovieListDto>(_settings.AddToCustomList, listId + "/" + movie.Id);
+            var movieDto = new MovieDto(movie);
+            await _service.PostAsync<MovieListDto>(_settings.AddToCustomList + "/" + listId, movieDto);
             NotifyChanged();
         }
     }
