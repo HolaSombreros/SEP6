@@ -21,7 +21,7 @@ else
     {
         <InfiniteScroll ObservableTargetId="observableTarget" ObservableTargetReached="(e) => FetchDataAsync()">
             <Virtualize Items="viewModel.PaginatedReviews.Reviews" Context="review">
-                <ReviewView Review="review" />
+                <ReviewView Review="review" RemoveCallback="RemoveReviewHandler" />
             </Virtualize>
             <div id="observableTarget"></div>
         </InfiniteScroll>

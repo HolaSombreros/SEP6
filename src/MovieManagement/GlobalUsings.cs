@@ -1,4 +1,5 @@
 global using Blazored.Modal;
+global using Blazored.Modal.Services;
 global using Microsoft.AspNetCore.Components;
 global using Microsoft.AspNetCore.Components.Authorization;
 global using Microsoft.AspNetCore.Mvc;

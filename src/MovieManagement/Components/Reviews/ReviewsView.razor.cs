@@ -28,4 +28,9 @@ public partial class ReviewsView : ComponentBase
     {
         return viewModel.GetMovieReviewsAsync(page);
     }
+
+    private void RemoveReviewHandler(Guid reviewId)
+    {
+        viewModel.RemoveReview(reviewId);
+    }
 }

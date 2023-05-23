@@ -71,13 +71,18 @@ public class RatingService : IRatingService
         var users = await _userRepository.GetUsersAsync(userIds);
 
         var movieRatingDtos = (from rating in list.ratingEntities let user = 
-                users.FirstOrDefault(u => u.UserId == rating.UserId) 
+                users.First(u => u.UserId == rating.UserId) 
             select new MovieRatingDto
             {
+                Id = rating.RatingId,
                 Rating = (int)rating.Rating, 
                 Review = rating.Review, 
                 CreatedDate = rating.DateTime, 
-                CreatedBy = user?.Username
+                CreatedBy = new UserDto
+                {
+                    UserId = user.UserId,
+                    Username = user.Username
+                }
             }).ToList();
 
         resultDto.MovieRatingDtos = movieRatingDtos;

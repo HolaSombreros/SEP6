@@ -11,7 +11,7 @@ public class RatingService : IRatingService
         this.settings = settings.Value;
     }
 
-    public Task CreateMovieReview(CreateReviewModel reviewModel, MovieModel movieModel, Guid userGuid)
+    public Task CreateMovieReviewAsync(CreateReviewModel reviewModel, MovieModel movieModel, Guid userGuid)
     {
         var dto = new CreateReviewDto(reviewModel, movieModel, userGuid);
         return service.PutAsync<RatingDto>(settings.RateMoviePath, dto);
@@ -22,5 +22,10 @@ public class RatingService : IRatingService
         var requestDto = new GetReviewsDto(movieId, userGuid);
         var responseDto = await service.GetAsync<ReviewsResponseDto>(settings.GetMovieRatings, requestDto, page);
         return new PaginatedReviewsModel(responseDto);
+    }
+
+    public Task DeleteMovieReviewAsync(Guid reviewId)
+    {
+        return service.DeleteFromRouteAsync(settings.DeleteReviewPath, reviewId);
     }
 }

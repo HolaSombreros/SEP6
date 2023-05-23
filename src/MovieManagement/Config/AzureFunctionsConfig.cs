@@ -17,4 +17,5 @@ public class AzureFunctionsConfig
     public string QueryBuilder { get; set; } = default!;
     public string AndQueryBuilder { get; set; } = default!;
     public string PagePath { get; set; } = default!;
+    public string DeleteReviewPath { get; set; } = default!;
 }

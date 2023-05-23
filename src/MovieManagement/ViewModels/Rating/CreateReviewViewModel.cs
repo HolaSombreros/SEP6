@@ -23,7 +23,7 @@ public class CreateReviewViewModel
         var movie = await movieService.GetMovieByIdAsync(movieId);
 
         try { 
-            await ratingService.CreateMovieReview(CreateReviewModel, new MovieModel(movie), userGuid);
+            await ratingService.CreateMovieReviewAsync(CreateReviewModel, new MovieModel(movie), userGuid);
             ResultMessage = "Rating successfully created!";
             CreateReviewModel = new();
         }

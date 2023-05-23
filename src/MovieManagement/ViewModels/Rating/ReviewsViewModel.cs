@@ -29,4 +29,10 @@ public class ReviewsViewModel
             PaginatedReviews.Reviews.AddRange(reviews.Reviews);
         }
     }
+
+    public void RemoveReview(Guid reviewId)
+    {
+        var review = PaginatedReviews!.Reviews.First(r => r.Id == reviewId);
+        PaginatedReviews.Reviews.Remove(review);
+    }
 }

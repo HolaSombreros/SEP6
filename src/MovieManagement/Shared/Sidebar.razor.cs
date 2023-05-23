@@ -27,16 +27,17 @@ public partial class Sidebar : ComponentBase
 
     private async Task FetchMovieListsAsync()
     {
-        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-        if (user.Identity != null && (user.Identity.IsAuthenticated))
-        {
-            var userId = Guid.Parse(user.FindFirstValue("Id"));
-            await MovieListService.GetUserListsAsync(userId);
-        }
-        else
-        {
-            _customMovieLists = new();
-        }
+        // TODO - UNCOMMENT ONCE BACKEND IS FULLY IMPLEMENTED!
+        //var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        //if (user.Identity != null && (user.Identity.IsAuthenticated))
+        //{
+        //    var userId = Guid.Parse(user.FindFirstValue("Id"));
+        //    await MovieListService.GetUserListsAsync(userId);
+        //}
+        //else
+        //{
+        //    _customMovieLists = new();
+        //}
     }
     
     private void UpdateMovieListsOnNotify(object? obj, EventArgs args)
