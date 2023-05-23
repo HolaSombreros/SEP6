@@ -2,6 +2,6 @@
 
 public class GetRatingDto
 {
-    public int? MovieId { get; set; }
-    public Guid? UserId { get; set; }
+    public int MovieId { get; set; }
+    public Guid UserId { get; set; }
 }
