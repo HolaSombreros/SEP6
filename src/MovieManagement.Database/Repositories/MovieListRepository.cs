@@ -29,9 +29,6 @@ public class MovieListRepository : IMovieListRepository {
         return await _repository.AddAsync(entity);
     }
 
-    public async Task<MovieListEntity?> UpdateAsync(MovieListEntity entity, Guid id) {
-        throw new NotImplementedException();
-    }
 
     public async Task DeleteAsync(Guid id) {
         await _repository.DeleteAsync(id);

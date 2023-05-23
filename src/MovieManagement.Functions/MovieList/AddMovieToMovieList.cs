@@ -4,24 +4,45 @@ public class AddMovieToMovieList
 {
     private readonly IMovieListService _movieListService;
     private readonly IValidator<MovieToMovieListDto> _validator;
+    private readonly IMovieService _movieService;
+    private readonly IValidator<MovieDto> _movieValidator;
 
-    public AddMovieToMovieList(IMovieListService movieListService, IValidator<MovieToMovieListDto> validator)
+
+
+    public AddMovieToMovieList(IMovieListService movieListService, IValidator<MovieToMovieListDto> validator, IValidator<MovieDto> movieValidator, IMovieService movieService)
     {
         _movieListService = movieListService;
         _validator = validator;
+        _movieValidator = movieValidator;
+        _movieService = movieService;
     }
 
     [FunctionName("AddMovieToMovieList")]
     public async Task<IActionResult> RunAsync(
     [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Put),
-    Route = "AddMovieToMovieList/{movieListId}/{movieId:int}")] HttpRequest req, Guid movieListId, int movieId, ILogger log)
+    Route = "AddMovieToMovieList/{movieListId}")] HttpRequest req, Guid movieListId, ILogger log)
     {
         try
         {
+            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            
+            var movie = JsonConvert.DeserializeObject<MovieDto>(requestBody);
+            var movieResult = await _movieValidator.ValidateAsync(movie);
+            
+            if (!movieResult.IsValid)
+            {
+                log.LogInformation("Body request not valid" + movieResult.Errors[0].ErrorMessage);
+                return new BadRequestObjectResult(movieResult.Errors);
+            }
+
+            await _movieService.AddMovie(movie);
+            log.LogInformation("Added movie for movie id: " + movie.MovieId);
+            
+            
             var request = new MovieToMovieListDto
             {
                 MovieListId = movieListId,
-                MovieId = movieId
+                MovieId = movie.MovieId
             };
 
             var result = await _validator.ValidateAsync(request);

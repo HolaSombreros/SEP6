@@ -25,23 +25,25 @@ public class MovieListService : IMovieListService
         return movieList;
     }
 
-    public async Task<MovieToMovieListDto> AddMovieToMovieListAsync(MovieToMovieListDto movieToMovieListDto)
+    public async Task<MovieListDto> AddMovieToMovieListAsync(MovieToMovieListDto movieToMovieListDto)
     {
         var movieListMovieEntity = _mapper.Map<MovieListMovieEntity>(movieToMovieListDto);
-        var existingMovieInList = await GetMovieFromMovieList(movieListMovieEntity);
+        var existingMovieInList = await _listMovieRepository.GetMovieFromMovieList(movieListMovieEntity);
+        
         if (existingMovieInList != null)
         {
             throw new Exception("The movie already exists in the list");
         }
-        var result =await _listMovieRepository.AddMovieToMovieList(movieListMovieEntity);
         
-        var movieList = _mapper.Map<MovieToMovieListDto>(movieListMovieEntity);
+        await _listMovieRepository.AddMovieToMovieList(movieListMovieEntity);
+       
+        var listEntity = await _repository.GetAsync(movieToMovieListDto.MovieListId);
+        var movies = await _repository.GetMoviesByList(movieToMovieListDto.MovieListId);
+        
+        var movieList = _mapper.Map<MovieListDto>(listEntity);
+        movieList.Movies = _mapper.Map<List<MovieDto>>(movies);
+        
         return movieList;
-    }
-
-    public async Task<MovieListMovieEntity> GetMovieFromMovieList(MovieListMovieEntity movieListMovieEntity)
-    {
-        return await _listMovieRepository.GetMovieFromMovieList(movieListMovieEntity);
     }
 
     public async Task<List<MovieListDto>> GetMovieLists(Guid userId) {
