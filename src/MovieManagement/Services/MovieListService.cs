@@ -18,6 +18,34 @@ public class MovieListService : IMovieListService
         return _movieLists;
     }
 
+    public MovieListViewModel GetCustomList(Guid listId)
+    {
+        var list = _movieLists.FirstOrDefault(list => list.Id == listId);
+        return list ?? new MovieListViewModel();
+    }
+
+    public async Task AddMovieToListAsync(Guid listId, MovieViewModel movie)
+    {
+        var list = GetCustomList(listId);
+        if (list != new MovieListViewModel())
+        {
+            list.Movies.Add(movie);
+            await _service.PostAsync<MovieListDto>(_settings.AddToCustomList, listId + "/" + movie.Id);
+            NotifyChanged();
+        }
+    }
+
+    public async Task DeleteMovieFromListAsync(Guid listId, MovieViewModel movie)
+    {
+        var list = GetCustomList(listId);
+        if (list != new MovieListViewModel())
+        {
+            list.Movies.Remove(movie);
+            await _service.DeleteFromRouteAsync(_settings.AddToCustomList, listId + "/" + movie.Id);
+            NotifyChanged();
+        }
+    }
+
     public async Task CreateCustomListAsync(MovieListViewModel list)
     {
         var newList = new MovieListDto(list);
@@ -29,23 +57,33 @@ public class MovieListService : IMovieListService
 
     public async Task DeleteCustomListAsync(Guid id)
     {
-        await _service.DeleteFromRouteAsync(_settings.DeleteCustomList, id.ToString());
-        var list = _movieLists.SingleOrDefault(list => list.Id == id);
-        if (list != null)
+        var list = GetCustomList(id);
+        if (list != new MovieListViewModel())
         {
+            await _service.DeleteFromRouteAsync(_settings.DeleteCustomList, id.ToString());
             _movieLists.Remove(list);
+            NotifyChanged();
         }
-        NotifyChanged();
     }
 
-    public async Task GetUserListsAsync(Guid id)
+    public async Task GetUserListsAsync(Guid userId)
     {
-        var lists = await _service.GetFromRouteAsync<List<MovieListDto>>(_settings.CreateCustomList, id);
-        _movieLists = lists.Select(listDto => new MovieListViewModel(listDto)).ToList();
-        NotifyChanged();
+        try
+        {
+            var lists = await _service.GetFromRouteAsync<List<MovieListDto>>(_settings.CreateCustomList, userId);
+            _movieLists = lists.Select(listDto => new MovieListViewModel(listDto)).ToList();
+            _movieLists = new List<MovieListViewModel>();
+            NotifyChanged();
+        }
+        catch (Exception)
+        {
+            _movieLists = new List<MovieListViewModel>();
+            NotifyChanged();
+        }
+       
     }
 
-    public void NotifyChanged()
+    private void NotifyChanged()
     {
         OnChanged?.Invoke(this, EventArgs.Empty);
     }

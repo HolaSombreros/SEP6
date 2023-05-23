@@ -8,7 +8,6 @@
     }
     else if (movieList.Movies.Any())
     {
-        <p>Showing @movieList.Movies.Count of @movieList.TotalResults results</p>
         <div class="row g-5">
             <InfiniteScroll ObservableTargetId="observableTarget" ObservableTargetReached="(e) => FetchDataAsync()">
                 @foreach (var movie in movieList.Movies)

@@ -1,9 +1,5 @@
 ﻿@inject IMovieListService MovieListService
 
-<p>Are you sure you want to delete your account?</p>
-<p>All your personalised lists will be lost.</p>
-<p class="success-message">@_successMessage</p>
-@if (string.IsNullOrEmpty(_successMessage))
-{
-    <button class="btn btn-secondary w-100" @onclick="@DeleteListAsync">Delete</button>
-}
+<p>Are you sure you want to delete your list?</p>
+<p>All your movies from this list will be lost.</p>
+<button class="btn btn-secondary w-100" @onclick="@DeleteListAsync">Delete</button>

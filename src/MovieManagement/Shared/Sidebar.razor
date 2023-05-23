@@ -56,7 +56,7 @@
                                 <a class="col-10" href=@($"/movies/custom/{list.Id.ToString()}")>
                                     <span class="oi oi-list"></span> @list.Title
                                 </a>
-                                <span class="oi oi-trash col-1" @onclick="@(() => Modal.Show<DeleteMovieList>($"Remove {list.Title}?"))"></span>
+                                <span class="oi oi-trash col-1" @onclick="@(() => ShowDeleteListModal(list))"></span>
                             </li>
                         }
                     </ul>
