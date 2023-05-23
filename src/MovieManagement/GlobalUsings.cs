@@ -1,4 +1,5 @@
 global using Blazored.Modal;
+global using Blazored.Modal.Services;
 global using Microsoft.AspNetCore.Components;
 global using Microsoft.AspNetCore.Components.Authorization;
 global using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ global using Microsoft.Extensions.Options;
 global using Microsoft.JSInterop;
 global using MovieManagement.Attributes;
 global using MovieManagement.Authentication;
+global using MovieManagement.Components.MovieLists;
 global using MovieManagement.Config;
 global using MovieManagement.Database.Config;
 global using MovieManagement.Database.Repositories;
