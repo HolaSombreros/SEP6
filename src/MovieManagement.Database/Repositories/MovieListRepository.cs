@@ -14,8 +14,6 @@ public class MovieListRepository : IMovieListRepository {
         return list;
     }
 
- 
-
     public async Task<MovieListEntity?> GetAsync(Guid id) {
         return await _repository.GetAsync(id);
     }
@@ -23,8 +21,7 @@ public class MovieListRepository : IMovieListRepository {
     public async Task<MovieListEntity?> AddAsync(MovieListEntity entity) {
         return await _repository.AddAsync(entity);
     }
-
-
+    
     public async Task DeleteAsync(Guid id) {
         await _repository.DeleteAsync(id);
     }
