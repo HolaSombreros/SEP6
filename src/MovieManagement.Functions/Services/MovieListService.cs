@@ -16,7 +16,9 @@ public class MovieListService : IMovieListService
 
         var movieListEntity = _mapper.Map<MovieListEntity>(addMovieListDto);
         movieListEntity.MovieListId = new Guid();
-
+        if ((await _userRepository.GetAsync(addMovieListDto.UserId)) is null) {
+            throw new Exception("User doesn't exist");
+        }
         await _repository.AddAsync(movieListEntity);
 
         var movieList = _mapper.Map<MovieListDto>(movieListEntity);
@@ -42,10 +44,6 @@ public class MovieListService : IMovieListService
         var movieList = await _repository.GetAsync(movieListId);
         if (movieList is null) {
             throw new Exception("Movie List doesn't exist");
-        }
-
-        if (movieList.Title.Equals("ToWatch") || movieList.Title.Equals("Favourites")) {
-            throw new Exception("Cannot delete movie list");
         }
 
         await _repository.DeleteAsync(movieListId);
