@@ -13,6 +13,8 @@ public class ReviewsViewModel
         this.ratingService = ratingService;
         this.movieId = movieId;
         this.userGuid = userGuid;
+
+        // TODO - Try to subscribe to event that occurs when you create new review? then I can add it to here.
     }
 
     public Task<ReviewModel?> GetLoggedInUserReview()

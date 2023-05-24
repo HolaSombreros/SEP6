@@ -12,7 +12,7 @@
         <img class="image" src="@Movie.PosterPath" alt="Image not found" @onclick="(() => ShowMovieDetails(Movie.Id))"/>
         <div class="movie-details">
             <h4>@Movie.Title</h4>
-            <p>@Movie.ReleaseDate</p>
+            <p>@Movie.ReleaseDate.ToString("dd/MM/yyyy")</p>
         </div>
     </div>
 }
