@@ -11,10 +11,10 @@ public class MovieService : IMovieService
         _mapper = mapper;
     }
     
-    public async Task<MovieDto> AddMovie(MovieDto movieDto)
+    public async Task<MovieDto> AddMovieAsync(MovieDto movieDto)
     {
         var movieEntity = _mapper.Map<MovieEntity>(movieDto);
-        var existingMovie = await GetMovieById(movieDto.MovieId);
+        var existingMovie = await GetMovieByIdAsync(movieDto.MovieId);
         if (existingMovie is not null)
         {
             return existingMovie;
@@ -23,7 +23,7 @@ public class MovieService : IMovieService
         return _mapper.Map<MovieDto>(entity);
     }
 
-    public async Task<MovieDto> GetMovieById(int id)
+    public async Task<MovieDto> GetMovieByIdAsync(int id)
     {
         var entity = await _repository.GetMovieByIdAsync(id);
         return _mapper.Map<MovieDto>(entity);

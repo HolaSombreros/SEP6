@@ -15,6 +15,7 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
         builder.Services.AddScoped<IRatingService, RatingService>();
         builder.Services.AddScoped<IMovieService, MovieService>();
+        builder.Services.AddScoped<IGenreService, GenreService>();
         builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();
         builder.Services.AddDbContext<MovieManagementDbContext>(options =>
             options.UseSqlServer(config["DbConnectionString"]));
@@ -23,5 +24,6 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IRatingRepository, RatingRepository>();
         builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+        builder.Services.AddScoped<IGenreRepository, GenreRepository>();
     }
 }

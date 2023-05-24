@@ -18,7 +18,9 @@ public partial class MovieManagementDbContext : DbContext
     public  DbSet<MovieListMovie> MovieListMovies { get; set; } = default!;
     public  DbSet<RatingEntity> Ratings { get; set; } = default!;
     public  DbSet<UserEntity> Users { get; set; } = default!;
-    
+    public  DbSet<GenreEntity> Genres { get; set; } = default!;
+    public  DbSet<MovieGenreEntity> MovieGenres { get; set; } = default!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<MovieEntity>(entity => {
@@ -138,6 +140,31 @@ public partial class MovieManagementDbContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("username");
             entity.HasKey(u => u.UserId);
+        });
+        
+        modelBuilder.Entity<GenreEntity>(entity =>
+        {
+            entity.ToTable("Genre");
+            entity.Property(e => e.GenreId)
+                .ValueGeneratedNever()
+                .HasColumnName("genre_id");
+            entity.HasKey(m => m.GenreId);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(255)
+                .HasColumnName("name");
+        });
+        
+        modelBuilder.Entity<MovieGenreEntity>(entity =>
+        {
+            entity.ToTable("MovieGenre");
+            entity.HasKey(e => new { e.GenreId, e.MovieId });
+            entity.HasOne(e => e.GenreEntity)
+                .WithMany()
+                .HasForeignKey(e => e.GenreId);
+            entity.HasOne(e => e.MovieEntity)
+                .WithMany()
+                .HasForeignKey(e => e.MovieId);
         });
 
         OnModelCreatingPartial(modelBuilder);

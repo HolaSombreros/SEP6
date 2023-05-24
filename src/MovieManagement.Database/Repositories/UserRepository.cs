@@ -1,6 +1,7 @@
 ﻿namespace MovieManagement.Database.Repositories; 
 
-public class UserRepository : IUserRepository{
+public class UserRepository : IUserRepository
+{
     private readonly MovieManagementDbContext _context;
     private readonly IRepository<UserEntity?> _repository;
 

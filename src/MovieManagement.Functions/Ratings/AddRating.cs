@@ -4,13 +4,15 @@ public class AddRating
 {
     private readonly IRatingService _ratingService;
     private readonly IMovieService _movieService;
+    private readonly IGenreService _genreService;
     private readonly IValidator<RatingDto> _validator;
     
-    public AddRating(IRatingService ratingService, IValidator<RatingDto> validator, IMovieService movieService)
+    public AddRating(IRatingService ratingService, IValidator<RatingDto> validator, IMovieService movieService, IGenreService genreService)
     {
         _ratingService = ratingService;
         _validator = validator;
         _movieService = movieService;
+        _genreService = genreService;
     }
     
     [FunctionName("AddRating")]
@@ -30,14 +32,17 @@ public class AddRating
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
-            var updatedMovie = await _movieService.AddMovie(ratingDto.MovieDto);
+            var updatedMovie = await _movieService.AddMovieAsync(ratingDto.MovieDto);
             log.LogInformation("Added movie for movie id: " + updatedMovie.MovieId);
+
+            var updatedGenres = await _genreService.AddGenreAsync(ratingDto.MovieDto.Genres);
 
             var updatedRating = await _ratingService.PutRating(ratingDto);
             log.LogInformation("Added rating for rating id: " + updatedRating.RatingId + " and user id: " + updatedRating.UserId);
 
-
             updatedRating.MovieDto = updatedMovie;
+            updatedRating.MovieDto.Genres = updatedGenres;
+
             return new OkObjectResult(updatedRating);
         }
         catch (Exception e)
