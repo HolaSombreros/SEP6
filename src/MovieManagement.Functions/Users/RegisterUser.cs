@@ -25,7 +25,7 @@ public class RegisterUser
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
-                return new BadRequestObjectResult(result.Errors);
+                return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
             var user = await _userService.RegisterUserAsync(registerUserDto);
             await _movieListService.AddMovieListAsync(new AddMovieListDto() {
