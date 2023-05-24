@@ -9,6 +9,13 @@ public class MovieListRepository : IMovieListRepository {
         _repository = repository;
     }
 
+    public async Task<List<MovieEntity>> GetMoviesByListAsync(Guid? listId) {
+        return  await (from movie in _context.Movies
+            join movielistMovie in _context.MovieListMovies on movie.MovieId equals movielistMovie.MovieId
+            where movielistMovie.MovieListId == listId
+            select new MovieEntity(){MovieId = movie.MovieId, Title = movie.Title, PosterUrl = movie.PosterUrl, ReleaseDate = movie.ReleaseDate}).ToListAsync();
+    }
+    
     public async Task<IList<MovieListEntity>> GetMovieListsByUserAsync(Guid userId) {
         var list = await _context.MovieLists.Select(m => m).Where(m => m.UserId.Equals(userId)).ToListAsync();
         return list;

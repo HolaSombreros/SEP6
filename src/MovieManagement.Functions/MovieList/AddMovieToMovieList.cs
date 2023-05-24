@@ -1,20 +1,19 @@
 ﻿namespace MovieManagement.Functions.MovieList;
 
-public class AddMovieToMovieList
-{
-    private readonly IMovieListService _movieListService;
+public class AddMovieToMovieList {
+    private readonly IMovieListMovieService _movieListMovieService;
     private readonly IValidator<MovieToMovieListDto> _validator;
     private readonly IMovieService _movieService;
     private readonly IValidator<MovieDto> _movieValidator;
 
 
 
-    public AddMovieToMovieList(IMovieListService movieListService, IValidator<MovieToMovieListDto> validator, IValidator<MovieDto> movieValidator, IMovieService movieService)
+    public AddMovieToMovieList(IValidator<MovieToMovieListDto> validator, IValidator<MovieDto> movieValidator, IMovieService movieService, IMovieListMovieService movieListMovieService)
     {
-        _movieListService = movieListService;
         _validator = validator;
         _movieValidator = movieValidator;
         _movieService = movieService;
+        _movieListMovieService = movieListMovieService;
     }
 
     [FunctionName("AddMovieToMovieList")]
@@ -52,7 +51,7 @@ public class AddMovieToMovieList
                 return new BadRequestObjectResult(result.Errors);
             }
 
-            var list = await _movieListService.AddMovieToMovieListAsync(request);
+            var list = await _movieListMovieService.AddMovieToMovieListAsync(request);
             
             return new OkObjectResult(list);
         }

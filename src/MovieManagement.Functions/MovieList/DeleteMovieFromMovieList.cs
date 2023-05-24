@@ -1,16 +1,16 @@
 ﻿namespace MovieManagement.Functions.MovieList; 
 
 public class DeleteMovieFromMovieList {
-    private readonly IMovieListService _movieListService;
+    private readonly IMovieListMovieService _movieListMovieService;
     private readonly IValidator<MovieToMovieListDto> _validator;
 
-    public DeleteMovieFromMovieList(IMovieListService movieListService, IValidator<MovieToMovieListDto> validator) {
-        _movieListService = movieListService;
+    public DeleteMovieFromMovieList(IValidator<MovieToMovieListDto> validator, IMovieListMovieService movieListMovieService) {
         _validator = validator;
+        _movieListMovieService = movieListMovieService;
     }
     [FunctionName("DeleteMovieFromMovieList")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Delete), Route = "DeleteMovieFromMovieList/{movieListId}/{movieId:int}")] HttpRequest req,  Guid movieListId, int movieId, ILogger log) {
+        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Delete), Route = "DeleteMovieFromMovieList/{movieListId}/{movieId:int}")] HttpRequest req,  Guid movieListId, int movieId, ILogger log) {
         try
         {
             var request = new MovieToMovieListDto
@@ -26,7 +26,7 @@ public class DeleteMovieFromMovieList {
                 return new BadRequestObjectResult(result.Errors);
             }
 
-            await _movieListService.DeleteMovieFromMovieListAsync(request);
+            await _movieListMovieService.DeleteMovieFromMovieList(request);
             
             return new OkResult();
         }
