@@ -5,8 +5,9 @@
     <div class="col-10 offset-md-1 d-flex justify-content-between">
         <p>Movies:</p>
         <div>
-            <button class="btn btn-primary" @onclick="(() => Credits.SortMoviesByTitle())">Sort movies by title</button>
             <button class="btn btn-primary" @onclick="(() => Credits.SortMoviesByPopularity())">Sort movies by popularity</button>
+            <button class="btn btn-primary" @onclick="(() => Credits.SortMoviesByTitle())">Sort movies by title</button>
+            <button class="btn btn-primary" @onclick="(() => Credits.SortMoviesByVoteCount())">Sort movies by vote count</button>
         </div>
     </div>
     <div class="col-1">

@@ -22,4 +22,10 @@ public class PersonCreditsViewModel {
         Cast = Cast.OrderBy(m => m.Title).ToList();
         Crew = Crew.OrderBy(m => m.Title).ToList();
     }
+
+    public void SortMoviesByVoteCount()
+    {
+        Cast = Cast.OrderByDescending(m => m.VoteCount).ToList();
+        Crew = Crew.OrderByDescending(m => m.VoteCount).ToList();
+    }
 }
