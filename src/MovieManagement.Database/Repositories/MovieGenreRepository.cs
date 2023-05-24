@@ -22,4 +22,9 @@ public class MovieGenreRepository : IMovieGenreRepository
             m.MovieId.Equals(movieId) &&
             m.GenreId.Equals(genreId));
     }
+
+    public async Task<IList<MovieGenreEntity?>> GetMoviesByGenre(int genreId)
+    {
+        return (await _context.MovieGenres.AsNoTracking().Where(m => m.GenreId == genreId).ToListAsync())!;
+    }
 }
