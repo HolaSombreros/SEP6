@@ -42,25 +42,4 @@ public class StatisticsService : IStatisticsService
             return new MovieList();
         }
     }
-
-    public async Task<Credits> GetMostPopularMovieAsync(int personId)
-    {
-        try
-        {
-            var personCreditsDto = await _service.GetAsync<CreditsDto>(_settings.PersonPath + personId + _settings.MovieCredits + _settings.QueryBuilder);
-            var sortedCast = personCreditsDto.Cast.OrderByDescending(c => c.Popularity).ToList();
-            var sortedCrew = personCreditsDto.Crew.OrderByDescending(c => c.Popularity).ToList();
-            var sortedCredits = new CreditsDto
-            {
-                Cast = sortedCast,
-                Crew = sortedCrew
-            };
-            return _movieMapper.Map<CreditsDto, Credits>(sortedCredits);
-
-        }
-        catch
-        {
-            return new Credits();
-        }
-    }
 }
