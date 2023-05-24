@@ -2,6 +2,6 @@
 
 public interface IMovieService
 {
-    Task<MovieDto> AddMovie(MovieDto movieDto);
-    Task<MovieDto> GetMovieById(int id);
+    Task<MovieDto> AddMovieAsync(MovieDto movieDto);
+    Task<MovieDto> GetMovieByIdAsync(int id);
 }

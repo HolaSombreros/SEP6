@@ -7,5 +7,8 @@ public class MapperProfile : Profile   {
         CreateMap<UserDto, UserEntity>().ReverseMap();
         CreateMap<RatingDto, RatingEntity>().ReverseMap();
         CreateMap<RatingSubsetDto, RatingEntity>().ReverseMap();
+        CreateMap<MovieListDto, MovieListEntity>().ReverseMap();
+        CreateMap<AddMovieListDto, MovieListEntity>().ReverseMap();
+        CreateMap<MovieToMovieListDto, MovieListMovieEntity>().ReverseMap();
     }
 }

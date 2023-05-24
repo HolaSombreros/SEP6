@@ -12,7 +12,7 @@ public class EditUser {
     
     [FunctionName("EditUser")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Put), Route = null)] HttpRequest req, ILogger log,
+        [HttpTrigger(AuthorizationLevel.Anonymous,  nameof(HttpMethods.Put), Route = null)] HttpRequest req, ILogger log,
         [Sql(commandText: "dbo.User", connectionStringSetting: "DbConnectionString")] IAsyncCollector<UserEntity> userTable) {
         try 
         {
@@ -25,7 +25,7 @@ public class EditUser {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors);
             }
-            var user = await _userService.UpdateUser(userDto);
+            var user = await _userService.UpdateUserAsync(userDto);
             log.LogInformation("User with id: {id} has been updated ", user.UserId);
             return new OkObjectResult(user);
         }

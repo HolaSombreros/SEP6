@@ -11,7 +11,7 @@ public class LoginUser {
 
     [FunctionName("LoginUser")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Post), Route = null)] HttpRequest req, ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous,  nameof(HttpMethods.Post), Route = null)] HttpRequest req, ILogger log)
     {
         try {
             
@@ -23,7 +23,7 @@ public class LoginUser {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors);
             }
-            var user = await _userService.GetUser(loginUserDto);
+            var user = await _userService.GetUserAsync(loginUserDto);
 
             return new OkObjectResult(user);
         }

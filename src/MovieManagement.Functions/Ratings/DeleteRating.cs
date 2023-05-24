@@ -11,12 +11,12 @@ public class DeleteRating
     
     [FunctionName("DeleteRating")]
     public async Task<IActionResult> DeleteMovieRating(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Delete), Route = "DeleteRating/{ratingId}")] HttpRequest request, [FromRoute] Guid ratingId,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Delete), Route = "DeleteRating/{ratingId}")] HttpRequest request, [FromRoute] Guid ratingId,
         ILogger log)
     {
         try
         {
-            await _ratingService.DeleteRating(ratingId);
+            await _ratingService.DeleteRatingAsync(ratingId);
             log.LogInformation("Rating with the id {ratingId} has been deleted", ratingId);
 
             return new OkResult();

@@ -13,12 +13,12 @@ public class GetMovieRating
     
     [FunctionName("GetMovieRating")]
     public async Task<IActionResult> GetMovieUserRating(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "GetMovieRating/{movieId:int}/{userId}")] HttpRequest req, int movieId, Guid userId,
         ILogger log)
     {
         try
         {
-            var result = await _ratingService.GetMovieRatingByUser(movieId, userId);
+            var result = await _ratingService.GetMovieRatingByUserAsync(movieId, userId);
             return new OkObjectResult(result);
         }
         catch (Exception e)
@@ -30,7 +30,7 @@ public class GetMovieRating
     
     [FunctionName("GetMovieRatings")]
     public async Task<IActionResult> GetMovieRatings(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
          ILogger log)
     {
         try
@@ -45,7 +45,7 @@ public class GetMovieRating
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
-            var ratingResultDto = await _ratingService.GetMovieRatings(getRatingDto, page);
+            var ratingResultDto = await _ratingService.GetMovieRatingsAsync(getRatingDto, page);
             
             return new OkObjectResult(ratingResultDto);
         }
@@ -59,14 +59,14 @@ public class GetMovieRating
     
     [FunctionName("GetMovieRatingsByIds")]
     public async Task<IActionResult> GetMovieRatingsByIds(
-        [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
         ILogger log)
     {
         try
         {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var ratingList = JsonConvert.DeserializeObject<IList<int>>(requestBody);
-            var result = await _ratingService.GetMovieRatings(ratingList);
+            var result = await _ratingService.GetMovieRatingsAsync(ratingList);
             
             return new OkObjectResult(result);
         }

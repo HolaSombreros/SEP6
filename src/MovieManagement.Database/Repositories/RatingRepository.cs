@@ -12,7 +12,7 @@ public class RatingRepository : IRatingRepository
         _repository = repository;
     }
 
-    public async Task<RatingEntity?> GetMovieUserRatingAsync(int movieId, Guid userId)
+    public async Task<RatingEntity?> GetMovieUserRatingAsync(int movieId, Guid? userId)
     {
         return await _context.Ratings.FirstOrDefaultAsync(r =>
             r.UserEntity.UserId.Equals(userId) && r.MovieEntity.MovieId.Equals(movieId));
