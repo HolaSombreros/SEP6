@@ -1,6 +1,4 @@
-﻿using MovieManagement.ViewModels.PersonDetails;
-
-namespace MovieManagement.Pages.PersonDetails;
+﻿namespace MovieManagement.Pages.PersonDetails;
 
 public partial class PersonDetails : ComponentBase
 {
@@ -14,7 +12,7 @@ public partial class PersonDetails : ComponentBase
     {
         try
         {
-            var credits = await PersonService.GetPersonCreditsAsync(Id);
+            var credits = await CombinedRatingService.GetPersonCreditsAsync(Id);
             var person = await PersonService.GetPersonDetailsAsync(Id);
             if (person.Id != 0)
             {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MovieManagement.Services;
+﻿namespace MovieManagement.Services;
 
 public class AzureService : IAzureService
 {

@@ -13,6 +13,7 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<IMovieListService, MovieListService>();
+builder.Services.AddScoped<ICombinedRatingService, CombinedRatingService>();
 builder.Services.AddScoped<AuthenticationStateProvider, MovieManagementASP>();
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
