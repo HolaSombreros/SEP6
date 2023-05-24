@@ -9,7 +9,7 @@ public partial class MovieListView : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         var startPageNumber = 1;
-        var data = await MovieService.GetMovieListAsync(ListType, startPageNumber);
+        var data = await GetMovieListAsync(startPageNumber);
         movieList = new(data);
     }
 
@@ -18,12 +18,17 @@ public partial class MovieListView : ComponentBase
         var nextPageNumber = movieList!.Page + 1;
         if (nextPageNumber <= movieList.TotalPages)
         {
-            var data = await MovieService.GetMovieListAsync(ListType, nextPageNumber);
+            var data = await GetMovieListAsync(nextPageNumber);
             movieList.Page = data.Page;
             foreach (var movie in data.Movies)
             {
                 movieList.Movies.Add(new MovieViewModel(movie));
             }
         }
+    }
+
+    private Task<MovieList> GetMovieListAsync(int page)
+    {
+        return CombinedRatingService.GetMovieListAsync(ListType, page);
     }
 }
