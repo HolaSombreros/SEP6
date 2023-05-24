@@ -1,6 +1,4 @@
-﻿using MovieManagement.Domain.Models.TMDB;
-
-namespace MovieManagement.Services;
+﻿namespace MovieManagement.Services;
 
 public class CombinedRatingService : ICombinedRatingService
 {
