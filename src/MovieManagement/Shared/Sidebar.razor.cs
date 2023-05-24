@@ -27,17 +27,16 @@ public partial class Sidebar : ComponentBase
 
     private async Task FetchMovieListsAsync()
     {
-        // TODO - UNCOMMENT ONCE BACKEND IS FULLY IMPLEMENTED!
-        //var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-        //if (user.Identity != null && (user.Identity.IsAuthenticated))
-        //{
-        //    var userId = Guid.Parse(user.FindFirstValue("Id"));
-        //    await MovieListService.GetUserListsAsync(userId);
-        //}
-        //else
-        //{
-        //    _customMovieLists = new();
-        //}
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        if (user.Identity is {IsAuthenticated: true})
+        {
+            var userId = Guid.Parse(user.FindFirstValue("Id"));
+            await MovieListService.GetUserListsAsync(userId);
+        }
+        else
+        {
+            _customMovieLists = new List<MovieListViewModel>();
+        }
     }
     
     private void UpdateMovieListsOnNotify(object? obj, EventArgs args)
@@ -55,7 +54,7 @@ public partial class Sidebar : ComponentBase
     {
         var modalParameters = new ModalParameters().Add(nameof(DeleteMovieList.ListId), list.Id);
         var modal = Modal.Show<DeleteMovieList>($"Remove {list.Title}?", modalParameters);
-        var result = await modal.Result;
+        await modal.Result;
         modal.Close();
     }
 }
