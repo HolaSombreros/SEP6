@@ -4,15 +4,17 @@ public class RegisterUser
 {
     private readonly IUserService _userService;
     private readonly IValidator<RegisterUserDto> _validator;
+    private readonly IMovieListService _movieListService;
 
-    public RegisterUser(IUserService userService, IValidator<RegisterUserDto> validator) {
+    public RegisterUser(IUserService userService, IValidator<RegisterUserDto> validator, IMovieListService movieListService) {
         _userService = userService;
         _validator = validator;
+        _movieListService = movieListService;
     }
 
     [FunctionName("RegisterUser")]
     public async Task<IActionResult> RunAsync(
-        [HttpTrigger(AuthorizationLevel.Function,  nameof(HttpMethods.Post), Route = null)] HttpRequest req, ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous,  nameof(HttpMethods.Post), Route = null)] HttpRequest req, ILogger log)
     {
         try 
         {
@@ -23,9 +25,15 @@ public class RegisterUser
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
-                return new BadRequestObjectResult(result.Errors);
+                return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
-            var user = await _userService.RegisterUser(registerUserDto!);
+            var user = await _userService.RegisterUserAsync(registerUserDto!);
+            await _movieListService.AddMovieListAsync(new AddMovieListDto() {
+                UserId = user.UserId, Title = "Favourites"
+            });
+            await _movieListService.AddMovieListAsync(new AddMovieListDto() {
+                UserId = user.UserId, Title = "To Watch"
+            });
             
             return new OkObjectResult(user);
         }

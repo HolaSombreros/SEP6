@@ -1,13 +1,10 @@
-﻿using System;
-
-namespace MovieManagement.Services;
+﻿namespace MovieManagement.Services;
 
 public class AzureService : IAzureService
 {
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly AzureFunctionsConfig _settings;
-    private readonly string? _hostKey;
 
     public AzureService(IOptions<AzureFunctionsConfig> settings, IHttpClientFactory clientFactory,
         JsonSerializerOptions jsonSerializerOptions)
@@ -15,7 +12,6 @@ public class AzureService : IAzureService
         _httpClient = clientFactory.CreateClient();
         _settings = settings.Value;
         _jsonSerializerOptions = jsonSerializerOptions;
-        _hostKey = settings.Value.HostKey;
     }
     
     public async Task<T> GetFromRouteAsync<T>(string endpoint, object id)
@@ -24,9 +20,7 @@ public class AzureService : IAzureService
             HttpMethod.Get,
             _settings.AzureFunctionUri +
             endpoint +
-            $"/{id}" +
-            _settings.QueryBuilder +
-            _hostKey);
+            $"/{id}");
         var response = await _httpClient.SendAsync(request);
         try
         {
@@ -46,9 +40,7 @@ public class AzureService : IAzureService
             HttpMethod.Get,
             _settings.AzureFunctionUri +
             endpoint +
-            _settings.QueryBuilder +
-            (page != null ? (_settings.PagePath + page + _settings.AndQueryBuilder) : "") +
-            _hostKey);
+            (page != null ? (_settings.QueryBuilder + _settings.PagePath + page) : ""));
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
 
@@ -62,14 +54,7 @@ public class AzureService : IAzureService
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        if (!string.IsNullOrEmpty(content))
-        {
-            return JsonSerializer.Deserialize<T>(content, _jsonSerializerOptions)!;
-        }
-        else
-        {
-            return default(T);
-        }
+        return !string.IsNullOrEmpty(content) ? JsonSerializer.Deserialize<T>(content, _jsonSerializerOptions)! : default;
     }
 
     public async Task<T> PostAsync<T>(string endpoint, object body)
@@ -77,9 +62,7 @@ public class AzureService : IAzureService
         var request = new HttpRequestMessage(
             HttpMethod.Post,
             _settings.AzureFunctionUri +
-            endpoint +
-            _settings.QueryBuilder +
-            _hostKey);
+            endpoint);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
 
@@ -100,9 +83,7 @@ public class AzureService : IAzureService
         var request = new HttpRequestMessage(
             HttpMethod.Put,
             _settings.AzureFunctionUri +
-            endpoint +
-            _settings.QueryBuilder +
-            _hostKey);
+            endpoint);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
 
@@ -124,9 +105,7 @@ public class AzureService : IAzureService
             HttpMethod.Delete,
             _settings.AzureFunctionUri +
             endpoint +
-            $"/{id}" +
-            _settings.QueryBuilder +
-            _hostKey);
+            $"/{id}");
         var response = await _httpClient.SendAsync(request);
 
         try

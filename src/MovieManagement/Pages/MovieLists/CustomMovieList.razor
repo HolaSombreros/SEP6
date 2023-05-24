@@ -10,14 +10,14 @@
     }
     else if (_list.Movies.Any())
     {
-        <h1 class="text-center pb-5">@_list.Title</h1>
+        <h2 class="text-center pb-5">@_list.Title</h2>
         <div class="row g-5">
             @foreach (var movie in _list.Movies)
             {
                
                 <div class="col-xxl-3 col-xl-4 col-lg-6">
                     <div class="d-flex justify-content-end">
-                        <span class="oi oi-x py-3" @onclick="@(() => RemoveFromList(movie))">
+                        <span class="oi oi-x py-3 delete-icon" @onclick="@(() => RemoveFromList(movie))">
                         </span>
                     </div>
                     <MovieCard Movie="@movie"/>

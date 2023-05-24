@@ -1,6 +1,4 @@
-﻿using MovieManagement.ViewModels.PersonDetails;
-
-namespace MovieManagement.Components;
+﻿namespace MovieManagement.Components;
 
 public partial class PersonMovies : ComponentBase
 {

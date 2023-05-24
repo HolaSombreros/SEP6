@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
             .ToListAsync())!;
     }
 
-    public async Task<UserEntity?> GetAsync(Guid id) {
+    public async Task<UserEntity?> GetAsync(Guid? id) {
        return await _repository.GetAsync(id);
     }
 

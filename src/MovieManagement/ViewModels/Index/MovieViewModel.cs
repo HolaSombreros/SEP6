@@ -22,7 +22,9 @@ public class MovieViewModel
         Id = movie.MovieId;
         Title = movie.Title;
         PosterPath = movie.PosterUrl ?? "Images/MovieMissingPicture.png";
-        ReleaseDate = !string.IsNullOrEmpty(movie.ReleaseDate) ? DateOnly.Parse(movie.ReleaseDate) : default!;
+        ReleaseDate = !string.IsNullOrEmpty(movie.ReleaseDate) ? 
+            DateOnly.FromDateTime(DateTime.ParseExact(movie.ReleaseDate, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture)) :
+            default!;
     }
     
     public MovieViewModel(MovieDetailsViewModel movie)

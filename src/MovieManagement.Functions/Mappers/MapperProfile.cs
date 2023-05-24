@@ -10,5 +10,8 @@ public class MapperProfile : Profile   {
         CreateMap<GenreDto, GenreEntity>().ReverseMap();
         CreateMap<MovieGenreDto, MovieGenreEntity>().ReverseMap();
         CreateMap<GenreDto, MovieGenreEntity>().ReverseMap();
+        CreateMap<MovieListDto, MovieListEntity>().ReverseMap();
+        CreateMap<AddMovieListDto, MovieListEntity>().ReverseMap();
+        CreateMap<MovieToMovieListDto, MovieListMovieEntity>().ReverseMap();
     }
 }
