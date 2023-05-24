@@ -70,7 +70,12 @@ public class RatingRepository : IRatingRepository
         await _context.SaveChangesAsync();
         return entity;
     }
-    
+
+    public Task<RatingEntity?> GetAsync(Guid? id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RatingEntity?> AddAsync(RatingEntity entity)
     {
         return await _repository.AddAsync(entity);

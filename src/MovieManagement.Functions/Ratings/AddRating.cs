@@ -40,7 +40,7 @@ public class AddRating
             await _genreService.AddGenreAsync(ratingDto.MovieDto.Genres!);
             await _movieGenreService.AddMovieGenreAsync(ratingDto.MovieDto.Genres!, ratingDto.MovieDto.MovieId);
             
-            var updatedRating = await _ratingService.PutRating(ratingDto);
+            var updatedRating = await _ratingService.PutRatingAsync(ratingDto);
             log.LogInformation("Added rating for rating id: " + updatedRating.RatingId + " and user id: " + updatedRating.UserId);
 
             updatedRating.MovieDto = updatedMovie;
