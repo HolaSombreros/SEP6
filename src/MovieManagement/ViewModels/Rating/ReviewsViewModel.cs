@@ -1,12 +1,13 @@
 ﻿namespace MovieManagement.ViewModels.Rating;
 
-public class ReviewsViewModel
+public class ReviewsViewModel : IDisposable
 {
     private readonly IRatingService ratingService;
     private readonly int movieId;
     private readonly Guid? userGuid;
 
     public PaginatedReviewsModel? PaginatedReviews { get; set; }
+    public event Action? OnReviewCreated;
 
     public ReviewsViewModel(IRatingService ratingService, int movieId, Guid? userGuid)
     {
@@ -14,12 +15,12 @@ public class ReviewsViewModel
         this.movieId = movieId;
         this.userGuid = userGuid;
 
-        // TODO - Try to subscribe to event that occurs when you create new review? then I can add it to here.
+        ratingService.OnReviewCreated += ReviewCreated;
     }
 
     public Task<ReviewModel?> GetLoggedInUserReview()
     {
-        return ratingService.GetUserMovieRating(movieId, (Guid) userGuid!);
+        return ratingService.GetUserMovieRating(movieId, (Guid)userGuid!);
     }
 
     public async Task GetMovieReviewsAsync(int page)
@@ -41,5 +42,23 @@ public class ReviewsViewModel
     {
         var review = PaginatedReviews!.Reviews.First(r => r.Id == reviewId);
         PaginatedReviews.Reviews.Remove(review);
+    }
+
+    private void ReviewCreated(ReviewModel review)
+    {
+        var existingUserReview = PaginatedReviews!.Reviews.FirstOrDefault(r => r.Id == review.Id);
+
+        if (existingUserReview != null)
+        {
+            PaginatedReviews.Reviews.Remove(existingUserReview);
+        }
+
+        PaginatedReviews.Reviews.Insert(0, review);
+        OnReviewCreated?.Invoke();
+    }
+
+    public void Dispose()
+    {
+        ratingService.OnReviewCreated -= ReviewCreated;
     }
 }

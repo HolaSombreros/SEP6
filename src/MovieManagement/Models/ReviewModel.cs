@@ -5,8 +5,8 @@ public class ReviewModel
     public Guid Id { get; set; }
     public int Rating { get; }
     public string? Text { get; }
-    public DateOnly CreatedDate { get; }
-    public string CreatedBy { get; } = null!;
+    public DateOnly CreatedDate { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
     public ReviewModel(ReviewResponseDto reviewDto)
     {
@@ -15,6 +15,16 @@ public class ReviewModel
         Text = reviewDto.Review;
         CreatedDate = DateOnly.FromDateTime(reviewDto.CreatedDate);
         CreatedBy = reviewDto.CreatedBy;
+    }
+
+    public ReviewModel(RatingDto dto)
+    {
+        Id = dto.RatingId!;
+        Rating = dto.Rating;
+        Text = dto.Review;
+        // TODO - Map remaining 2 properties.
+        //CreatedDate = dto;
+        //CreatedBy = 
     }
 
     public ReviewModel()

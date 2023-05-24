@@ -5,16 +5,24 @@ public class RatingService : IRatingService
     private readonly IAzureService service;
     private readonly AzureFunctionsConfig settings;
 
+    public event Action<ReviewModel>? OnReviewCreated;
+
     public RatingService(IAzureService service, IOptions<AzureFunctionsConfig> settings)
     {
         this.service = service;
         this.settings = settings.Value;
     }
 
-    public Task CreateMovieReviewAsync(CreateReviewModel reviewModel, MovieModel movieModel, Guid userGuid)
+    public async Task CreateMovieReviewAsync(CreateReviewModel reviewModel, MovieModel movieModel, Guid userGuid)
     {
         var dto = new CreateReviewDto(reviewModel, movieModel, userGuid);
-        return service.PutAsync<RatingDto>(settings.RateMoviePath, dto);
+        var review = await service.PutAsync<RatingDto>(settings.RateMoviePath, dto);
+        OnReviewCreated?.Invoke(new ReviewModel(review)
+        {
+            // TODO - Fix.
+            CreatedBy = "Me",
+            CreatedDate = DateOnly.FromDateTime(DateTime.Now)
+        });
     }
 
     public async Task<PaginatedReviewsModel> GetMovieReviewsAsync(int movieId, Guid? userGuid, int page)

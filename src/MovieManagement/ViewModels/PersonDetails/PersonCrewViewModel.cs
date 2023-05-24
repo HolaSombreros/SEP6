@@ -1,6 +1,4 @@
-﻿using MovieManagement.Domain.Models.TMDB;
-
-namespace MovieManagement.ViewModels.PersonDetails;
+﻿namespace MovieManagement.ViewModels.PersonDetails;
 
 public class PersonCrewViewModel
 {
@@ -25,7 +23,7 @@ public class PersonCrewViewModel
         Title = crew.Title;
         Description = crew.Description;
         PosterUrl = !string.IsNullOrEmpty(crew.PosterUrl) ? crew.PosterUrl : "Images/MovieMissingPicture.png";
-        ReleaseDate =  crew.ReleaseDate;
+        ReleaseDate = crew.ReleaseDate;
         VoteAverage = Math.Round(crew.VoteAverage, 2);
         VoteCount = crew.VoteCount;
         Popularity = crew.Popularity;

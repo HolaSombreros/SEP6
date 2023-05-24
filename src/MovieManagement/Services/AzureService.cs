@@ -13,7 +13,7 @@ public class AzureService : IAzureService
         _settings = settings.Value;
         _jsonSerializerOptions = jsonSerializerOptions;
     }
-    
+
     public async Task<T> GetFromRouteAsync<T>(string endpoint, object id)
     {
         var request = new HttpRequestMessage(
@@ -33,7 +33,7 @@ public class AzureService : IAzureService
 
         return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync(), _jsonSerializerOptions)!;
     }
-    
+
     public async Task<T?> GetAsync<T>(string endpoint, object body, int? page = null)
     {
         var request = new HttpRequestMessage(

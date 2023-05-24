@@ -1,14 +1,14 @@
 ﻿namespace MovieManagement.Components;
 
-public partial class InfiniteScroll : ComponentBase
+public partial class InfiniteScroll : ComponentBase, IDisposable
 {
-    [Parameter] 
+    [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
 
-    [Parameter] 
+    [Parameter]
     public string ObservableTargetId { get; set; } = default!;
 
-    [Parameter] 
+    [Parameter]
     public EventCallback<bool> ObservableTargetReached { get; set; }
     private DotNetObjectReference<InfiniteScroll> objectRef = default!;
 
@@ -25,5 +25,10 @@ public partial class InfiniteScroll : ComponentBase
     public async Task OnIntersectionAsync()
     {
         await ObservableTargetReached.InvokeAsync(true);
+    }
+
+    public void Dispose()
+    {
+        objectRef.Dispose();
     }
 }
