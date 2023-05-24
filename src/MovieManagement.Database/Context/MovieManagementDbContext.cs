@@ -23,6 +23,23 @@ public partial class MovieManagementDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<MovieGenreEntity>(entity =>
+        {
+            entity.ToTable("MovieGenre");
+            entity.HasKey(e => new { e.GenreId, e.MovieId });
+            entity.Property(e => e.MovieId).HasColumnName("movie_id");
+            entity.Property(e => e.GenreId).HasColumnName("genre_id");
+            entity.HasOne(e => e.GenreEntity)
+                .WithMany()
+                .HasForeignKey(e => e.GenreId)
+                .HasConstraintName("FK_movie_id_movie");
+            
+            entity.HasOne(e => e.MovieEntity)
+                .WithMany()
+                .HasForeignKey(e => e.MovieId)
+                .HasConstraintName("FK_genre_id_genre");
+        });
+        
         modelBuilder.Entity<MovieEntity>(entity => {
             entity.ToTable("Movie");
             entity.Property(e => e.MovieId)
@@ -155,17 +172,7 @@ public partial class MovieManagementDbContext : DbContext
                 .HasColumnName("name");
         });
         
-        modelBuilder.Entity<MovieGenreEntity>(entity =>
-        {
-            entity.ToTable("MovieGenre");
-            entity.HasKey(e => new { e.GenreId, e.MovieId });
-            entity.HasOne(e => e.GenreEntity)
-                .WithMany()
-                .HasForeignKey(e => e.GenreId);
-            entity.HasOne(e => e.MovieEntity)
-                .WithMany()
-                .HasForeignKey(e => e.MovieId);
-        });
+        
 
         OnModelCreatingPartial(modelBuilder);
     }

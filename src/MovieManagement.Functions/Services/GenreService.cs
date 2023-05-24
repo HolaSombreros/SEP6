@@ -32,6 +32,5 @@ public class GenreService : IGenreService
             }
         }
         return mappedGenres;
-
     }
 }
