@@ -17,7 +17,7 @@ public class MovieListViewModel
     
     public MovieListViewModel(MovieListDto listDto)
     {
-        Id = listDto.Id;
+        Id = listDto.MovieListId;
         UserId = listDto.UserId;
         Title = listDto.Title;
         Movies = listDto.Movies.Select(movie => new MovieViewModel(movie)).ToList();

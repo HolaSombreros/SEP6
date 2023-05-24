@@ -31,7 +31,7 @@ public class MovieListService : IMovieListService
         {
             list.Movies.Add(movie);
             var movieDto = new MovieDto(movie);
-            await _service.PostAsync<MovieListDto>(_settings.AddToCustomList + "/" + listId, movieDto);
+            await _service.PutAsync<MovieListDto>(_settings.AddToCustomList + "/" + listId, movieDto);
             NotifyChanged();
         }
     }
@@ -42,7 +42,7 @@ public class MovieListService : IMovieListService
         if (list != new MovieListViewModel())
         {
             list.Movies.Remove(movie);
-            await _service.DeleteFromRouteAsync(_settings.AddToCustomList, listId + "/" + movie.Id);
+            await _service.DeleteFromRouteAsync(_settings.DeleteFromCustomList, listId + "/" + movie.Id);
             NotifyChanged();
         }
     }
@@ -51,7 +51,7 @@ public class MovieListService : IMovieListService
     {
         var newList = new MovieListDto(list);
         var listDto = await _service.PostAsync<MovieListDto>(_settings.CreateCustomList, newList);
-        list.Id = listDto.Id;
+        list.Id = listDto.MovieListId;
         _movieLists.Add(list);
         NotifyChanged();
     }
