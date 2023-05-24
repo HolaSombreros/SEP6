@@ -10,7 +10,9 @@ public class UserRepository : IUserRepository
         _repository = repository;
     }
 
-    public async Task<UserEntity?> GetByEmailAsync(string email) {
+    public async Task<UserEntity?> GetByEmailAsync(string? email)
+    {
+        if (email == null) throw new ArgumentNullException(nameof(email));
         return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
     }
 

@@ -19,13 +19,13 @@ public class EditUser {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var userDto = JsonConvert.DeserializeObject<UserDto>(requestBody);
             
-            var result = await _validator.ValidateAsync(userDto);
+            var result = await _validator.ValidateAsync(userDto!);
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors);
             }
-            var user = await _userService.UpdateUser(userDto);
+            var user = await _userService.UpdateUser(userDto!);
             log.LogInformation("User with id: {id} has been updated ", user.UserId);
             return new OkObjectResult(user);
         }

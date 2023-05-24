@@ -17,7 +17,7 @@ public class GenreService : IGenreService
         return _mapper.Map<GenreDto>(entity);
     }
 
-    public async Task<IList<GenreDto?>> AddGenreAsync(IList<GenreDto?> genres)
+    public async Task<IList<GenreDto>> AddGenreAsync(IList<GenreDto> genres)
     {
         var mappedGenres = new List<GenreDto>();
         foreach (var genre in genres)

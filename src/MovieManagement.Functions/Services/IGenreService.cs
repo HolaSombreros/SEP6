@@ -2,6 +2,6 @@
 
 public interface IGenreService
 {
-    Task<GenreDto?> GetGenreByIdAsync(int id);
-    Task<IList<GenreDto?>> AddGenreAsync(IList<GenreDto?> genres);
+    Task<GenreDto> GetGenreByIdAsync(int id);
+    Task<IList<GenreDto>> AddGenreAsync(IList<GenreDto> genres);
 }

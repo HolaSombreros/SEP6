@@ -25,17 +25,17 @@ public class AddRating
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var ratingDto = JsonConvert.DeserializeObject<RatingDto>(requestBody);
 
-            var result = await _validator.ValidateAsync(ratingDto);
+            var result = await _validator.ValidateAsync(ratingDto!);
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
-            var updatedMovie = await _movieService.AddMovieAsync(ratingDto.MovieDto);
+            var updatedMovie = await _movieService.AddMovieAsync(ratingDto!.MovieDto);
             log.LogInformation("Added movie for movie id: " + updatedMovie.MovieId);
 
-            var updatedGenres = await _genreService.AddGenreAsync(ratingDto.MovieDto.Genres);
+            var updatedGenres = await _genreService.AddGenreAsync(ratingDto.MovieDto.Genres!);
 
             var updatedRating = await _ratingService.PutRating(ratingDto);
             log.LogInformation("Added rating for rating id: " + updatedRating.RatingId + " and user id: " + updatedRating.UserId);

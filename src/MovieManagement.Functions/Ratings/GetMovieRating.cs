@@ -38,14 +38,14 @@ public class GetMovieRating
             var page = int.Parse(req.Query["page"]);
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var getRatingDto = JsonConvert.DeserializeObject<GetRatingDto>(requestBody);
-            var result = await _validator.ValidateAsync(getRatingDto);
+            var result = await _validator.ValidateAsync(getRatingDto!);
             
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
-            var ratingResultDto = await _ratingService.GetMovieRatings(getRatingDto, page);
+            var ratingResultDto = await _ratingService.GetMovieRatings(getRatingDto!, page);
             
             return new OkObjectResult(ratingResultDto);
         }
@@ -66,7 +66,7 @@ public class GetMovieRating
         {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var ratingList = JsonConvert.DeserializeObject<IList<int>>(requestBody);
-            var result = await _ratingService.GetMovieRatings(ratingList);
+            var result = await _ratingService.GetMovieRatings(ratingList!);
             
             return new OkObjectResult(result);
         }
