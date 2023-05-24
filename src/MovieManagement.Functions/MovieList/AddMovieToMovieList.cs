@@ -31,7 +31,7 @@ public class AddMovieToMovieList {
             if (!movieResult.IsValid)
             {
                 log.LogInformation("Body request not valid" + movieResult.Errors[0].ErrorMessage);
-                return new BadRequestObjectResult(movieResult.Errors);
+                return new BadRequestObjectResult(movieResult.Errors[0].ErrorMessage);
             }
 
             await _movieService.AddMovieAsync(movie);
@@ -48,7 +48,7 @@ public class AddMovieToMovieList {
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
-                return new BadRequestObjectResult(result.Errors);
+                return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
             var list = await _movieListMovieService.AddMovieToMovieListAsync(request);

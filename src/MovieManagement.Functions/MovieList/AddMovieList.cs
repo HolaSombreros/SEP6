@@ -18,7 +18,7 @@ public class AddMovieList {
             var dto = JsonConvert.DeserializeObject<AddMovieListDto>(requestBody);
             var result = await _validator.ValidateAsync(dto);
             if (!result.IsValid) {
-                return new BadRequestObjectResult(result.Errors);
+                return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
             var movieList = await _movieListService.AddMovieListAsync(dto);

@@ -17,6 +17,7 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IMovieService, MovieService>();
         builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();
         builder.Services.AddScoped<IValidator<AddMovieListDto>, AddMovieListValidator>();
+        builder.Services.AddScoped<IValidator<GetRatingDto>, GetRatingDtoValidator>();
         builder.Services.AddDbContext<MovieManagementDbContext>(options =>
             options.UseSqlServer(config["DbConnectionString"]));
         builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);

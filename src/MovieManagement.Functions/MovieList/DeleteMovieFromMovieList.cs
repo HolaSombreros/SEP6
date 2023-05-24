@@ -23,7 +23,7 @@ public class DeleteMovieFromMovieList {
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
-                return new BadRequestObjectResult(result.Errors);
+                return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
             await _movieListMovieService.DeleteMovieFromMovieList(request);
