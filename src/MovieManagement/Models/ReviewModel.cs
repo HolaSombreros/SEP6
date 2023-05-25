@@ -22,9 +22,8 @@ public class ReviewModel
         Id = dto.RatingId!;
         Rating = dto.Rating;
         Text = dto.Review;
-        // TODO - Map remaining 2 properties.
-        //CreatedDate = dto;
-        //CreatedBy = 
+        CreatedDate = DateOnly.FromDateTime(dto.CreatedDate);
+        CreatedBy = dto.CreatedBy;
     }
 
     public ReviewModel()

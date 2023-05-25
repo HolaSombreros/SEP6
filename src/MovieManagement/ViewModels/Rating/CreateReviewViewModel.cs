@@ -8,7 +8,7 @@ public class CreateReviewViewModel
     private readonly Guid userGuid;
 
     public CreateReviewModel CreateReviewModel { get; private set; } = new();
-    public string ResultMessage { get; private set; } = string.Empty;
+    public string ErrorMessage { get; private set; } = string.Empty;
 
     public CreateReviewViewModel(IRatingService ratingService, IMovieService movieService, int movieId, Guid userGuid)
     {
@@ -22,14 +22,14 @@ public class CreateReviewViewModel
     {
         var movie = await movieService.GetMovieByIdAsync(movieId);
 
-        try { 
+        try
+        {
             await ratingService.CreateMovieReviewAsync(CreateReviewModel, new MovieModel(movie), userGuid);
-            ResultMessage = "Rating successfully created!";
             CreateReviewModel = new();
         }
         catch (Exception ex)
         {
-            ResultMessage = ex.Message;
+            ErrorMessage = ex.Message;
             throw;
         }
     }

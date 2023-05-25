@@ -7,4 +7,7 @@ public class RatingDto
     public string? Review { get; set; }
     public Guid UserId { get; set; }
     public Guid RatingId { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public string CreatedBy { get; set; } = null!;
+
 }

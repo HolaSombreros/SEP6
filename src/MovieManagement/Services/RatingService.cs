@@ -17,12 +17,7 @@ public class RatingService : IRatingService
     {
         var dto = new CreateReviewDto(reviewModel, movieModel, userGuid);
         var review = await service.PutAsync<RatingDto>(settings.RateMoviePath, dto);
-        OnReviewCreated?.Invoke(new ReviewModel(review)
-        {
-            // TODO - Fix.
-            CreatedBy = "Me",
-            CreatedDate = DateOnly.FromDateTime(DateTime.Now)
-        });
+        OnReviewCreated?.Invoke(new ReviewModel(review));
     }
 
     public async Task<PaginatedReviewsModel> GetMovieReviewsAsync(int movieId, Guid? userGuid, int page)
