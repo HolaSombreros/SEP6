@@ -6,6 +6,7 @@ public class ApiConfig
     public string ApiKey { get; set; } = default!;
     public string MovieDatabaseUri { get; set; } = default!;
     public string MoviePath { get; set; } = default!;
+    public string GenrePath { get; set; } = default!;
     public string UpcomingPath { get; set; } = default!;
     public string CreditsPath { get; set; } = default!;
     public string PopularPath { get; set; } = default!;

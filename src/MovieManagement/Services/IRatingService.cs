@@ -7,4 +7,5 @@ public interface IRatingService
     Task<ReviewModel?> GetUserMovieRating(int movieId, Guid userGuid);
     Task DeleteMovieReviewAsync(Guid reviewId);
     Task<IList<MovieRatingModel>> GetMovieRatingsAsync(int[] movieIds);
+    event Action<ReviewModel>? OnReviewCreated;
 }

@@ -17,13 +17,13 @@ public class LoginUser {
             
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var loginUserDto = JsonConvert.DeserializeObject<LoginUserDto>(requestBody);
-            var result = await _validator.ValidateAsync(loginUserDto);
+            var result = await _validator.ValidateAsync(loginUserDto!);
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
-            var user = await _userService.GetUserAsync(loginUserDto);
+            var user = await _userService.GetUserAsync(loginUserDto!);
 
             return new OkObjectResult(user);
         }

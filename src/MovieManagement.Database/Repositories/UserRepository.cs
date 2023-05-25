@@ -1,6 +1,7 @@
 ﻿namespace MovieManagement.Database.Repositories; 
 
-public class UserRepository : IUserRepository{
+public class UserRepository : IUserRepository
+{
     private readonly MovieManagementDbContext _context;
     private readonly IRepository<UserEntity?> _repository;
 
@@ -9,7 +10,9 @@ public class UserRepository : IUserRepository{
         _repository = repository;
     }
 
-    public async Task<UserEntity?> GetByEmailAsync(string email) {
+    public async Task<UserEntity?> GetByEmailAsync(string? email)
+    {
+        if (email == null) throw new ArgumentNullException(nameof(email));
         return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
     }
 
@@ -17,7 +20,7 @@ public class UserRepository : IUserRepository{
         return await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username));
     }
 
-    public async Task<IList<UserEntity?>> GetUsersAsync(IList<Guid> ids)
+    public async Task<IList<UserEntity?>> GetUsersAsync(List<Guid?> ids)
     {
         return (await _context.Users
             .Where(u => ids.Contains(u.UserId))

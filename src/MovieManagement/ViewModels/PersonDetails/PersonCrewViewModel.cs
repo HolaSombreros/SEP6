@@ -12,6 +12,7 @@ public class PersonCrewViewModel
     public DateTime ReleaseDate { get; }
     public double VoteAverage { get; }
     public int VoteCount { get; }
+    public double Popularity { get; set; }
 
     public PersonCrewViewModel(Crew crew)
     {
@@ -22,8 +23,9 @@ public class PersonCrewViewModel
         Title = crew.Title;
         Description = crew.Description;
         PosterUrl = !string.IsNullOrEmpty(crew.PosterUrl) ? crew.PosterUrl : "Images/MovieMissingPicture.png";
-        ReleaseDate =  crew.ReleaseDate;
+        ReleaseDate = crew.ReleaseDate;
         VoteAverage = Math.Round(crew.VoteAverage, 2);
         VoteCount = crew.VoteCount;
+        Popularity = crew.Popularity;
     }
 }

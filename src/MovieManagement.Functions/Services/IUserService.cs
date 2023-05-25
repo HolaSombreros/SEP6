@@ -5,5 +5,5 @@ public interface IUserService {
     Task<UserDto> GetUserAsync(LoginUserDto loginUserDto);
     Task<UserDto> UpdateUserAsync(UserDto userDto);
     Task DeleteUserAsync(Guid userId);
-    Task<IList<UserDto?>> GetUsers(IList<Guid> ids);
+    Task<IList<UserDto?>> GetUsers(List<Guid?> ids);
 }
