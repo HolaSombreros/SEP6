@@ -6,6 +6,7 @@ public class MovieDto
     public string Title { get; set; } = default!;
     public string? PosterUrl { get; set; }
     public string? ReleaseDate { get; set; }
+    public IList<Genre> Genres { get; set; }
 
     public MovieDto(MovieModel movieModel)
     {
@@ -13,14 +14,16 @@ public class MovieDto
         Title = movieModel.Title;
         PosterUrl = movieModel.PosterUrl;
         ReleaseDate = movieModel.ReleaseDate?.ToString("yyyy-MM-dd");
+        Genres = movieModel.Genres;
     }
-    
+
     public MovieDto(MovieViewModel movieModel)
     {
         MovieId = movieModel.Id;
         Title = movieModel.Title;
         PosterUrl = movieModel.PosterPath;
         ReleaseDate = movieModel.ReleaseDate.ToString("yyyy-MM-dd");
+        Genres = movieModel.Genres;
     }
 
     [JsonConstructor]
