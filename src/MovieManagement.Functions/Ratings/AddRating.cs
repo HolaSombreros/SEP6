@@ -6,9 +6,9 @@ public class AddRating
     private readonly IMovieService _movieService;
     private readonly IGenreService _genreService;
     private readonly IMovieGenreService _movieGenreService;
-    private readonly IValidator<RatingDto> _validator;
+    private readonly IValidator<MovieRatingDto> _validator;
     
-    public AddRating(IRatingService ratingService, IValidator<RatingDto> validator, IMovieService movieService, IGenreService genreService, IMovieGenreService movieGenreService)
+    public AddRating(IRatingService ratingService, IValidator<MovieRatingDto> validator, IMovieService movieService, IGenreService genreService, IMovieGenreService movieGenreService)
     {
         _ratingService = ratingService;
         _validator = validator;
@@ -25,7 +25,7 @@ public class AddRating
         try
         {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var ratingDto = JsonConvert.DeserializeObject<RatingDto>(requestBody);
+            var ratingDto = JsonConvert.DeserializeObject<MovieRatingDto>(requestBody);
 
             var result = await _validator.ValidateAsync(ratingDto!);
             if (!result.IsValid)

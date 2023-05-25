@@ -20,7 +20,7 @@ public class UserRepository : IUserRepository
         return await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username));
     }
 
-    public async Task<IList<UserEntity?>> GetUsersAsync(IList<Guid> ids)
+    public async Task<IList<UserEntity?>> GetUsersAsync(List<Guid?> ids)
     {
         return (await _context.Users
             .Where(u => ids.Contains(u.UserId))

@@ -1,8 +1,8 @@
 ﻿namespace MovieManagement.Functions.Validators;
 
-public class RatingDtoValidator : AbstractValidator<RatingDto>
+public class MovieRatingDtoValidator : AbstractValidator<MovieRatingDto>
 {
-    public RatingDtoValidator()
+    public MovieRatingDtoValidator()
     {
         RuleFor(x => x.Rating).NotEmpty().InclusiveBetween(1, 10).WithMessage("Rating must be between 1 and 10");
         RuleFor(x => x.UserId).NotEmpty().WithMessage("User id must be provided");

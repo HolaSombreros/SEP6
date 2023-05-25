@@ -5,7 +5,7 @@ public class RatingEntity
 {
     [Key]
     public Guid RatingId { get; set; }
-    public Guid UserId { get; set; }
+    public Guid? UserId { get; set; }
     public int MovieId { get; set; }
     public decimal Rating { get; set; }
     public string? Review { get; set; } = default!;

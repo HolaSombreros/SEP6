@@ -8,7 +8,7 @@ public class Startup : FunctionsStartup
         var config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IValidator<MovieDto>, MovieDtoValidator>();
-        builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();
+        builder.Services.AddScoped<IValidator<MovieRatingDto>, MovieRatingDtoValidator>();
         builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
         builder.Services.AddScoped<IValidator<GetRatingDto>, GetRatingDtoValidator>();
         builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
@@ -19,7 +19,7 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IGenreService, GenreService>();
         builder.Services.AddScoped<IStatisticsService, StatisticsService>();
         builder.Services.AddScoped<IMovieGenreService, MovieGenreService>();
-        builder.Services.AddScoped<IValidator<RatingDto>, RatingDtoValidator>();
+        // builder.Services.AddScoped<IValidator<RatingDto>, MovieRatingDtoValidator>();
         builder.Services.AddScoped<IValidator<AddMovieListDto>, AddMovieListValidator>();
         builder.Services.AddScoped<IValidator<GetRatingDto>, GetRatingDtoValidator>();
         builder.Services.AddDbContext<MovieManagementDbContext>(options =>

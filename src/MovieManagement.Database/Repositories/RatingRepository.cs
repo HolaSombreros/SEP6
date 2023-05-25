@@ -71,9 +71,9 @@ public class RatingRepository : IRatingRepository
         return entity;
     }
 
-    public Task<RatingEntity?> GetAsync(Guid? id)
+    public async Task<RatingEntity?> GetAsync(Guid? id)
     {
-        throw new NotImplementedException();
+        return await _repository.GetAsync(id);
     }
 
     public async Task<RatingEntity?> AddAsync(RatingEntity entity)
