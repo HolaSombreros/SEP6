@@ -63,6 +63,7 @@ public class AzureService : IAzureService
             HttpMethod.Post,
             _settings.AzureFunctionUri +
             endpoint);
+        var content = JsonSerializer.Serialize(body);
         request.Content = JsonContent.Create(body);
         var response = await _httpClient.SendAsync(request);
 

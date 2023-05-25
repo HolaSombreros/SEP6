@@ -1,14 +1,18 @@
-﻿namespace MovieManagement.Functions.Services;
+﻿using MoreLinq.Extensions;
+
+namespace MovieManagement.Functions.Services;
 
 public class StatisticsService : IStatisticsService
 {
     private readonly IMovieGenreRepository _movieGenreRepository;
     private readonly IRatingRepository _ratingRepository;
+    private readonly IActorRepository _actorRepository;
     
-    public StatisticsService(IRatingRepository ratingRepository, IMovieGenreRepository movieGenreRepository)
+    public StatisticsService(IRatingRepository ratingRepository, IMovieGenreRepository movieGenreRepository, IActorRepository actorRepository)
     {
         _ratingRepository = ratingRepository;
         _movieGenreRepository = movieGenreRepository;
+        _actorRepository = actorRepository;
     }
 
     public async Task<RatingDistributionByGenreDto> GetAsync(int genreId)
@@ -37,5 +41,47 @@ public class StatisticsService : IStatisticsService
         ratingDistribution.MinRating = (int)ratings.Min(r => r.Rating);
         ratingDistribution.Average = (double)Math.Round(ratings.Average(r => r.Rating), 2);
         return ratingDistribution;
+    }
+
+    public async Task<AgeDistributionInMovieDto> GetAgeDistributionAsync(int movieId) {
+        if (movieId < 1) {
+            throw new Exception("The movie id must be provided");
+        }
+
+        var birthdates = await _actorRepository.GetAgesByMovieAsync(movieId);
+        var ages = new List<int>();
+        var intervalSize = 10;
+        foreach (var  bd in birthdates) {
+            ages.Add(CalculateAge(bd));
+        }
+
+        var distribution = ages.GroupBy(a => GetIntervalKey(a, intervalSize)).ToDictionary(r => r.Key.ToString(), r => r.Count());
+
+        var ageDistribution = new AgeDistributionInMovieDto {
+            AgeDistribution = distribution,
+            AverageAge = ages.Average(),
+            Oldest = ages.Max(),
+            Youngest = ages.Min()
+        };
+        return ageDistribution;
+    }
+    
+    private int CalculateAge(string birthday)
+    {
+        if (string.IsNullOrWhiteSpace(birthday)) return 0;
+
+        DateTime empBirthday = Convert.ToDateTime(birthday);
+        DateTime today = DateTime.Today;
+        int age = today.Year - empBirthday.Year;
+        if (empBirthday > today.AddYears(-age))
+            age--;
+        return age;
+    }
+    
+    static string GetIntervalKey(int age, int intervalSize)
+    {
+        int lowerBound = (age / intervalSize) * intervalSize;
+        int upperBound = lowerBound + intervalSize - 1;
+        return $"{lowerBound}-{upperBound}";
     }
 }

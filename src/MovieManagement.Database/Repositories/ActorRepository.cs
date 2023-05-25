@@ -22,4 +22,11 @@ public class ActorRepository : IActorRepository {
     public async Task<ActorEntity?> GetActorAsync(int id) {
         return await _context.Actors.FindAsync(id);
     }
+
+    public async Task<List<string>> GetAgesByMovieAsync(int movieId) {
+        return await (from actors in _context.Actors
+            join movieActors in _context.MovieActors on actors.ActorId equals movieActors.ActorId
+            where movieActors.MovieId == movieId
+            select new string(actors.Birthdate.ToString())).ToListAsync();
+    }
 }

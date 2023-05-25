@@ -11,7 +11,7 @@ public class ActorService : IActorService {
 
     public async Task AddMovieActor(PersonViewModel viewModel) {
         var actor = new ActorDto(viewModel);
-        await _service.PostAsync<ActorDto>(_settings.AddMovieActor, actor);
+        await _service.PostAsync<string>(_settings.AddMovieActor, actor);
     }
     
 }
