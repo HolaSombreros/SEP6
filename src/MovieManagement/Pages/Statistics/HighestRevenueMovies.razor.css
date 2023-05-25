@@ -5,8 +5,6 @@
 
 select {
     width: 10rem;
-    transform: scale(1.2);
-    margin-left: 0.5rem;
 }
 
 #observableTarget {
