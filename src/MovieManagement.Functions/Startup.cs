@@ -29,7 +29,9 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IMovieListService, MovieListService>();
         builder.Services.AddScoped<IMovieListMovieService, MovieListMovieService>();
         builder.Services.AddScoped<IMovieListMovieRepository, MovieListMovieRepository>();
-        var optionsBuilder = new DbContextOptionsBuilder<MovieManagementDbContext>();
-        optionsBuilder.EnableSensitiveDataLogging();
+        builder.Services.AddScoped<IActorService, ActorService>();
+        builder.Services.AddScoped<IActorRepository, ActorRepository>();
+        builder.Services.AddScoped<IMovieActorRepository, MovieActorRepository>();
+        builder.Services.AddScoped<IMovieActorService, MovieActorService>();
     }
 }
