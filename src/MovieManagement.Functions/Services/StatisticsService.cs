@@ -11,12 +11,16 @@ public class StatisticsService : IStatisticsService
         _movieGenreRepository = movieGenreRepository;
     }
 
-    public async Task<RatingDistributionByGenreDto> Get(int genreId)
+    public async Task<RatingDistributionByGenreDto> GetAsync(int genreId)
     {
+        if (genreId < 1)
+        {
+            throw new Exception("The genre id must be provided");
+        }
         var ratingDistribution = new RatingDistributionByGenreDto();
         var result = new Dictionary<int, int>();
         var movieGenres = await _movieGenreRepository.GetMoviesByGenre(genreId);
-        var listIds = movieGenres.Select(mg => mg.MovieId).ToList();
+        var listIds = movieGenres.Select(mg => mg!.MovieId).ToList();
         var ratings = await _ratingRepository.GetAllMovieRatingsAsync(listIds);
 
         var groupedRatings = ratings
