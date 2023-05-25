@@ -7,6 +7,11 @@ p {
     font-size: 20px;
 }
 
+.director-link {
+    text-decoration: underline;
+    font-size: 20px;
+}
+
 img {
     width: 100%;
     cursor: pointer;

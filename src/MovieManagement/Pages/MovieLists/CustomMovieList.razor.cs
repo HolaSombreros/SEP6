@@ -1,9 +1,10 @@
 ﻿namespace MovieManagement.Pages.MovieLists;
 
-public partial class CustomMovieList : ComponentBase
+public partial class CustomMovieList : ComponentBase, IDisposable
 {
     [Parameter]
     public string Id { get; set; } = string.Empty;
+    private string currentId { get; set; } = string.Empty;
 
     private MovieListViewModel _list = default!;
 
@@ -13,7 +14,17 @@ public partial class CustomMovieList : ComponentBase
         MovieListService.OnChanged += UpdateMovieListOnNotify;
     }
 
-    private void UpdateMovieListOnNotify(object? obj, EventArgs args)
+    protected override void OnAfterRender(bool firstRender)
+    {
+        _list = MovieListService.GetCustomList(Guid.Parse(Id));
+        if (!_list.Id.ToString().Equals(currentId))
+        {
+            currentId = _list.Id.ToString();
+            StateHasChanged();
+        }
+    }
+
+    private void UpdateMovieListOnNotify()
     {
         _list = MovieListService.GetCustomList(Guid.Parse(Id));
     }
@@ -21,5 +32,10 @@ public partial class CustomMovieList : ComponentBase
     private async Task RemoveFromList(MovieViewModel movie)
     {
         await MovieListService.DeleteMovieFromListAsync(_list.Id, movie);
+    }
+
+    public void Dispose()
+    {
+        MovieListService.OnChanged -= UpdateMovieListOnNotify;
     }
 }

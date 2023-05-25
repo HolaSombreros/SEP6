@@ -63,9 +63,9 @@
                 }
                 @if (_details.SpokenLanguages.Any())
                 {
-                    <p>Spoken Languages: @GetSpokenLanguagesToString(_details.SpokenLanguages);</p>
+                    <p>Spoken Languages: @GetSpokenLanguagesToString(_details.SpokenLanguages)</p>
                 }
-                @if (_details.SpokenLanguages.Any())
+                @if (_details.ProductionCountries.Any())
                 {
                     <p>Production Countries: @GetProductionCountriesToString(_details.ProductionCountries)</p>
                 }
@@ -80,6 +80,17 @@
                 @if (_details.IsAdult)
                 {
                     <p>Restricted age: &#128286;</p>
+                }
+                @if (_details.Directors!.Any())
+                {
+                    <p class="d-inline">Directors: </p>
+                    for (var i = 0; i < _details.Directors.Count - 1; i++)
+                    {
+                        <a class="director-link" href=@($"/people/{_details.Directors[i].Id}")>@_details.Directors[i].Name</a>
+                        <p class="d-inline">- </p>
+                    }
+
+                    <a class="director-link" href=@($"/people/{_details.Directors[^1].Id}")>@_details.Directors[^1].Name</a>
                 }
             </div>
             <div class="col-md-4 order-first order-md-last py-3">

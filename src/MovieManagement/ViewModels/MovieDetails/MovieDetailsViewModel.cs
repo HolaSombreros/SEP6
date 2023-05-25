@@ -4,9 +4,9 @@ public class MovieDetailsViewModel
 {
     public int Id { get; }
     public string Title { get; }
-    public int Revenue { get; }
+    public float Revenue { get; }
     public DateTime ReleaseDate { get; }
-    public int Budget { get; }
+    public float Budget { get; }
     public string Description { get; }
     public bool IsAdult { get; }
     public string ImageUrl { get; }
@@ -21,13 +21,14 @@ public class MovieDetailsViewModel
     public IList<ProductionCountry> ProductionCountries { get; }
     public IList<SpokenLanguage> SpokenLanguages { get; }
     public MovieCreditsViewModel Credits { get; }
+    public IList<Crew> Directors { get; }
 
     public MovieDetailsViewModel(Movie movie, Credits credits)
     {
         Id = movie.Id;
         Title = movie.Title;
         Revenue = movie.Revenue;
-        ReleaseDate = movie.ReleaseDate;
+        ReleaseDate = movie.ReleaseDate ?? new DateTime(1,1,1);
         Budget = movie.Budget;
         Description = movie.Description;
         IsAdult = movie.IsAdult;
@@ -42,6 +43,7 @@ public class MovieDetailsViewModel
         ProductionCompanies = movie.ProductionCompanies;
         ProductionCountries = movie.ProductionCountries;
         SpokenLanguages = movie.SpokenLanguages;
+        Directors = credits.Crew.Where(r => r.Role.Equals(Role.DIRECTOR)).ToList();
         Credits = new MovieCreditsViewModel(credits);
     }
 }

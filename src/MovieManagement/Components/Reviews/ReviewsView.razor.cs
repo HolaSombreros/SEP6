@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Components.Reviews;
 
-public partial class ReviewsView : ComponentBase
+public partial class ReviewsView : ComponentBase, IDisposable
 {
     [Parameter]
     public int MovieId { get; set; }
@@ -28,6 +28,8 @@ public partial class ReviewsView : ComponentBase
 
         var startPage = 1;
         await GetMovieReviewsAsync(startPage);
+
+        viewModel.OnReviewCreated += StateHasChanged;
     }
 
     private Task FetchDataAsync()
@@ -44,5 +46,11 @@ public partial class ReviewsView : ComponentBase
     private void RemoveReviewHandler(Guid reviewId)
     {
         viewModel.RemoveReview(reviewId);
+    }
+
+    public void Dispose()
+    {
+        viewModel.OnReviewCreated -= StateHasChanged;
+        viewModel.Dispose();
     }
 }

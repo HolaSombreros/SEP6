@@ -21,13 +21,13 @@ public class RegisterUser
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
             var registerUserDto = JsonConvert.DeserializeObject<RegisterUserDto>(requestBody);
-            var result = await _validator.ValidateAsync(registerUserDto);
+            var result = await _validator.ValidateAsync(registerUserDto!);
             if (!result.IsValid)
             {
                 log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
-            var user = await _userService.RegisterUserAsync(registerUserDto);
+            var user = await _userService.RegisterUserAsync(registerUserDto!);
             await _movieListService.AddMovieListAsync(new AddMovieListDto() {
                 UserId = user.UserId, Title = "Favourites"
             });

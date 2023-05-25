@@ -15,7 +15,7 @@ public class PersonViewModel
     public PersonViewModel(Person person, Credits credits)
     {
         Id = person.Id;
-        Birthday = person.Birthday;
+        Birthday = person.Birthday ?? new DateTime(1,1,1);
         Name = person.Name;
         Biography = person.Biography;
         DeathDay = person.DeathDay ?? new DateTime(1,1,1);

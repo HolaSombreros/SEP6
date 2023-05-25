@@ -4,8 +4,10 @@ public class MovieMapper : Profile
 {
     public MovieMapper()
     {
-        CreateMap<MovieDto, Movie>().ForMember(dest=> dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl == null ? null : ApiConfig.ImageUri + src.ImageUrl));
-        CreateMap<MovieListDto, MovieList>().ForMember(dest => dest.ListType, opt => opt.MapFrom(src => "Upcoming"));
+        CreateMap<MovieDto, Movie>()
+            .ForMember(dest=> dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl == null ? null : ApiConfig.ImageUri + src.ImageUrl))
+            .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => string.IsNullOrEmpty(src.ReleaseDate) ? null : src.ReleaseDate));
+        CreateMap<MovieListDto, MovieList>();
         CreateMap<DatePeriodDto, DatePeriod>();
         CreateMap<GenreDto, Genre>();
         CreateMap<CastDto, Cast>().ForMember(dest=> dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl == null ? null : ApiConfig.ImageUri + src.ImageUrl))
@@ -32,6 +34,7 @@ public class MovieMapper : Profile
             opt => opt.MapFrom(src => src.ProfilePath == null ? null : ApiConfig.ImageUri + src.ProfilePath));
         CreateMap<PersonDto, Person>().ForMember(dest => dest.ImageUrl,
                 opt => opt.MapFrom(src => src.ImageUrl == null ? null : ApiConfig.ImageUri + src.ImageUrl))
-            .ForMember(dest => dest.DeathDay, opt => opt.MapFrom(src => src.DeathDay == null ? null : src.DeathDay));
+            .ForMember(dest => dest.DeathDay, opt => opt.MapFrom(src => string.IsNullOrEmpty(src.DeathDay) ? null : src.DeathDay))
+            .ForMember(dest => dest.Birthday, opt => opt.MapFrom(src => string.IsNullOrEmpty(src.Birthday) ? null : src.Birthday));
     }
 }

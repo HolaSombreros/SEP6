@@ -1,0 +1,33 @@
+﻿@page "/statistics/movies/revenue"
+@inject ICombinedRatingService CombinedRatingService
+
+<h2 class="text-center py-5">Movies with highest revenue</h2>
+<label>Select a year: </label>
+<select class="input custom-select" @onchange="OnYearChanged">
+    <option value="0">No Year Selected</option>
+    @for (var i = DateTime.Now.Year; i >= 1888; i--)
+    {
+        <option value=@i>@i</option>
+    }
+</select>
+
+<div class="container-fluid p-5">
+    @if (_list == null)
+    {
+        <p>Loading...</p>
+    }
+    else if (_list.Movies.Any())
+    {
+        <div class="row g-5">
+            <InfiniteScroll ObservableTargetId="observableTarget" ObservableTargetReached="(e) => FetchDataAsync()">
+                @foreach (var movie in _list.Movies)
+                {
+                    <div class="col-xxl-3 col-xl-4 col-lg-6">
+                        <MovieCard Movie="@movie"/>
+                    </div>
+                }
+                <div id="observableTarget"></div>
+            </InfiniteScroll>
+        </div>
+    }
+</div>

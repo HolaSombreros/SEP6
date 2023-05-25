@@ -39,7 +39,7 @@ public partial class Sidebar : ComponentBase
         }
     }
     
-    private void UpdateMovieListsOnNotify(object? obj, EventArgs args)
+    private void UpdateMovieListsOnNotify()
     {
         _customMovieLists = MovieListService.GetCurrentUserLists();
         StateHasChanged();

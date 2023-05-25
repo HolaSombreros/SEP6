@@ -13,27 +13,29 @@ public class RatingService : IRatingService
         _userRepository = userRepository;
     }
 
-    public async Task<RatingDto> PutRatingAsync(RatingDto rating)
+    public async Task<MovieRatingDto> PutRatingAsync(MovieRatingDto rating)
     {
         var ratingEntity = _mapper.Map<RatingEntity>(rating);
+        ratingEntity.UserEntity = (await _userRepository.GetAsync(rating.UserId))!;
         ratingEntity.MovieId = rating.MovieDto.MovieId;
         ratingEntity.DateTime = DateTime.UtcNow;
         var existingRating = await _repository.GetMovieUserRatingAsync(rating.MovieDto.MovieId, rating.UserId);
         if (existingRating != null)
         {
             var updatedRating = await _repository.UpdateAsync(ratingEntity, existingRating.RatingId);
-            return _mapper.Map<RatingDto>(updatedRating);
+            updatedRating!.RatingId = existingRating.RatingId;
+            return _mapper.Map<MovieRatingDto>(updatedRating);
         }
         ratingEntity.RatingId = new Guid();
         var addedRating = await _repository.AddAsync(ratingEntity);
-        return _mapper.Map<RatingDto>(addedRating);
+        return _mapper.Map<MovieRatingDto>(addedRating);
     }
 
-    public async Task<RatingDto> AddRatingAsync(RatingDto ratingDto)
+    public async Task<MovieRatingDto> AddRatingAsync(MovieRatingDto ratingDto)
     {
         var ratingEntity = _mapper.Map<RatingEntity>(ratingDto);
         var addedRating = await _repository.AddAsync(ratingEntity);
-        return _mapper.Map<RatingDto>(addedRating);
+        return _mapper.Map<MovieRatingDto>(addedRating);
     }
 
     public async Task<IList<RatingQueryDto>> GetMovieRatingsAsync(IList<int> ratingList)
@@ -51,16 +53,16 @@ public class RatingService : IRatingService
             .ToList();
     }
 
-    public async Task<RatingDto> GetRatingByIdAsync(Guid ratingId)
+    public async Task<MovieRatingDto> GetRatingByIdAsync(Guid ratingId)
     {
         var ratingEntity =  await _repository.GetAsync(ratingId);
-        return _mapper.Map<RatingDto>(ratingEntity);
+        return _mapper.Map<MovieRatingDto>(ratingEntity);
     }
 
-    public async Task<RatingDto> GetMovieRatingByUserAsync(int movieId, Guid userId)
+    public async Task<MovieRatingDto> GetMovieRatingByUserAsync(int movieId, Guid userId)
     {
         var ratingEntity = await _repository.GetMovieUserRatingAsync(movieId, userId);
-        return _mapper.Map<RatingDto>(ratingEntity);
+        return _mapper.Map<MovieRatingDto>(ratingEntity);
     }
 
     public async Task<RatingResultDto> GetMovieRatingsAsync(GetRatingDto ratingDto, int pageNumber)
@@ -71,10 +73,10 @@ public class RatingService : IRatingService
         var users = await _userRepository.GetUsersAsync(userIds);
 
         var movieRatingDtos = (from rating in list.ratingEntities let user = 
-                users.FirstOrDefault(u => u.UserId == rating.UserId) 
+                users.FirstOrDefault(u => u!.UserId! == rating.UserId) 
             select new MovieRatingDto
             {
-                Id = rating.RatingId,
+                RatingId = rating.RatingId,
                 Rating = (int)rating.Rating, 
                 Review = rating.Review, 
                 CreatedDate = rating.DateTime, 

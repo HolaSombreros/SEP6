@@ -70,9 +70,9 @@ public class UserService : IUserService {
         }
         await _repository.DeleteAsync(userId);
     }
-    public async Task<IList<UserDto>> GetUsers(IList<Guid> ids)
+    public async Task<IList<UserDto?>> GetUsers(List<Guid?> ids)
     {
         var users = await _repository.GetUsersAsync(ids);
-        return  _mapper.Map<IList<UserDto>>(users);
+        return  _mapper.Map<IList<UserDto?>>(users);
     }
 }

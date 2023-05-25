@@ -12,6 +12,7 @@ public class PersonCastViewModel
     public double VoteAverage { get; }
     public int VoteCount { get; }
     public int Order { get; }
+    public double Popularity { get; set; }
 
     public PersonCastViewModel(Cast cast)
     {
@@ -24,6 +25,7 @@ public class PersonCastViewModel
         ReleaseDate = cast.ReleaseDate;
         VoteAverage = Math.Round(cast.VoteAverage, 2);
         VoteCount = cast.VoteCount;
+        Popularity = cast.Popularity;
         Order = cast.Order;
     }
 }
