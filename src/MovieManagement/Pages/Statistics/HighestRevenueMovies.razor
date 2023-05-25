@@ -2,8 +2,8 @@
 @inject ICombinedRatingService CombinedRatingService
 
 <h2 class="text-center py-5">Movies with highest revenue</h2>
-<label class="p">Select a year: </label>
-<select @onchange="OnYearChanged">
+<label>Select a year: </label>
+<select class="input custom-select" @onchange="OnYearChanged">
     <option value="0">No Year Selected</option>
     @for (var i = DateTime.Now.Year; i >= 1888; i--)
     {

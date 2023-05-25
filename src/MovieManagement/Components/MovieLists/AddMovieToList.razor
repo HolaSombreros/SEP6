@@ -11,7 +11,7 @@
         @foreach (var list in _lists)
         {
             <div class="input-check"  @onclick="() => AddRemoveMovieAsync(list.Id, !list.HasMovie)">
-                <input type="checkbox" @bind="list.HasMovie"/>
+                <input class="custom-checkbox" type="checkbox" @bind="list.HasMovie"/>
                 <label class="px-3">@list.Title</label>
             </div>
         }  

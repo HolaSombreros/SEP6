@@ -20,6 +20,16 @@ a:hover {
     cursor: pointer;
 }
 
+.custom-select {
+    border: none;
+    color: #cccccc;
+    background-color: #333333;
+}
+
+.custom-checkbox {
+    accent-color: #653780;
+}
+
 .btn {
     color: #CCCCCC !important;
     outline: none !important;
