@@ -4,7 +4,7 @@ namespace MovieManagement.Pages.Statistics;
 
 public partial class RatingsByGenre : ComponentBase
 {
-    private RatingsByGenreViewModel? viewModel;
+    private RatingsByGenreViewModel viewModel = null!;
 
     protected override Task OnInitializedAsync()
     {

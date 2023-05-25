@@ -6,7 +6,7 @@ public class RatingsByGenreViewModel
     private readonly IGenreService genreService;
 
     public List<Genre>? Genres { get; private set; }
-    public RatingDistributionByGenreModel Data { get; private set; } = null!;
+    public RatingDistributionByGenreModel? Data { get; private set; }
     public List<RatingByGenreDataModel>? ChartData { get; private set; }
 
     public RatingsByGenreViewModel(IStatsService statsService, IGenreService genreService)
@@ -34,17 +34,19 @@ public class RatingsByGenreViewModel
 
         foreach (var key in Data.RatingDistribution.Keys)
         {
-            ChartData.Add(new RatingByGenreDataModel
-            {
-                Rating = key.ToString(),
-                Count = Data.RatingDistribution[key]
-            });
+            ChartData.Add(new RatingByGenreDataModel(key.ToString(), Data.RatingDistribution[key]));
         }
     }
 
     public class RatingByGenreDataModel
     {
-        public string Rating { get; set; } = null!;
+        public string Rating { get; set; }
         public int Count { get; set; }
+
+        public RatingByGenreDataModel(string rating, int count)
+        {
+            Rating = rating;
+            Count = count;
+        }
     }
 }

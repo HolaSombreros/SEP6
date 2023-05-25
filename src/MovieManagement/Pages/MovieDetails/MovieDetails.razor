@@ -16,7 +16,7 @@
         </div>
         <div class="row">
             <div class="col-md-11">
-                <p class="rating">@_details.VoteAverage (@($"{_details.VoteCount:n0}") Votes)</p>
+                <p class="rating">@_details.VoteAverage.ToString("N1") (@($"{_details.VoteCount:n0}") Votes)</p>
                 <img class="rating" src="Images/Star.png" alt="star"/>
             </div>
         </div>

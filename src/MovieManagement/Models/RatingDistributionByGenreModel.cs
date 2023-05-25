@@ -10,7 +10,7 @@ public class RatingDistributionByGenreModel
     public RatingDistributionByGenreModel(RatingDistributionByGenreDto dto)
     {
         RatingDistribution = dto.RatingDistribution;
-        Average = Math.Round(dto.Average, 2);
+        Average = Math.Round(dto.Average, 1);
         MinRating = dto.MinRating;
         MaxRating = dto.MaxRating;
     }

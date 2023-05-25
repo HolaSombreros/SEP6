@@ -5,7 +5,7 @@
 
 <h2 class="text-center py-3">Rating distribution by genre</h2>
 <div class="container-fluid p-5">
-    @if (viewModel?.Genres == null)
+    @if (viewModel.Genres == null)
     {
         <p>Loading genres...</p>
     }
@@ -23,7 +23,7 @@
                 <option value="@genre.Id">@genre.Name</option>
             }
         </select>
-        @if (viewModel.ChartData != null)
+        @if (viewModel.ChartData != null && viewModel.Data != null)
         {
             <RadzenChart>
                 <RadzenColumnSeries Data="viewModel.ChartData" CategoryProperty="Rating" ValueProperty="Count" Title="Ratings" Fill="#653780">
