@@ -19,7 +19,6 @@ public class Startup : FunctionsStartup
         builder.Services.AddScoped<IGenreService, GenreService>();
         builder.Services.AddScoped<IStatisticsService, StatisticsService>();
         builder.Services.AddScoped<IMovieGenreService, MovieGenreService>();
-        // builder.Services.AddScoped<IValidator<RatingDto>, MovieRatingDtoValidator>();
         builder.Services.AddScoped<IValidator<AddMovieListDto>, AddMovieListValidator>();
         builder.Services.AddScoped<IValidator<GetRatingDto>, GetRatingDtoValidator>();
         builder.Services.AddDbContext<MovieManagementDbContext>(options =>
