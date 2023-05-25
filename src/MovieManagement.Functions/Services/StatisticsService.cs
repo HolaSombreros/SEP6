@@ -1,6 +1,4 @@
-﻿using MoreLinq.Extensions;
-
-namespace MovieManagement.Functions.Services;
+﻿namespace MovieManagement.Functions.Services;
 
 public class StatisticsService : IStatisticsService
 {

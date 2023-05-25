@@ -24,4 +24,5 @@ public class AzureFunctionsConfig
     public string GetMovieRating { get; set; } = default!;
     public string AddMovieActor { get; set; } = default!;
     public string RatingDistributionByGenrePath { get; set; } = default!;
+    public string DistributionOfAgeInAMovie { get; set; } = default!;
 }

@@ -22,6 +22,5 @@ public class DistributionOfAgeInAMovie {
             log.LogError(e.Message);
             return new BadRequestObjectResult(e.Message);
         }
-
     }
 }
