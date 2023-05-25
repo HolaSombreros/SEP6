@@ -23,7 +23,7 @@ public class AddActorListForMovie {
             var movieList = await _movieService.AddMoviesAsync(dto.Movies);
             var list = await _movieActorService.AddMovieActorsAsync(dto.Movies, dto.ActorId);
             
-            return new OkObjectResult("Actor credits added successfully");
+            return new OkObjectResult(actorList);
         }
         catch (Exception e) {
             log.LogError(e.Message);

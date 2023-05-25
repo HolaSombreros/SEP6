@@ -6,4 +6,7 @@ public class AddMovieActorDto {
     public string? Title { get; set; }
     public string? PosterUrl { get; set; }
     public string? ReleaseDate { get; set; }
+
+    [JsonConstructor]
+    public AddMovieActorDto () { }
 }
