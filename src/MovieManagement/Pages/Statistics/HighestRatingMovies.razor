@@ -1,7 +1,8 @@
-﻿@page "/statistics/movies/revenue"
+﻿@page "/statistics/movies/rating"
 @inject ICombinedRatingService CombinedRatingService
 
-<h2 class="text-center py-3">Movies with highest revenue</h2>
+<h2 class="text-center py-3">Movies with most ratings</h2>
+
 <div class="container-fluid p-5">
     <label>Select a year: </label>
     <select class="input custom-select mb-5" @onchange="OnYearChanged">
