@@ -4,7 +4,6 @@ public partial class AddMovieToList : ComponentBase
 {
     [Parameter] 
     public MovieViewModel Movie { get; set; } = default!;
-
     private List<MovieListViewModel> _lists = default!;
 
     protected override void OnInitialized()
@@ -14,7 +13,7 @@ public partial class AddMovieToList : ComponentBase
         MovieListService.OnChanged += UpdateMovieListOnNotify;
     }
 
-    private void UpdateMovieListOnNotify(object? obj, EventArgs args)
+    private void UpdateMovieListOnNotify()
     {
         _lists = MovieListService.GetCurrentUserLists();
         SetHasMovieOnLists();
