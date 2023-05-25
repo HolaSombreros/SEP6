@@ -46,6 +46,21 @@ public class CombinedRatingService : ICombinedRatingService
         
         return apiData;    
     }
+    
+    public async Task<MovieList> GetMoviesWithHighestRating(int year, int page)
+    {
+        var apiData = await statisticsService.GetMostRatedMoviesByReleaseYearAsync(year, page);
+        var dbData = await ratingService.GetMovieRatingsAsync(apiData.Movies.Select(movie => movie.Id).ToArray());
+        
+        foreach (var movie in dbData)
+        {
+            var apiMovie = apiData.Movies.First(m => m.Id == movie.MovieId);
+            apiMovie.VoteAverage = GetCombinedRating(apiMovie.VoteCount, apiMovie.VoteAverage, movie.VoteCount, movie.Average);
+            apiMovie.VoteCount += movie.VoteCount;
+        }
+        
+        return apiData;    
+    }
 
     public async Task<Movie> GetMovieByIdAsync(int id)
     {
