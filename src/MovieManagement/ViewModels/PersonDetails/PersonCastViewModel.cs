@@ -11,6 +11,7 @@ public class PersonCastViewModel
     public DateTime ReleaseDate { get; }
     public double VoteAverage { get; }
     public int VoteCount { get; }
+    public int Order { get; }
 
     public PersonCastViewModel(Cast cast)
     {
@@ -23,5 +24,6 @@ public class PersonCastViewModel
         ReleaseDate = cast.ReleaseDate;
         VoteAverage = Math.Round(cast.VoteAverage, 2);
         VoteCount = cast.VoteCount;
+        Order = cast.Order;
     }
 }

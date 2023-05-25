@@ -11,21 +11,26 @@ public class MovieActorService : IMovieActorService {
 
     public async Task<List<MovieActorDto>> AddMovieActorsAsync(List<AddMovieActorDto> movieActorDtos, int actorId) {
         var dtoList = new List<MovieActorDto>();
-        foreach (var movie in movieActorDtos) {
-            dtoList.Add(new MovieActorDto() {
-                ActorId = actorId,
-                MovieOrder = movie.MovieOrder,
-                MovieId = movie.MovieId
-            });
-        }
-        var list = _mapper.Map<List<MovieActorEntity>>(dtoList);
-        
-        foreach (var ma in list) {
-            if (await _movieActorRepository.GetAsync(ma.ActorId, ma.MovieId) is null) {
-                await _movieActorRepository.AddMovieActorAsync(ma);
+        if(movieActorDtos is not null) {
+            foreach (var movie in movieActorDtos) {
+                dtoList.Add(new MovieActorDto() {
+                    ActorId = actorId,
+                    MovieOrder = movie.MovieOrder,
+                    MovieId = movie.MovieId
+                });
             }
+
+            var list = _mapper.Map<List<MovieActorEntity>>(dtoList);
+
+            foreach (var ma in list) {
+                if (await _movieActorRepository.GetAsync(ma.ActorId, ma.MovieId) is null) {
+                    await _movieActorRepository.AddMovieActorAsync(ma);
+                }
+            }
+
+            return _mapper.Map<List<MovieActorDto>>(list);
         }
 
-        return _mapper.Map<List<MovieActorDto>>(list);
+        return null;
     }
 }

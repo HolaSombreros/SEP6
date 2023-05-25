@@ -9,6 +9,7 @@ public class PersonViewModel
     public DateTime DeathDay { get; }
     public string PlaceOfBirth { get; }
     public string ImageUrl { get; }
+    public int Gender { get; }
     public PersonCreditsViewModel Credits { get; }
 
     public PersonViewModel(Person person, Credits credits)
@@ -21,5 +22,6 @@ public class PersonViewModel
         PlaceOfBirth = person.PlaceOfBirth;
         ImageUrl = !string.IsNullOrEmpty(person.ImageUrl) ? person.ImageUrl : "Images/CreditMemberMissingPicture.png";
         Credits = new PersonCreditsViewModel(credits);
+        Gender = person.Gender;
     }
 }

@@ -10,4 +10,5 @@ public class Person
     public string PlaceOfBirth { get; set; } = default!;
     public string ImageUrl { get; set; } = default!;
     public double Popularity { get; set; }
+    public int Gender { get; set; }
 }

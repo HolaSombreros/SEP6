@@ -12,4 +12,5 @@ public class PersonDto
     [JsonPropertyName("profile_path")]
     public string ImageUrl { get; set; } = default!;
     public double Popularity { get; set; }
+    public int Gender { get; set; }
 }
