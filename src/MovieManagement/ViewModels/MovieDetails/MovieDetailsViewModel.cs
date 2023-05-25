@@ -21,7 +21,7 @@ public class MovieDetailsViewModel
     public IList<ProductionCountry> ProductionCountries { get; }
     public IList<SpokenLanguage> SpokenLanguages { get; }
     public MovieCreditsViewModel Credits { get; }
-    public IList<Crew?>? Directors { get; }
+    public IList<Crew> Directors { get; }
 
     public MovieDetailsViewModel(Movie movie, Credits credits)
     {
@@ -43,7 +43,7 @@ public class MovieDetailsViewModel
         ProductionCompanies = movie.ProductionCompanies;
         ProductionCountries = movie.ProductionCountries;
         SpokenLanguages = movie.SpokenLanguages;
-        Directors = credits.Crew.Where(r => r.Role.Equals(Role.DIRECTOR)).ToList()!;
+        Directors = credits.Crew.Where(r => r.Role.Equals(Role.DIRECTOR)).ToList();
         Credits = new MovieCreditsViewModel(credits);
     }
 }
