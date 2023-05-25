@@ -7,7 +7,7 @@ public class MovieMapper : Profile
         CreateMap<MovieDto, Movie>()
             .ForMember(dest=> dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl == null ? null : ApiConfig.ImageUri + src.ImageUrl))
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => string.IsNullOrEmpty(src.ReleaseDate) ? null : src.ReleaseDate));
-        CreateMap<MovieListDto, MovieList>().ForMember(dest => dest.ListType, opt => opt.MapFrom(src => "Upcoming"));
+        CreateMap<MovieListDto, MovieList>();
         CreateMap<DatePeriodDto, DatePeriod>();
         CreateMap<GenreDto, Genre>();
         CreateMap<CastDto, Cast>().ForMember(dest=> dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl == null ? null : ApiConfig.ImageUri + src.ImageUrl))
