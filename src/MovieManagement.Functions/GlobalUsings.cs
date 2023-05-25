@@ -23,5 +23,7 @@ global using MovieManagement.Functions.Validators;
 global using MovieManagement.Functions.Mappers;
 global using System.Collections.Generic;
 global using System.Linq;
+global using System.Text.Json.Serialization;
+
 
 

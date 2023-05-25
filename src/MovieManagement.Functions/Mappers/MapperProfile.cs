@@ -17,5 +17,7 @@ public class MapperProfile : Profile   {
         CreateMap<MovieListDto, MovieListEntity>().ReverseMap();
         CreateMap<AddMovieListDto, MovieListEntity>().ReverseMap();
         CreateMap<MovieToMovieListDto, MovieListMovieEntity>().ReverseMap();
+        CreateMap<ActorDto, ActorEntity>().ReverseMap();
+        CreateMap<MovieActorDto, MovieActorEntity>().ReverseMap();
     }
 }

@@ -28,4 +28,20 @@ public class MovieService : IMovieService
         var entity = await _repository.GetMovieByIdAsync(id);
         return _mapper.Map<MovieDto>(entity);
     }
+
+    public async Task<List<MovieDto>> AddMoviesAsync(List<AddMovieActorDto> movies) {
+        var movieList = new List<MovieDto>();
+        foreach (var movie in movies) {
+            var dto = new MovieDto() {
+                Title = movie.Title,
+                PosterUrl = movie.PosterUrl,
+                MovieId = movie.MovieId,
+                ReleaseDate = movie.ReleaseDate
+            };
+            movieList.Add(dto);
+            await AddMovieAsync(dto);
+        }
+
+        return movieList;
+    }
 }
