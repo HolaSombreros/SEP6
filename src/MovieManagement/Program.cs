@@ -7,6 +7,7 @@ builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+builder.Services.AddScoped<IStatsService, StatsService>();
 builder.Services.AddScoped<IAzureService, AzureService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IActorService, ActorService>();
@@ -21,7 +22,7 @@ builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
 builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(ApiConfig.Section));
 builder.Services.AddBlazoredModal();
 builder.Services.Configure<AzureFunctionsConfig>(builder.Configuration.GetSection(AzureFunctionsConfig.Section));
-builder.Services.AddSingleton(new JsonSerializerOptions 
+builder.Services.AddSingleton(new JsonSerializerOptions
 {
     PropertyNameCaseInsensitive = true,
     WriteIndented = true

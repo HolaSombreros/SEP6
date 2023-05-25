@@ -19,7 +19,7 @@ public partial class ReviewsView : ComponentBase, IDisposable
 
         if (userIdAsGuid != Guid.Empty)
         {
-            var usersMovieReview = await viewModel.GetLoggedInUserReview();
+            var usersMovieReview = await viewModel.GetLoggedInUserReviewAsync();
             if (usersMovieReview != null)
             {
                 userReviewId = usersMovieReview.Id;

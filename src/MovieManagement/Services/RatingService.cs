@@ -32,7 +32,7 @@ public class RatingService : IRatingService
         return service.DeleteFromRouteAsync(settings.DeleteReviewPath, reviewId);
     }
 
-    public async Task<ReviewModel?> GetUserMovieRating(int movieId, Guid userGuid)
+    public async Task<ReviewModel?> GetUserMovieRatingAsync(int movieId, Guid userGuid)
     {
         var responseDto = await service.GetAsync<RatingDto?>($"{settings.GetMovieRating}/{movieId}/{userGuid}", new object());
         return responseDto != null

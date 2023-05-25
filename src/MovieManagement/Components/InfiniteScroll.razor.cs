@@ -29,6 +29,6 @@ public partial class InfiniteScroll : ComponentBase, IDisposable
 
     public void Dispose()
     {
-        objectRef.Dispose();
+        objectRef?.Dispose();
     }
 }
