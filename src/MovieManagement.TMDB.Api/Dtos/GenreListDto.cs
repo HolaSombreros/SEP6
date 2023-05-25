@@ -2,5 +2,5 @@
 
 public class GenreListDto
 {
-    public IList<GenreDto> Genres { get; set; } = default!; 
+    public IList<GenreDto?>? Genres { get; set; }
 }

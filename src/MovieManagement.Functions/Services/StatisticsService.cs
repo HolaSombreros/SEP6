@@ -35,7 +35,7 @@ public class StatisticsService : IStatisticsService
         ratingDistribution.RatingDistribution = result;
         ratingDistribution.MaxRating = (int)ratings.Max(r => r.Rating);
         ratingDistribution.MinRating = (int)ratings.Min(r => r.Rating);
-        ratingDistribution.Average = ratings.Average(r => (double)Math.Round(r.Rating, 2));
+        ratingDistribution.Average = (double)Math.Round(ratings.Average(r => r.Rating), 2);
         return ratingDistribution;
     }
 }
