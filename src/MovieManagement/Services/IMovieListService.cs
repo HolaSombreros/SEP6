@@ -9,5 +9,5 @@ public interface IMovieListService
     Task AddMovieToListAsync(Guid listId, MovieViewModel movie);
     Task DeleteMovieFromListAsync(Guid listId, MovieViewModel movie);
     Task GetUserListsAsync(Guid userId);
-    event EventHandler<EventArgs> OnChanged;
+    event Action OnChanged;
 }

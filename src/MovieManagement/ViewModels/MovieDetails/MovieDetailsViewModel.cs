@@ -4,9 +4,9 @@ public class MovieDetailsViewModel
 {
     public int Id { get; }
     public string Title { get; }
-    public int Revenue { get; }
+    public float Revenue { get; }
     public DateTime ReleaseDate { get; }
-    public int Budget { get; }
+    public float Budget { get; }
     public string Description { get; }
     public bool IsAdult { get; }
     public string ImageUrl { get; }
@@ -28,7 +28,7 @@ public class MovieDetailsViewModel
         Id = movie.Id;
         Title = movie.Title;
         Revenue = movie.Revenue;
-        ReleaseDate = movie.ReleaseDate;
+        ReleaseDate = movie.ReleaseDate ?? new DateTime(1,1,1);
         Budget = movie.Budget;
         Description = movie.Description;
         IsAdult = movie.IsAdult;

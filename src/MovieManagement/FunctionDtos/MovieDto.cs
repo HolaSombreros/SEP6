@@ -6,7 +6,7 @@ public class MovieDto
     public string Title { get; set; } = default!;
     public string? PosterUrl { get; set; }
     public string? ReleaseDate { get; set; }
-    public IList<Genre> Genres { get; set; }
+    public IList<Genre> Genres { get; set; } = default!;
 
     public MovieDto(MovieModel movieModel)
     {

@@ -11,6 +11,11 @@
 </div>
 
 <div class="nav-base @NavMenuCssClass">
+    <div class="nav-item" @onclick="ToggleNavMenu">
+        <a href="/statistics/movies/revenue">
+            <span class="oi oi-dollar"></span> Revenue Statistics
+        </a>
+    </div>
     <AuthorizeView>
         <Authorized>
             <div class="nav-item" @onclick="ToggleNavMenu">
