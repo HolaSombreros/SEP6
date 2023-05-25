@@ -47,6 +47,9 @@ public class StatisticsService : IStatisticsService
         }
 
         var birthdates = await _actorRepository.GetAgesByMovieAsync(movieId);
+        if (!birthdates.Any()) {
+            throw new Exception("Currently missing data on actors for this movie");
+        }
         var ages = new List<int>();
         var intervalSize = 10;
         foreach (var  bd in birthdates) {
@@ -66,13 +69,16 @@ public class StatisticsService : IStatisticsService
     
     private int CalculateAge(string birthday)
     {
-        if (string.IsNullOrWhiteSpace(birthday)) return 0;
+        if (string.IsNullOrWhiteSpace(birthday)) {
+            return 0;
+        }
 
         DateTime empBirthday = Convert.ToDateTime(birthday);
         DateTime today = DateTime.Today;
         int age = today.Year - empBirthday.Year;
-        if (empBirthday > today.AddYears(-age))
+        if (empBirthday > today.AddYears(-age)) {
             age--;
+        }
         return age;
     }
     
