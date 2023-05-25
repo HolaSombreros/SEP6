@@ -11,6 +11,11 @@
 </div>
 
 <div class="nav-base @NavMenuCssClass">
+    <div class="nav-item" @onclick="ToggleNavMenu">
+        <a href="/statistics/ratings/genres">
+            <span class="oi oi-list-rich"></span> Ratings by genre
+        </a>
+    </div>
     <AuthorizeView>
         <Authorized>
             <div class="nav-item" @onclick="ToggleNavMenu">

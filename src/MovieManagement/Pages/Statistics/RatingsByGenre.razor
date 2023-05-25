@@ -1,0 +1,54 @@
+﻿@page "/statistics/ratings/genres"
+
+@inject IStatsService StatsService
+@inject IGenreService GenreService
+
+<div class="container">
+    <h2 class="text-center py-5">Rating distribution by genre</h2>
+    @if (viewModel?.Genres == null)
+    {
+        <p>Loading genres...</p>
+    }
+    else if (!viewModel.Genres.Any())
+    {
+        <p>Something went wrong...</p>
+    }
+    else
+    {
+        <div class="container-fluid p-5">
+            <label>Select genre: </label>
+            <select class="input custom-select mb-4" @onchange="viewModel.GetRatingDistributionsAsync">
+                <option hidden>Select a genre...</option>
+                @foreach (var genre in viewModel.Genres)
+                {
+                    <option value="@genre.Id">@genre.Name</option>
+                }
+            </select>
+
+            @if (viewModel.ChartData != null)
+            {
+                <RadzenChart>
+                    <RadzenColumnSeries Data="viewModel.ChartData" CategoryProperty="Rating" ValueProperty="Count" Title="Ratings" Fill="#653780">
+                        <RadzenSeriesDataLabels Visible="true" />
+                    </RadzenColumnSeries>
+                    <RadzenLegend Visible="false" />
+                    <RadzenColumnOptions Radius="5" />
+                </RadzenChart>
+                <div class="row py-4">
+                    <div class="col-auto">
+                        <p>Total ratings:</p>
+                        <p>Min rating:</p>
+                        <p>Average rating:</p>
+                        <p>Max rating:</p>
+                    </div>
+                    <div class="col-auto">
+                        <p>@viewModel.Data.RatingDistribution.Values.Sum()</p>
+                        <p>@viewModel.Data.MinRating</p>
+                        <p>@viewModel.Data.Average</p>
+                        <p>@viewModel.Data.MaxRating</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
