@@ -70,7 +70,12 @@ public class RatingRepository : IRatingRepository
         await _context.SaveChangesAsync();
         return entity;
     }
-    
+
+    public async Task<RatingEntity?> GetAsync(Guid? id)
+    {
+        return await _repository.GetAsync(id);
+    }
+
     public async Task<RatingEntity?> AddAsync(RatingEntity entity)
     {
         return await _repository.AddAsync(entity);

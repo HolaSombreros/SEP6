@@ -18,9 +18,28 @@ public partial class MovieManagementDbContext : DbContext
     public  DbSet<MovieListMovieEntity> MovieListMovies { get; set; } = default!;
     public  DbSet<RatingEntity> Ratings { get; set; } = default!;
     public  DbSet<UserEntity> Users { get; set; } = default!;
-    
+    public  DbSet<GenreEntity> Genres { get; set; } = default!;
+    public  DbSet<MovieGenreEntity> MovieGenres { get; set; } = default!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<MovieGenreEntity>(entity =>
+        {
+            entity.ToTable("MovieGenre");
+            entity.HasKey(e => new { e.GenreId, e.MovieId });
+            entity.Property(e => e.MovieId).HasColumnName("movie_id");
+            entity.Property(e => e.GenreId).HasColumnName("genre_id");
+            entity.HasOne(e => e.GenreEntity)
+                .WithMany()
+                .HasForeignKey(e => e.GenreId)
+                .HasConstraintName("FK_movie_id_movie");
+            
+            entity.HasOne(e => e.MovieEntity)
+                .WithMany()
+                .HasForeignKey(e => e.MovieId)
+                .HasConstraintName("FK_genre_id_genre");
+        });
+        
         modelBuilder.Entity<MovieEntity>(entity => {
             entity.ToTable("Movie");
             entity.Property(e => e.MovieId)
@@ -140,6 +159,20 @@ public partial class MovieManagementDbContext : DbContext
                 .HasColumnName("username");
             entity.HasKey(u => u.UserId);
         });
+        
+        modelBuilder.Entity<GenreEntity>(entity =>
+        {
+            entity.ToTable("Genre");
+            entity.Property(e => e.GenreId)
+                .ValueGeneratedNever()
+                .HasColumnName("genre_id");
+            entity.HasKey(m => m.GenreId);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(255)
+                .HasColumnName("name");
+        });
+        
         
 
         OnModelCreatingPartial(modelBuilder);
