@@ -81,6 +81,10 @@
                 {
                     <p>Restricted age: &#128286;</p>
                 }
+                @if (_details.Directors!.Any())
+                {
+                    <p>Directors: @GetDirectorsToString(_details.Directors!)</p>
+                }
             </div>
             <div class="col-md-4 order-first order-md-last py-3">
                 <img class="homepage"

@@ -48,6 +48,19 @@ public partial class MovieDetails : ComponentBase
         return genresToString;
     }
 
+    private string GetDirectorsToString(IList<Crew> crews)
+    {
+        var directorsToString = "";
+        var count = crews.Count;
+        for (var i = 0; i < count - 1; i++)
+        {
+            directorsToString += $"{crews[i].Name}, ";
+        }
+
+        directorsToString += crews[count - 1].Name;
+        return directorsToString;
+    }
+
     private string GetProductionCountriesToString(IList<ProductionCountry> productionCountries)
     {
         var productionCountriesToString = "";
