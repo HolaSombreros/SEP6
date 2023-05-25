@@ -25,7 +25,7 @@
         <div class="col-md-6 py-3">
             <h1 @onclick="(() => GoToMovieDetails(cast.Id))">@cast.Title</h1>
             <div class="rating-box">
-                <p class="rating">@cast.VoteAverage (@($"{cast.VoteCount:n0}") Votes)</p>
+                <p class="rating">@cast.VoteAverage.ToString("N1") (@($"{cast.VoteCount:n0}") Votes)</p>
                 <img class="rating" src="Images/Star.png" alt="star"/>
             </div>
             <p>@cast.Description</p>
@@ -52,7 +52,7 @@
         <div class="col-md-6 py-3">
             <h1 @onclick="(() => GoToMovieDetails(crew.Id))">@crew.Title</h1>
             <div class="rating-box">
-                <p class="rating">@crew.VoteAverage (@($"{crew.VoteCount:n0}") Votes)</p>
+                <p class="rating">@crew.VoteAverage.ToString("N1") (@($"{crew.VoteCount:n0}") Votes)</p>
                 <img class="rating" src="Images/Star.png" alt="star"/>
             </div>
             <p>@crew.Description</p>

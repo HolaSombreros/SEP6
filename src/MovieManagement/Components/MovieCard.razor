@@ -6,7 +6,7 @@
         @if (Movie.Rating != 0)
         {
             <div class="rating-container">
-                @Movie.Rating
+                @Movie.Rating.ToString("N1")
             </div>
         }
         <img class="image" src="@Movie.PosterPath" alt="Image not found" @onclick="(() => ShowMovieDetails(Movie.Id))"/>

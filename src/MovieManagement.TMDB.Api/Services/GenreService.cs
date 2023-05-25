@@ -23,7 +23,6 @@ public class GenreService : IGenreService
         catch
         {
             return new GenreList();
-
         }
     }
 }

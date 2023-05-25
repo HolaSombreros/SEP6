@@ -18,9 +18,9 @@ public class ReviewsViewModel : IDisposable
         ratingService.OnReviewCreated += ReviewCreated;
     }
 
-    public Task<ReviewModel?> GetLoggedInUserReview()
+    public Task<ReviewModel?> GetLoggedInUserReviewAsync()
     {
-        return ratingService.GetUserMovieRating(movieId, (Guid)userGuid!);
+        return ratingService.GetUserMovieRatingAsync(movieId, (Guid)userGuid!);
     }
 
     public async Task GetMovieReviewsAsync(int page)
