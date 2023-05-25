@@ -5,7 +5,7 @@ public class MovieListService : IMovieListService
     private static  List<MovieListViewModel> _movieLists = default!;
     private readonly IAzureService _service;
     private readonly AzureFunctionsConfig _settings;
-    public event EventHandler<EventArgs>? OnChanged;
+    public event Action? OnChanged;
 
     public MovieListService(IAzureService service, IOptions<AzureFunctionsConfig> settings)
     {
@@ -27,23 +27,37 @@ public class MovieListService : IMovieListService
     public async Task AddMovieToListAsync(Guid listId, MovieViewModel movie)
     {
         var list = GetCustomList(listId);
-        if (list != new MovieListViewModel())
+        try
         {
-            list.Movies.Add(movie);
-            var movieDto = new MovieDto(movie);
-            await _service.PutAsync<MovieListDto>(_settings.AddToCustomList + "/" + listId, movieDto);
-            NotifyChanged();
+            if (list != new MovieListViewModel())
+            {
+                list.Movies.Add(movie);
+                var movieDto = new MovieDto(movie);
+                await _service.PutAsync<MovieListDto>(_settings.AddToCustomList + "/" + listId, movieDto);
+                OnChanged?.Invoke();
+            }
+        }
+        catch (Exception)
+        {
+            await GetUserListsAsync(list.UserId);
         }
     }
 
     public async Task DeleteMovieFromListAsync(Guid listId, MovieViewModel movie)
     {
         var list = GetCustomList(listId);
-        if (list != new MovieListViewModel())
+        try
         {
-            list.Movies.Remove(movie);
-            await _service.DeleteFromRouteAsync(_settings.DeleteFromCustomList, listId + "/" + movie.Id);
-            NotifyChanged();
+            if (list != new MovieListViewModel())
+            {
+                list.Movies.Remove(movie);
+                await _service.DeleteFromRouteAsync(_settings.DeleteFromCustomList, listId + "/" + movie.Id);
+                OnChanged?.Invoke();
+            }
+        }
+        catch (Exception)
+        {
+            await GetUserListsAsync(list.UserId);
         }
     }
 
@@ -53,7 +67,7 @@ public class MovieListService : IMovieListService
         var listDto = await _service.PostAsync<MovieListDto>(_settings.CreateCustomList, newList);
         list.Id = listDto.MovieListId;
         _movieLists.Add(list);
-        NotifyChanged();
+        OnChanged?.Invoke();
     }
 
     public async Task DeleteCustomListAsync(Guid id)
@@ -63,7 +77,7 @@ public class MovieListService : IMovieListService
         {
             await _service.DeleteFromRouteAsync(_settings.DeleteCustomList, id.ToString());
             _movieLists.Remove(list);
-            NotifyChanged();
+            OnChanged?.Invoke();
         }
     }
 
@@ -73,18 +87,13 @@ public class MovieListService : IMovieListService
         {
             var lists = await _service.GetFromRouteAsync<List<MovieListDto>>(_settings.GetCustomLists, userId);
             _movieLists = lists.Select(listDto => new MovieListViewModel(listDto)).ToList();
-            NotifyChanged();
+            OnChanged?.Invoke();
         }
         catch (Exception)
         {
             _movieLists = new List<MovieListViewModel>();
-            NotifyChanged();
+            OnChanged?.Invoke();
         }
        
-    }
-
-    private void NotifyChanged()
-    {
-        OnChanged?.Invoke(this, EventArgs.Empty);
     }
 }

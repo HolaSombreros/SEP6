@@ -40,13 +40,13 @@ button {
     width: 100%;
 }
 
-@media (min-width: 641px) {
+@media (min-width: 992px) {
     .toggle-sidebar {
         display: none;
     }
 }
 
-@media (max-width: 641px) {
+@media (max-width: 992px) {
     .hide-sidebar {
         display: none;
     }

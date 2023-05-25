@@ -14,7 +14,7 @@ public class MovieViewModel
         Id = movie.Id;
         Title = movie.Title;
         PosterPath = movie.ImageUrl ?? "Images/MovieMissingPicture.png";
-        ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate);
+        ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate ?? new DateTime(1,1,1));
         Rating = movie.VoteAverage;
         Genres = movie.Genres;
     }

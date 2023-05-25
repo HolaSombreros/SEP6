@@ -18,7 +18,7 @@ public class StatisticsService : IStatisticsService
         try
         {
             var queriedYear = year <= 0 ? "" : $"&primary_release_year={year}";
-            var endpoint = $"{_settings.DiscoverPath}movie?include_adult=false&include_video=false{queriedYear}&language=en-US&page={page}&sort_by=vote_count.desc{_settings.AndQueryBuilder}";
+            var endpoint = $"{_settings.DiscoverPath}movie?include_adult=false{queriedYear}&page={page}&sort_by=vote_count.desc{_settings.AndQueryBuilder}";
             var movieListDto = await _service.GetAsync<MovieListDto>(endpoint);
             return _movieMapper.Map<MovieListDto, MovieList>(movieListDto);
         }
@@ -33,7 +33,7 @@ public class StatisticsService : IStatisticsService
         try
         {
             var queriedYear = year <= 0 ? "" : $"&primary_release_year={year}";
-            var endpoint = $"{_settings.DiscoverPath}movie?include_adult=false&include_video=false{queriedYear}&language=en-US&page={page}&sort_by=revenue.desc{_settings.AndQueryBuilder}";
+            var endpoint = $"{_settings.DiscoverPath}movie?include_adult=false{queriedYear}&page={page}&sort_by=revenue.desc{_settings.AndQueryBuilder}";
             var movieListDto = await _service.GetAsync<MovieListDto>(endpoint);
             return _movieMapper.Map<MovieListDto, MovieList>(movieListDto);
         }

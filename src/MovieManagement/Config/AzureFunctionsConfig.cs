@@ -22,5 +22,6 @@ public class AzureFunctionsConfig
     public string PagePath { get; set; } = default!;
     public string DeleteReviewPath { get; set; } = default!;
     public string GetMovieRating { get; set; } = default!;
+    public string AddMovieActor { get; set; } = default!;
     public string RatingDistributionByGenrePath { get; set; } = default!;
 }

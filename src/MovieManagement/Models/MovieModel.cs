@@ -13,7 +13,7 @@ public class MovieModel
         Id = movie.Id;
         Title = movie.Title;
         PosterUrl = movie.ImageUrl;
-        ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate);
+        ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate ?? new DateTime(1,1,1));
         Genres = movie.Genres;
     }
 }

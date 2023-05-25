@@ -20,6 +20,18 @@ a:hover {
     cursor: pointer;
 }
 
+.custom-select {
+    border: none;
+    color: #cccccc;
+    background-color: #333333;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.custom-checkbox {
+    accent-color: #653780;
+}
+
 .btn {
     color: #CCCCCC !important;
     outline: none !important;

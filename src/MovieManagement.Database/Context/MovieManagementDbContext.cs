@@ -20,9 +20,12 @@ public partial class MovieManagementDbContext : DbContext
     public  DbSet<UserEntity> Users { get; set; } = default!;
     public  DbSet<GenreEntity> Genres { get; set; } = default!;
     public  DbSet<MovieGenreEntity> MovieGenres { get; set; } = default!;
-
+    public  DbSet<ActorEntity> Actors { get; set; } = default!;
+    public  DbSet<MovieActorEntity> MovieActors { get; set; } = default!;
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        
         modelBuilder.Entity<MovieGenreEntity>(entity =>
         {
             entity.ToTable("MovieGenre");
@@ -39,7 +42,26 @@ public partial class MovieManagementDbContext : DbContext
                 .HasForeignKey(e => e.MovieId)
                 .HasConstraintName("FK_genre_id_genre");
         });
-        
+    
+        modelBuilder.Entity<ActorEntity>(entity => {
+            entity.ToTable("Actor");
+            entity.HasKey(a => a.ActorId);
+            entity.Property(a => a.ActorId).ValueGeneratedNever().HasColumnType("int").HasColumnName("actor_id");
+            entity.Property(a => a.Birthdate).HasColumnType("datetime2").HasColumnName("birthdate");
+            entity.Property(a => a.Gender).ValueGeneratedNever().HasColumnType("int").HasColumnName("gender");
+            entity.Property(a => a.Name).HasMaxLength(250).HasColumnName("name");
+        });
+
+        modelBuilder.Entity<MovieActorEntity>(entity => {
+            entity.ToTable("MovieActor");
+            entity.HasKey(a => new {a.ActorId, a.MovieId});
+            entity.Property(a => a.ActorId).ValueGeneratedNever().HasColumnType("int").HasColumnName("actor_id");
+            entity.Property(a => a.MovieId).ValueGeneratedNever().HasColumnType("int").HasColumnName("movie_id");
+            entity.Property(a => a.MovieOrder).ValueGeneratedNever().HasColumnType("int").HasColumnName("movie_order");
+
+            entity.HasOne(a => a.ActorEntity).WithMany().HasForeignKey(a => a.ActorId).HasConstraintName("fk_movieactor_actor_id");
+            entity.HasOne(a => a.MovieEntity).WithMany().HasForeignKey(a => a.MovieId).HasConstraintName("fk_movieactor_movie_id");
+        });
         modelBuilder.Entity<MovieEntity>(entity => {
             entity.ToTable("Movie");
             entity.Property(e => e.MovieId)

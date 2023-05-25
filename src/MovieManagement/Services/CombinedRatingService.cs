@@ -3,16 +3,18 @@
 public class CombinedRatingService : ICombinedRatingService
 {
     private readonly IRatingService ratingService;
+    private readonly IStatisticsService statisticsService;
     private readonly IMovieService movieService;
     private readonly IPersonService personService;
 
     private const int ratingDecimalNumbers = 1;
 
-    public CombinedRatingService(IRatingService ratingService, IMovieService movieService, IPersonService personService)
+    public CombinedRatingService(IRatingService ratingService, IMovieService movieService, IPersonService personService, IStatisticsService statisticsService)
     {
         this.ratingService = ratingService;
         this.movieService = movieService;
         this.personService = personService;
+        this.statisticsService = statisticsService;
     }
 
     public async Task<MovieList> GetMovieListAsync(ListType listType, int page)
@@ -28,6 +30,36 @@ public class CombinedRatingService : ICombinedRatingService
         }
 
         return apiData;
+    }
+
+    public async Task<MovieList> GetMoviesWithHighestRevenue(int year, int page)
+    {
+        var apiData = await statisticsService.GetMoviesWithHighestRevenueByYearAsync(year, page);
+        var dbData = await ratingService.GetMovieRatingsAsync(apiData.Movies.Select(movie => movie.Id).ToArray());
+        
+        foreach (var movie in dbData)
+        {
+            var apiMovie = apiData.Movies.First(m => m.Id == movie.MovieId);
+            apiMovie.VoteAverage = GetCombinedRating(apiMovie.VoteCount, apiMovie.VoteAverage, movie.VoteCount, movie.Average);
+            apiMovie.VoteCount += movie.VoteCount;
+        }
+        
+        return apiData;    
+    }
+    
+    public async Task<MovieList> GetMoviesWithHighestRating(int year, int page)
+    {
+        var apiData = await statisticsService.GetMostRatedMoviesByReleaseYearAsync(year, page);
+        var dbData = await ratingService.GetMovieRatingsAsync(apiData.Movies.Select(movie => movie.Id).ToArray());
+        
+        foreach (var movie in dbData)
+        {
+            var apiMovie = apiData.Movies.First(m => m.Id == movie.MovieId);
+            apiMovie.VoteAverage = GetCombinedRating(apiMovie.VoteCount, apiMovie.VoteAverage, movie.VoteCount, movie.Average);
+            apiMovie.VoteCount += movie.VoteCount;
+        }
+        
+        return apiData;    
     }
 
     public async Task<Movie> GetMovieByIdAsync(int id)

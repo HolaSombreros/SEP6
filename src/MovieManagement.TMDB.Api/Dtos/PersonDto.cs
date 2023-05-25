@@ -3,7 +3,7 @@
 public class PersonDto
 {
     public int Id { get; set; }
-    public DateTime Birthday { get; set; }
+    public string Birthday { get; set; } = default!; 
     public string Name { get; set; } = default!;
     public string Biography { get; set; } = default!;
     public string DeathDay { get; set; } = default!; 
@@ -12,4 +12,5 @@ public class PersonDto
     [JsonPropertyName("profile_path")]
     public string ImageUrl { get; set; } = default!;
     public double Popularity { get; set; }
+    public int Gender { get; set; }
 }
