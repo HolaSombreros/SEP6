@@ -66,7 +66,36 @@ public class StatisticsService : IStatisticsService
         };
         return ageDistribution;
     }
-    
+
+    public async Task<Dictionary<string,int>> GetGenderDistributionInMainRoles(int genreId) {
+        Dictionary<int,string> genders = new Dictionary<int,string>()
+        {
+            { 0, "Unknown"},
+            { 1, "Female" },
+            { 2, "Male" },
+            { 3, "Nonbinary" }
+        };
+
+        var result = new Dictionary<string, int>() {
+            { "Unknown", 0 },
+            { "Female", 0 },
+            { "Male", 0 },
+            { "Nonbinary", 0 }
+        };
+        
+        var genderList = await _actorRepository.GetGenderForActorsInMainRoleByGenre(genreId);
+        
+        if (genderList.Count == 0) {
+            throw new Exception("Currently missing data on main actors for this genre");
+
+        }
+        foreach (var gender in genderList) {
+            result[genders[gender]]++;
+        }
+
+        return result;
+    }
+
     private int CalculateAge(string birthday)
     {
         if (string.IsNullOrWhiteSpace(birthday)) {
