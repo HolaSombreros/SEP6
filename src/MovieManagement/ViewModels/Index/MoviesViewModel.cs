@@ -4,7 +4,7 @@ public class MoviesViewModel
 {
     public int TotalPages { get; }
     public int TotalResults { get; }
-    public int Page { get; set; } 
+    public int Page { get; set; }
     public List<MovieViewModel> Movies { get; }
 
     public MoviesViewModel(MovieList movieList)

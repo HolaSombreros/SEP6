@@ -17,7 +17,7 @@
     {
         <label>Select a genre: </label>
         <select class="input custom-select mb-5" @onchange="viewModel.GetRatingDistributionsAsync">
-            <option hidden>Select a genre...</option>
+            <option hidden>Select a genre</option>
             @foreach (var genre in viewModel.Genres)
             {
                 <option value="@genre.Id">@genre.Name</option>
