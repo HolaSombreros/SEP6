@@ -17,5 +17,7 @@ public class MovieActorRepository : IMovieActorRepository {
     public async Task<MovieActorEntity?> GetAsync(int actorId, int movieId) {
         return await _context.MovieActors.FindAsync(actorId, movieId);
     }
+
+   
 }
 
