@@ -19,11 +19,11 @@ public class AddActorListForMovie {
         try {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var dto = JsonConvert.DeserializeObject<ActorDto>(requestBody);
-            var actorList = await _actorService.AddActorAsync(dto);
-            var movieList = await _movieService.AddMoviesAsync(dto.Movies);
+            var actorList = await _actorService.AddActorAsync(dto!);
+            var movieList = await _movieService.AddMoviesAsync(dto!.Movies);
             var list = await _movieActorService.AddMovieActorsAsync(dto.Movies, dto.ActorId);
             
-            return new OkResult();
+            return new OkObjectResult(actorList);
         }
         catch (Exception e) {
             log.LogError(e.Message);

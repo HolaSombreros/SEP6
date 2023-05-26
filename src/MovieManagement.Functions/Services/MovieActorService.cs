@@ -31,6 +31,6 @@ public class MovieActorService : IMovieActorService {
             return _mapper.Map<List<MovieActorDto>>(list);
         }
 
-        return null;
+        return new List<MovieActorDto>();
     }
 }
