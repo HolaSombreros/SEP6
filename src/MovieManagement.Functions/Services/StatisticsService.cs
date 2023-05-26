@@ -13,7 +13,7 @@ public class StatisticsService : IStatisticsService
         _actorRepository = actorRepository;
     }
 
-    public async Task<RatingDistributionByGenreDto> GetAsync(int genreId)
+    public async Task<RatingDistributionByGenreDto> GetGenreDistributionAsync(int genreId)
     {
         if (genreId < 1)
         {
