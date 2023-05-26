@@ -7,6 +7,7 @@ public class MovieViewModel
     public string PosterPath { get; }
     public DateOnly ReleaseDate { get; }
     public double Rating { get; }
+    public int VoteCount { get; set; }
     public IList<Genre> Genres { get; set; } = new List<Genre>();
 
     public MovieViewModel(Movie movie)
@@ -14,9 +15,10 @@ public class MovieViewModel
         Id = movie.Id;
         Title = movie.Title;
         PosterPath = movie.ImageUrl ?? "Images/MovieMissingPicture.png";
-        ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate ?? new DateTime(1,1,1));
+        ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate ?? new DateTime(1, 1, 1));
         Rating = movie.VoteAverage;
         Genres = movie.Genres;
+        VoteCount = movie.VoteCount;
     }
 
     public MovieViewModel(MovieDto movie)
@@ -36,5 +38,7 @@ public class MovieViewModel
         PosterPath = movie.ImageUrl ?? "Images/MovieMissingPicture.png";
         ReleaseDate = DateOnly.FromDateTime(movie.ReleaseDate);
         Genres = movie.Genres;
+        Rating = movie.VoteAverage;
+        VoteCount = movie.VoteCount;
     }
 }
