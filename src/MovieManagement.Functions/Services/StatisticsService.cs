@@ -13,7 +13,7 @@ public class StatisticsService : IStatisticsService
         _actorRepository = actorRepository;
     }
 
-    public async Task<RatingDistributionByGenreDto> GetAsync(int genreId)
+    public async Task<RatingDistributionByGenreDto> GetGenreDistributionAsync(int genreId)
     {
         if (genreId < 1)
         {
@@ -35,9 +35,9 @@ public class StatisticsService : IStatisticsService
         }
 
         ratingDistribution.RatingDistribution = result;
-        ratingDistribution.MaxRating = (int)ratings.Max(r => r.Rating);
-        ratingDistribution.MinRating = (int)ratings.Min(r => r.Rating);
-        ratingDistribution.Average = (double)Math.Round(ratings.Average(r => r.Rating), 2);
+        ratingDistribution.MaxRating = ratings.Count > 0 ? (int)ratings.Max(r => r.Rating) : 0;
+        ratingDistribution.MinRating = ratings.Count > 0 ? (int)ratings.Min(r => r.Rating) : 0;
+        ratingDistribution.Average = ratings.Count > 0 ? (double)Math.Round(ratings.Average(r => r.Rating), 2) : 0;
         return ratingDistribution;
     }
 

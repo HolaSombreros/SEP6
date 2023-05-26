@@ -15,7 +15,7 @@ public class DistributionOfRatingByGenre
     {
         try
         {
-            var result = await _statisticsService.GetAsync(genreId);
+            var result = await _statisticsService.GetGenreDistributionAsync(genreId);
             return new OkObjectResult(result);
         }
         catch (Exception e)

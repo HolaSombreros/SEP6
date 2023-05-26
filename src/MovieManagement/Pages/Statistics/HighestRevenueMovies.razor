@@ -5,7 +5,7 @@
 <div class="container-fluid p-5">
     <label>Select a year: </label>
     <select class="input custom-select mb-5" @onchange="OnYearChanged">
-        <option value="0">No Year Selected</option>
+        <option value="0">All time</option>
         @for (var i = DateTime.Now.Year; i >= 1888; i--)
         {
             <option value=@i>@i</option>
@@ -22,7 +22,7 @@
                 @foreach (var movie in _list.Movies)
                 {
                     <div class="col-xxl-3 col-xl-4 col-lg-6">
-                        <MovieCard Movie="@movie"/>
+                        <MovieCard Movie="@movie" />
                     </div>
                 }
                 <div id="observableTarget"></div>

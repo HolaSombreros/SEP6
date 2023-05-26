@@ -2,8 +2,11 @@
 
 public partial class MovieCard : ComponentBase
 {
-    [Parameter] 
+    [Parameter]
     public MovieViewModel Movie { get; set; } = default!;
+
+    [Parameter]
+    public bool ShowVoteCount { get; set; }
 
     private void ShowMovieDetails(long movieId)
     {

@@ -27,7 +27,7 @@ public partial class HighestRevenueMovies : ComponentBase
 
     private async Task OnYearChanged(ChangeEventArgs e)
     {
-        _year = Int32.Parse(e.Value?.ToString() ?? "0");
+        _year = int.Parse(e.Value?.ToString() ?? "0");
         var data = await GetMovieListAsync(_year, 1);
         _list = new MoviesViewModel(data);
         StateHasChanged();
