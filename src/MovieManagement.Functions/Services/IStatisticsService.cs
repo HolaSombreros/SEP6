@@ -4,5 +4,5 @@ public interface IStatisticsService
 {
     Task<RatingDistributionByGenreDto> GetAsync(int genreId);
     Task<AgeDistributionInMovieDto> GetAgeDistributionAsync(int movieId);
-    Task<GenderDistributionInMainRolesDto> GetGenderDistributionInMainRoles(int genreId);
+    Task<Dictionary<string, int>> GetGenderDistributionInMainRoles(int genreId);
 }

@@ -67,7 +67,7 @@ public class StatisticsService : IStatisticsService
         return ageDistribution;
     }
 
-    public async Task<GenderDistributionInMainRolesDto> GetGenderDistributionInMainRoles(int genreId) {
+    public async Task<Dictionary<string,int>> GetGenderDistributionInMainRoles(int genreId) {
         Dictionary<int,string> genders = new Dictionary<int,string>()
         {
             { 0, "Unknown"},
@@ -82,7 +82,9 @@ public class StatisticsService : IStatisticsService
             { "Male", 0 },
             { "Nonbinary", 0 }
         };
+        
         var genderList = await _actorRepository.GetGenderForActorsInMainRoleByGenre(genreId);
+        
         if (genderList.Count == 0) {
             throw new Exception("Currently missing data on main actors for this genre");
 
@@ -90,10 +92,8 @@ public class StatisticsService : IStatisticsService
         foreach (var gender in genderList) {
             result[genders[gender]]++;
         }
-        
-        return new GenderDistributionInMainRolesDto {
-            GenderDistribution = result
-        };
+
+        return result;
     }
 
     private int CalculateAge(string birthday)
