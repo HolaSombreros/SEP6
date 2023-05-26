@@ -2,6 +2,6 @@
 
 public interface IStatisticsService
 {
-    Task<RatingDistributionByGenreDto> GetAsync(int genreId);
+    Task<RatingDistributionByGenreDto> GetGenreDistributionAsync(int genreId);
     Task<AgeDistributionInMovieDto> GetAgeDistributionAsync(int movieId);
 }
