@@ -9,3 +9,5 @@ global using MovieManagement.TMDB.Api.Config;
 global using MovieManagement.TMDB.Api.Dtos;
 global using MovieManagement.TMDB.Api.Services;
 global using MovieManagement.Domain.Models.TMDB;
+global using FluentValidation.TestHelper;
+global using MovieManagement.Functions.Validators;
