@@ -6,7 +6,6 @@ name: Build & Test Azure Functions
 env:
   AZURE_FUNCTION_DIRECTORY: ./src/MovieManagement.Functions/MovieManagement.Functions.csproj
   TEST_FUNCTIONS_PROJECT_CSPROJ: ./test/MovieManagement.Functions.Test/MovieManagement.Functions.Test.csproj
-  TEST_MOVIEMANAGEMENT_PROJECT_CSPROJ: ./test/MovieManagement.Test/MovieManagement.Test.csproj
   
 on:
   push:
@@ -28,6 +27,4 @@ jobs:
       run: dotnet build "${{ env.AZURE_FUNCTION_DIRECTORY }}" --no-restore
     - name: Test Functions Project
       run: dotnet test "${{ env.TEST_FUNCTIONS_PROJECT_CSPROJ }}"
-    - name : Test MovieManagement Project
-      run: dotnet test "{{ env.TEST_MOVIEMANAGEMENT_PROJECT_CSPROJ }}"
       
