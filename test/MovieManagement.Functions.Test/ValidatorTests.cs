@@ -1,6 +1,6 @@
 ﻿using MovieManagement.Functions.Validators;
 
-namespace MovieManagement.Test.MovieTests;
+namespace MovieManagement.Functions.Test;
 
 [TestFixture]
 public class ValidatorTests
