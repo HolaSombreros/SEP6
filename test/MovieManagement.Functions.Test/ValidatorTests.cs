@@ -1,7 +1,7 @@
-﻿using MovieManagement.Functions.Dtos;
-using GenreDto = MovieManagement.Functions.Dtos.GenreDto;
+﻿using MovieManagement.Functions.Validators;
 
-namespace MovieManagement.Test.MovieTests;
+namespace MovieManagement.Functions.Test;
+
 [TestFixture]
 public class ValidatorTests
 {
@@ -32,7 +32,7 @@ public class ValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.Name)
             .WithErrorMessage("Name must be provided");
     }
-    
+
     [Test]
     public void GenreName_ShouldHaveValidationError_WhenEmpty()
     {
@@ -46,13 +46,17 @@ public class ValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.Name)
             .WithErrorMessage("Name must be provided");
     }
-    
+
     [Test]
     public void UserEmail_ShouldHaveValidationError_WhenExceedsMaxLength()
     {
         // Arrange
-        var userDto = new UserDto { Email = "hshahoproduction1585187542101@johnatdoeatjunior.com",
-            Username = "john", Password = "password123" };
+        var userDto = new UserDto
+        {
+            Email = "hshahoproduction1585187542101@johnatdoeatjunior.com",
+            Username = "john",
+            Password = "password123"
+        };
 
         // Act
         var result = _userValidator.TestValidate(userDto);
@@ -61,7 +65,7 @@ public class ValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.Email)
             .WithErrorMessage("Email length cannot exceed 50 characters");
     }
-    
+
     [Test]
     public void UserEmail_ShouldHaveValidationError_WhenInvalidFormat()
     {
@@ -75,7 +79,7 @@ public class ValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.Email)
             .WithErrorMessage("Email must be a valid email address");
     }
-    
+
     [Test]
     public void UserUsername_ShouldHaveValidationError_WhenEmpty()
     {
@@ -89,7 +93,7 @@ public class ValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.Username)
             .WithErrorMessage("Username must be provided");
     }
-    
+
     [Test]
     public void UserUsername_ShouldHaveValidationError_WhenBelowMinLength()
     {
@@ -103,7 +107,7 @@ public class ValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.Username)
             .WithErrorMessage("Your username length must be at least 3.");
     }
-    
+
     [Test]
     public void UserPassword_ShouldHaveValidationError_WhenBelowMinLength()
     {
