@@ -1,19 +1,20 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: Build Azure Functions
+name: Build & Test Azure Functions
+
 env:
   AZURE_FUNCTION_DIRECTORY: ./src/MovieManagement.Functions/MovieManagement.Functions.csproj
-  DATABASE_CLASS_LIBRARY: ./src/MovieManagement.Database/MovieManagement.Database.csproj
+  TEST_PROJECT_CSPROJ: ./test/MovieManagement.Functions.Test.csproj
+  
 on:
   push:
     branches-ignore:
       - main
+      
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -21,10 +22,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: | 
-          dotnet restore "${{ env.AZURE_FUNCTION_DIRECTORY }}" 
-          dotnet restore "${{ env.WORKING_DIRECTORY }}"
+      run: dotnet restore "${{ env.AZURE_FUNCTION_DIRECTORY }}"
     - name: Build
-      run: |
-          dotnet build  "${{ env.AZURE_FUNCTION_DIRECTORY }}" 
-          dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration Release
+      run: dotnet build "${{ env.AZURE_FUNCTION_DIRECTORY }}" --no-restore
+    - name: Test
+      run: dotnet test "${{ env.TEST_PROJECT_CSPROJ }}"
+      

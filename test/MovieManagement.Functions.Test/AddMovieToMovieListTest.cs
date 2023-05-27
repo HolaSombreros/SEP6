@@ -1,5 +1,4 @@
 ﻿using MovieManagement.Functions.MovieList;
-using MovieManagement.Functions.Services;
 
 namespace MovieManagement.Functions.Test;
 

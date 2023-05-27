@@ -12,7 +12,6 @@ on:
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: ./src/MovieManagement.Functions
   DOTNET_VERSION: '6.0.x' # set this to the dotnet version to use
-  DATABASE_CLASS_LIBRARY: ./src/MovieManagement.Database/MovieManagement.Database.csproj
 
 jobs:
   build-and-deploy:

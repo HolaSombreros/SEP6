@@ -1,5 +1,4 @@
 ﻿using MovieManagement.Functions.Ratings;
-using MovieManagement.Functions.Services;
 
 namespace MovieManagement.Functions.Test;
 

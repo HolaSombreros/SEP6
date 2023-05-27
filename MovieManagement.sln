@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieManagement.TMDB.Api", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieManagement.Database", "src\MovieManagement.Database\MovieManagement.Database.csproj", "{3432B1AE-D5FB-419E-AEEF-0EA39AC0BE59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManagement.Functions.Test", "MovieManagement.Functions.Test\MovieManagement.Functions.Test.csproj", "{AC8C7A64-141B-4472-99CB-6DC0E1339C02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManagement.Functions.Test", "test\MovieManagement.Functions.Test\MovieManagement.Functions.Test.csproj", "{AC8C7A64-141B-4472-99CB-6DC0E1339C02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

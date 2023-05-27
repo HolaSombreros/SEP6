@@ -7,43 +7,30 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  
 env:
     BLAZOR_PROJECT: ./src/MovieManagement/MovieManagement.csproj
-    DOMAIN_CLASS_LIBRARY: ./src/MovieManagement.Domain/MovieManagement.Domain.csproj
     TEST_PROJECT: ./test/MovieManagement.Test/MovieManagement.Test.csproj
+    
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up .NET Core 6
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
           include-prerelease: true
-        
       - name: Dotnet restore
-        run: | 
-          dotnet restore "${{ env.DOMAIN_CLASS_LIBRARY }}" 
-          dotnet restore "${{ env.BLAZOR_PROJECT }}"
-
+        run: dotnet restore "${{ env.BLAZOR_PROJECT }}"
       - name: Build with dotnet
-        run: |
-          dotnet build  "${{ env.DOMAIN_CLASS_LIBRARY }}" 
-          dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release
-        
+        run: dotnet build "${{ env.BLAZOR_PROJECT }}" --configuration Release --no-restore
       - name: Test
-        run:  dotnet test "${{ env.TEST_PROJECT }}" --no-build
-
+        run:  dotnet test "${{ env.TEST_PROJECT }}"
       - name: dotnet publish
-        run: |
-          dotnet publish "${{ env.DOMAIN_CLASS_LIBRARY }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
-          dotnet publish "${{ env.BLAZOR_PROJECT }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
-          dotnet publish "${{ env.TEST_PROJECT }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
+        run: dotnet publish "${{ env.BLAZOR_PROJECT }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -56,13 +43,11 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
