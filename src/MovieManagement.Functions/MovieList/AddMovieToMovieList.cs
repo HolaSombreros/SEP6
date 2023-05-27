@@ -1,6 +1,6 @@
 ﻿namespace MovieManagement.Functions.MovieList;
 
-public class AddMovieToMovieList 
+public class AddMovieToMovieList
 {
     private readonly IMovieListMovieService _movieListMovieService;
     private readonly IValidator<MovieToMovieListDto> _validator;
@@ -8,7 +8,7 @@ public class AddMovieToMovieList
     private readonly IValidator<MovieDto> _movieValidator;
     private readonly IGenreService _genreService;
     private readonly IMovieGenreService _movieGenreService;
-    
+
     public AddMovieToMovieList(IValidator<MovieToMovieListDto> validator, IValidator<MovieDto> movieValidator, IMovieService movieService, IMovieListMovieService movieListMovieService, IGenreService genreService, IMovieGenreService movieGenreService)
     {
         _validator = validator;
@@ -27,21 +27,14 @@ public class AddMovieToMovieList
         try
         {
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            
             var movie = JsonConvert.DeserializeObject<MovieDto>(requestBody);
             var movieResult = await _movieValidator.ValidateAsync(movie!);
-            
-            if (!movieResult.IsValid)
+
+            if (movie == null || !movieResult.IsValid)
             {
                 log.LogInformation("Body request not valid" + movieResult.Errors[0].ErrorMessage);
                 return new BadRequestObjectResult(movieResult.Errors[0].ErrorMessage);
             }
-
-            await _movieService.AddMovieAsync(movie!);
-            log.LogInformation("Added movie for movie id: " + movie!.MovieId);
-            
-            await _genreService.AddGenreAsync(movie.Genres!);
-            await _movieGenreService.AddMovieGenreAsync(movie.Genres!, movie.MovieId);
 
             var request = new MovieToMovieListDto
             {
@@ -56,8 +49,14 @@ public class AddMovieToMovieList
                 return new BadRequestObjectResult(result.Errors[0].ErrorMessage);
             }
 
+            await _movieService.AddMovieAsync(movie);
+            log.LogInformation("Added movie for movie id: " + movie.MovieId);
+
+            await _genreService.AddGenreAsync(movie.Genres!);
+            await _movieGenreService.AddMovieGenreAsync(movie.Genres!, movie.MovieId);
+
             var list = await _movieListMovieService.AddMovieToMovieListAsync(request);
-            
+
             return new OkObjectResult(list);
         }
         catch (Exception e)
