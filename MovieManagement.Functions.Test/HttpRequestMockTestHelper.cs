@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using NSubstitute;
 using System.Text;
 using System.Text.Json;
 
@@ -8,7 +7,7 @@ namespace MovieManagement.Functions.Test;
 [TestFixture]
 internal class HttpRequestMockTestHelper
 {
-    private MemoryStream? memoryStream;
+    private MemoryStream memoryStream;
 
     [TearDown]
     public void TearDown()
