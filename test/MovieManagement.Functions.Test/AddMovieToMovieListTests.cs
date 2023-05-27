@@ -3,7 +3,7 @@
 namespace MovieManagement.Functions.Test;
 
 [TestFixture]
-internal class AddMovieToMovieListTest : HttpRequestMockTestHelper
+internal class AddMovieToMovieListTests : HttpRequestMockTestHelper
 {
     private AddMovieToMovieList uut;
 

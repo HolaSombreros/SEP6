@@ -2,7 +2,7 @@
 
 namespace MovieManagement.Functions.Test;
 
-internal class AddRatingTest : HttpRequestMockTestHelper
+internal class AddRatingTests : HttpRequestMockTestHelper
 {
     private AddRating uut;
 
