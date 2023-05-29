@@ -28,15 +28,6 @@ builder.Services.AddSingleton(new JsonSerializerOptions
     WriteIndented = true
 });
 builder.Services.AddAutoMapper(typeof(MovieMapper).Assembly);
-// Database and configurations
-builder.Services.Configure<DatabaseConfig>(builder.Configuration.GetSection(DatabaseConfig.Section));
-var databaseConfig = builder.Configuration.GetSection(DatabaseConfig.Section).Get<DatabaseConfig>();
-builder.Services.AddDbContext<MovieManagementDbContext>(
-    options =>
-        options.UseSqlServer(
-            databaseConfig.ConnectionString,
-            x => x.MigrationsAssembly("MovieManagement")));
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
