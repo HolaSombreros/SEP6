@@ -46,6 +46,7 @@ public class StatisticsService : IStatisticsService
             throw new Exception("The movie id must be provided");
         }
 
+        var keyList = new List<string> (){ "0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80-89", "90-99" };
         var birthdates = await _actorRepository.GetAgesByMovieAsync(movieId);
         if (!birthdates.Any()) {
             throw new Exception("Currently missing data on actors for this movie");
@@ -56,11 +57,17 @@ public class StatisticsService : IStatisticsService
             ages.Add(CalculateAge(bd));
         }
 
-        var distribution = ages.GroupBy(a => GetIntervalKey(a, intervalSize)).ToDictionary(r => r.Key.ToString(), r => r.Count());
+        var distribution = ages.GroupBy(a => GetIntervalKey(a, intervalSize)).
+            ToDictionary(r => r.Key.ToString(), r => r.Count());
 
+        foreach (var key in keyList) {
+            distribution.TryAdd(key, 0);
+        }
+
+        var orderedDistribution = distribution.OrderBy(x => x.Key).ToDictionary(r => r.Key.ToString(), r => r.Value);
         var ageDistribution = new AgeDistributionInMovieDto {
-            AgeDistribution = distribution,
-            AverageAge = ages.Average(),
+            AgeDistribution = orderedDistribution,
+            AverageAge = Math.Round(ages.Average(),2),
             Oldest = ages.Max(),
             Youngest = ages.Min()
         };
