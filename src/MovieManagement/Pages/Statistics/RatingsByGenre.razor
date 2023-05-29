@@ -29,6 +29,13 @@
                 <RadzenColumnSeries Data="viewModel.ChartData" CategoryProperty="Rating" ValueProperty="Count" Title="Ratings" Fill="#653780">
                     <RadzenSeriesDataLabels Visible="true" />
                 </RadzenColumnSeries>
+                <RadzenCategoryAxis>
+                    <RadzenTicks>
+                        <Template>
+                            <text class="rz-tick-text" style="text-anchor: start; transform: translate(@(context.X)px, @(context.Y + 10)px) rotate(45deg)">@context.Value</text>
+                        </Template>
+                    </RadzenTicks>
+                </RadzenCategoryAxis>
                 <RadzenLegend Visible="false" />
                 <RadzenColumnOptions Radius="5" />
                 <RadzenValueAxis Min="0"/>

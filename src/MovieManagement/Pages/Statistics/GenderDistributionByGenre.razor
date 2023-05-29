@@ -24,19 +24,26 @@
             }
         </select>
     }
-    
+
     @if (_viewModel == null)
     {
         <p>No gender statistics for this genre</p>
     }
-    else if(_viewModel.ChartData != null && _viewModel.Data != null)
+    else if (_viewModel.ChartData != null && _viewModel.Data != null)
     {
         <RadzenChart>
             <RadzenColumnSeries Data="_viewModel.ChartData" CategoryProperty="Gender" ValueProperty="Count" Title="People" Fill="#653780">
-                <RadzenSeriesDataLabels Visible="true" />
+                <RadzenSeriesDataLabels Visible="true"/>
             </RadzenColumnSeries>
-            <RadzenLegend Visible="false" />
-            <RadzenColumnOptions Radius="5" />
+            <RadzenCategoryAxis>
+                <RadzenTicks>
+                    <Template>
+                        <text class="rz-tick-text" style="text-anchor: start; transform: translate(@(context.X)px, @(context.Y + 10)px) rotate(45deg)">@context.Value</text>
+                    </Template>
+                </RadzenTicks>
+            </RadzenCategoryAxis>
+            <RadzenLegend Visible="false"/>
+            <RadzenColumnOptions Radius="5"/>
             <RadzenValueAxis Min="0"/>
         </RadzenChart>
     }

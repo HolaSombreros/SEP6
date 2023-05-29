@@ -20,6 +20,10 @@ a:hover {
     cursor: pointer;
 }
 
+.rz-chart svg {
+    overflow: visible;
+}
+
 .custom-select {
     border: none;
     color: #cccccc;

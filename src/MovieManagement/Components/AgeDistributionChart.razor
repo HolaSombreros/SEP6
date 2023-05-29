@@ -15,6 +15,13 @@ else if (_viewModel.ChartData != null && _viewModel.Data != null)
             Fill="#653780">
             <RadzenSeriesDataLabels Visible="true"/>
         </RadzenColumnSeries>
+        <RadzenCategoryAxis>
+            <RadzenTicks>
+                <Template>
+                    <text class="rz-tick-text" style="text-anchor: start; transform: translate(@(context.X)px, @(context.Y + 10)px) rotate(45deg)">@context.Value</text>
+                </Template>
+            </RadzenTicks>
+        </RadzenCategoryAxis>
         <RadzenLegend Visible="false"/>
         <RadzenValueAxis Min="0"/>
         <RadzenColumnOptions Radius="5"/>
