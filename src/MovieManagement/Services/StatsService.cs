@@ -22,4 +22,11 @@ public class StatsService : IStatsService
         var dto = await service.GetFromRouteAsync<AgeDistributionInMovieDto>(settings.DistributionOfAgeInAMovie, movieId);
         return new AgeDistributionModel(dto);
     }
+    
+    public async Task<GenderDistributionModel> GetGenderDistributionAsync(int genreId)
+    {
+        var dto = await service.GetAsync<Dictionary<string, int>>(
+            settings.DistributionOfGenderInMainRoles + (genreId != 0 ? $"?genreId={genreId}" : string.Empty), default!);
+        return new GenderDistributionModel(dto!);
+    }
 }

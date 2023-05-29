@@ -1,0 +1,43 @@
+﻿@page "/statistics/ratings/genders"
+
+@inject IStatsService StatsService
+@inject IGenreService GenreService
+
+<h2 class="text-center py-3">Gender distribution by genre</h2>
+<div class="container-fluid p-5">
+    @if (_genres == null)
+    {
+        <p>Loading genres...</p>
+    }
+    else if (!_genres.Any())
+    {
+        <p>Something went wrong...</p>
+    }
+    else
+    {
+        <label>Select a genre: </label>
+        <select class="input custom-select mb-5" @onchange="GetGenderDistributionsAsync">
+            <option value="0">All genres</option>
+            @foreach (var genre in _genres)
+            {
+                <option value="@genre.Id">@genre.Name</option>
+            }
+        </select>
+    }
+    
+    @if (_viewModel == null)
+    {
+        <p>No gender statistics for this genre</p>
+    }
+    else if(_viewModel.ChartData != null && _viewModel.Data != null)
+    {
+        <RadzenChart>
+            <RadzenColumnSeries Data="_viewModel.ChartData" CategoryProperty="Gender" ValueProperty="Count" Title="People" Fill="#653780">
+                <RadzenSeriesDataLabels Visible="true" />
+            </RadzenColumnSeries>
+            <RadzenLegend Visible="false" />
+            <RadzenColumnOptions Radius="5" />
+            <RadzenValueAxis Min="0"/>
+        </RadzenChart>
+    }
+</div>
