@@ -1,0 +1,36 @@
+﻿@inject IStatsService StatsService
+
+@if (_viewModel == null)
+{
+    <p>No age information about this movie</p>
+}
+else if (_viewModel.ChartData != null && _viewModel.Data != null)
+{
+    <RadzenChart>
+        <RadzenColumnSeries 
+            Data="_viewModel.ChartData" 
+            CategoryProperty="AgeRange" 
+            ValueProperty="Count"
+            Title="People" 
+            Fill="#653780">
+            <RadzenSeriesDataLabels Visible="true"/>
+        </RadzenColumnSeries>
+        <RadzenLegend Visible="false"/>
+        <RadzenValueAxis Min="0"/>
+        <RadzenColumnOptions Radius="5"/>
+    </RadzenChart>
+    <div class="row py-4">
+        <div class="col-auto">
+            <p>Total:</p>
+            <p>Youngest:</p>
+            <p>Average age:</p>
+            <p>Oldest:</p>
+        </div>
+        <div class="col-auto">
+            <p>@_viewModel.Data.AgeDistribution.Values.Sum()</p>
+            <p>@_viewModel.Data.Youngest</p>
+            <p>@_viewModel.Data.AverageAge</p>
+            <p>@_viewModel.Data.Oldest</p>
+        </div>
+    </div>
+}

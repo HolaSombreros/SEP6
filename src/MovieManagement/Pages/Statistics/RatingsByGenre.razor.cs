@@ -1,6 +1,4 @@
-﻿using MovieManagement.ViewModels.Statistics;
-
-namespace MovieManagement.Pages.Statistics;
+﻿namespace MovieManagement.Pages.Statistics;
 
 public partial class RatingsByGenre : ComponentBase
 {
