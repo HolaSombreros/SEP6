@@ -26,6 +26,7 @@ global using MovieManagement.ViewModels.MovieDetails;
 global using MovieManagement.ViewModels.PersonDetails;
 global using MovieManagement.ViewModels.Rating;
 global using MovieManagement.ViewModels.Search;
+global using MovieManagement.ViewModels.Statistics;
 global using MovieManagement.ViewModels.User;
 global using System.ComponentModel.DataAnnotations;
 global using System.Diagnostics;

@@ -26,7 +26,7 @@ public class ActorRepository : IActorRepository {
     public async Task<List<string>> GetAgesByMovieAsync(int movieId) {
         return await (from actors in _context.Actors
             join movieActors in _context.MovieActors on actors.ActorId equals movieActors.ActorId
-            where movieActors.MovieId == movieId
+            where movieActors.MovieId == movieId && actors.Birthdate != null
             select new string(actors.Birthdate.ToString())).ToListAsync();
     }
     

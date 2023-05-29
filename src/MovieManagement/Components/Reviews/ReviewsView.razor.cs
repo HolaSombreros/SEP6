@@ -50,7 +50,10 @@ public partial class ReviewsView : ComponentBase, IDisposable
 
     public void Dispose()
     {
-        viewModel.OnReviewCreated -= StateHasChanged;
-        viewModel.Dispose();
+        if (viewModel != null)
+        {
+            viewModel.OnReviewCreated -= StateHasChanged;
+            viewModel.Dispose();
+        }
     }
 }

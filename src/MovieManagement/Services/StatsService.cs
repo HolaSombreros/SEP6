@@ -16,4 +16,10 @@ public class StatsService : IStatsService
         var dto = await service.GetFromRouteAsync<RatingDistributionByGenreDto>(settings.RatingDistributionByGenrePath, genreId);
         return new RatingDistributionByGenreModel(dto);
     }
+    
+    public async Task<AgeDistributionModel> GetAgeDistributionAsync(int movieId)
+    {
+        var dto = await service.GetFromRouteAsync<AgeDistributionInMovieDto>(settings.DistributionOfAgeInAMovie, movieId);
+        return new AgeDistributionModel(dto);
+    }
 }
