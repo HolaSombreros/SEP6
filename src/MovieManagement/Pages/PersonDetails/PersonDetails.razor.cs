@@ -19,7 +19,6 @@ public partial class PersonDetails : ComponentBase
                 _person = new PersonViewModel(
                     person: await PersonService.GetPersonDetailsAsync(Id),
                     credits: credits);
-                await ActorService.AddMovieActor(_person);
             }
             else
             {
@@ -29,6 +28,18 @@ public partial class PersonDetails : ComponentBase
         catch (Exception)
         {
             _person = default!;
+        }
+
+        try
+        {
+            if (_person.Id != 0)
+            {
+                await ActorService.AddMovieActor(_person);
+            }
+        }
+        catch
+        {
+            // ignored
         }
     }
 }
