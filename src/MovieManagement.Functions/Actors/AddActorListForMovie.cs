@@ -28,7 +28,7 @@ public class AddActorListForMovie {
             }
 
             var actorList = await _actorService.AddActorAsync(dto!);
-            foreach (var movie in dto.Movies) {
+            foreach (var movie in dto!.Movies) {
                 var movieResult = await _movieActorValidator.ValidateAsync(movie);
                 if (!movieResult.IsValid) {
                     log.LogInformation("Body request not valid" + result.Errors[0].ErrorMessage);
