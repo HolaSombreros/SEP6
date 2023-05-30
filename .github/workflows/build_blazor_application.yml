@@ -3,27 +3,24 @@
 
 name: Build & Test Blazor Application
 
+env:
+  BLAZOR_PROJECT: ./src/MovieManagement/MovieManagement.csproj
+  TEST_PROJECT: ./test/MovieManagement.Test/MovieManagement.Test.csproj
+
 on:
   push:
     branches-ignore:
       - main
-env:
-  BLAZOR_PROJECT: ./src/MovieManagement/MovieManagement.csproj
-  TEST_PROJECT: ./test/MovieManagement.Test/MovieManagement.Test.csproj
   
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-
+    - uses: actions/checkout@v3
     - name: Set up .NET Core 6
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '6.0.x'
-        include-prerelease: true
     - name: Restore dependencies
       run: dotnet restore "${{ env.BLAZOR_PROJECT }}"
     - name: Build
